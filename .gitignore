@@ -1,0 +1,68 @@
+# ==============================
+# Unity
+# ==============================
+**/[Ll]ibrary/
+**/[Tt]emp/
+**/[Oo]bj/
+**/[Bb]uild/
+**/[Bb]uilds/
+**/[Ll]ogs/
+**/[Uu]ser[Ss]ettings/
+**/*.pidb.meta
+**/*.pdb.meta
+**/*.mdb.meta
+**/sysinfo.txt
+**/*.apk
+**/*.aab
+**/*.unitypackage
+
+# Visual Studio / Rider
+**/.vs/
+**/.idea/
+**/*.csproj
+**/*.sln
+**/*.userprefs
+
+# ==============================
+# Node.js (MCP Unity server)
+# ==============================
+**/node_modules/
+
+# MCP logs
+log.txt
+
+# ==============================
+# Python
+# ==============================
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.venv/
+venv/
+
+# Unity build temp (Android NDK cmake artifacts)
+**/.utmp/
+
+# Unity Burst compiler debug info
+*DoNotShip*/
+
+# Zip archives
+*.zip
+
+# Watch logs / debug logs
+watch_logs/
+*.log
+
+# ==============================
+# OS
+# ==============================
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# ==============================
+# Secrets / local config
+# ==============================
+.env
+*.local.json

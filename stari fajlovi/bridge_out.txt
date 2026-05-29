@@ -1,0 +1,6 @@
+
+Dashboard: http://127.0.0.1:8888
+Poll svakih 5s | Forced BLE sync svakih 30s
+
+ * Serving Flask app 'hr_watch_bridge'
+ * Debug mode: off
