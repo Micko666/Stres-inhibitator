@@ -3,13 +3,8 @@
     "mcp-unity": {
       "command": "node",
       "args": [
-        "C:/Users/Korisnik/Desktop/Diplomski/VR_StressTraining/Library/PackageCache/com.gamelovers.mcp-unity@aade29c7dd84/Server~/build/index.js"
-      ],
-      "cwd": "C:/Users/Korisnik/Desktop/Diplomski/VR_StressTraining",
-      "env": {
-        "LOGGING": "true",
-        "LOGGING_FILE": "true"
-      }
+        "VR_StressTraining/Library/PackageCache/com.gamelovers.mcp-unity@aade29c7dd84/Server~/build/index.js"
+      ]
     }
   }
 }

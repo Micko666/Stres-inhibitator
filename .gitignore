@@ -66,3 +66,8 @@ desktop.ini
 # ==============================
 .env
 *.local.json
+
+# Hardware auth keys (Xiaomi Band, BLE devices)
+*auth_key*
+*.key
+stari fajlovi/auth_key.txt
