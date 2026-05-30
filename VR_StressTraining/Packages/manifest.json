@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "com.coplaydev.coplay": "https://github.com/CoplayDev/unity-plugin.git#beta",
     "com.gamelovers.mcp-unity": "https://github.com/CoderGamester/mcp-unity.git",
     "com.meta.xr.mrutilitykit": "201.0.0",
     "com.meta.xr.runtimeoptimizer": "0.2.2",
