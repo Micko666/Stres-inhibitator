@@ -201,18 +201,21 @@ Sa wrapperom:
 ### Ključne postavke — `ProjectSettings/McpUnitySettings.json`
 ```json
 {
-  "Port": 8090,
+  "Port": 8091,
   "RequestTimeoutSeconds": 60,
   "AutoStartServer": true,
   "EnableInfoLogs": true
 }
 ```
+> **Port je 8091** (promijenjeno sa 8090 zbog zombie socket konflikta koji blokira Start Server).
+> Ako se port vrati na 8090 i server ne može startovati, promijeni ga na 8091 u Server Window UI.
+>
 > `RequestTimeoutSeconds` mora biti **60**, ne 10. Sa 10s Unity može timeoutovati
 > tokom scene importa ili kada Editor radi background task.
 >
-> **VAŽNO:** Ako je Unity otvoren dok se fajl mijenja, Unity može ga resetovati na 10.
-> Pouzdan način da se postavi na 60: **Tools → MCP Unity → Server Window →
-> polje "Request Timeout (seconds)"** → ukucati 60 → Enter. Unity tada sam sačuva vrijednost.
+> **VAŽNO:** Ako je Unity otvoren dok se fajl mijenja, Unity može ga resetovati.
+> Pouzdan način da se postavi: **Tools → MCP Unity → Server Window →
+> polja "Connection Port" i "Request Timeout (seconds)"** → ukucati vrijednosti → Enter.
 
 ### Normalno pokretanje
 1. Otvori Unity Editor sa `VR_StressTraining/` projektom
@@ -236,13 +239,16 @@ Rebuild je potreban samo ako je Library reimportovana ili ako `build/index.js` n
 
 ## MCP Unity — Troubleshooting
 
-### Dijagnoza: `netstat -ano | findstr :8090`
+### Dijagnoza: `netstat -ano | findstr :8091`
+> **Port je 8091** od 2026-05-31 (promijenjeno sa 8090 zbog zombie socket problema).
+
 | Rezultat | Značenje | Akcija |
 |----------|----------|--------|
 | `Unity.exe LISTENING` + Server Window = Online | ✅ Normalno | Ništa |
 | `Unity.exe LISTENING` + Server Window = Offline | Unity drži port, server nije startovao | Restart Unity |
 | `node.exe LISTENING` | Stari Node process živi | Zatvoriti Claude Code, ubiti node.exe |
 | Ništa | Port slobodan, server nije pokrenut | Otvoriti Unity, pokrenuti MCP Server Window |
+| PID bez procesa (zombie socket) | Kernel drži socket od mrtvog procesa | Promijeni port na slobodan (8091→8092), klikni Start |
 
 ### Uzroci timeouta `get_scene_info`
 1. **`RequestTimeoutSeconds: 10`** — prekratko. Fix: postaviti na `60` u McpUnitySettings.json ← **najčešći uzrok**
