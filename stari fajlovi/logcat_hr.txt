@@ -1,0 +1,500 @@
+﻿--------- beginning of main
+05-27 13:21:13.841 I/NSLocationMonitor( 3263): getGPSUsingApps() called
+05-27 13:21:13.842 I/NSLocationManager_FLP( 6060): getGPSUsingApps, No change
+--------- beginning of system
+05-27 13:21:13.846 D/FreecessHandler( 3263): skipping freeze com.google.android.gm(10298) result : 2
+05-27 13:21:13.931 D/SatelliteController( 5418): isInCarrierRoamingNbIotNtn: satellite is disabled
+05-27 13:21:13.932 D/SatelliteController( 5418): getCarrierRoamingNtnConnectType: Falling back to global carrier config connect type: 0
+05-27 13:21:13.932 D/SatelliteController( 5418): updateLastNotifiedCarrierRoamingNtnSignalStrengthAndNotify(1)
+05-27 13:21:13.932 D/SatelliteController( 5418): updateLastNotifiedCarrierRoamingNtnSignalStrengthAndNotify(1) lastNotifiedSignalStrength level: 0
+05-27 13:21:13.932 D/SatelliteController( 5418): updateLastNotifiedCarrierRoamingNtnSignalStrengthAndNotify(1) currSignalStrength level: 0
+05-27 13:21:13.934 W/libbinder.IPCThreadState( 3263): Sending oneway calls to frozen process.
+05-27 13:21:13.935 W/libbinder.IPCThreadState( 3263): Sending oneway calls to frozen process.
+05-27 13:21:13.935 W/libbinder.IPCThreadState( 3263): Sending oneway calls to frozen process.
+05-27 13:21:14.352 I/SnapAlloc( 2307): Using graphics libs for alignment calculations
+05-27 13:21:14.359 I/SnapAlloc( 2307): Using graphics libs for alignment calculations
+05-27 13:21:14.376 D/io_stats( 1403): !@   8,0 r 5740736 132499740 w 1243751 28763352 d 98847 23050808 f 19623 93164 iot 380952 0 th 0 0 0 pt 0 inp 0 0 10881.599
+05-27 13:21:14.376 D/io_stats( 1403): !@ Read_top(KB): ung.mediasearch:low(8751) 2408 adbd:normal(19615) 1032 kworker/u17:1:/(15036) 308
+05-27 13:21:14.376 D/io_stats( 1403): !@ Write_top(KB): kworker/u17:1:/(15036) 1996 ung.mediasearch:low(8751) 80 f2fs_ckpt-254:8:/(5850) 56
+05-27 13:21:14.376 D/io_stats( 1403): !@ fuse-log: WORST (10095 1 4 2 2) (10095 14 2 2 1) (0 18 0 2 0) TOTAL_LATENCY (10095 6 1 4 2 14 2 2 25 0 4) (0 0 18 0 2) TOTAL_CNT (10095 10 25 4 1 2 14 2) (0 2 18 2) 
+05-27 13:21:14.413 I/thermal_core( 2323): pivot(AP) : 347, skin : 329
+05-27 13:21:14.448 D/AHAL_ModulePrimary_QTI( 2291): getVendorParameters: id count: 1
+05-27 13:21:14.448 I/PAL: ResourceManager( 2291): getActiveStream_l: 6587: no active streams found for device 3 ret -2
+05-27 13:21:14.448 D/AHAL_SecModulePrimary( 2291): onGetSECGenericParameters get temperature for g_hw_speaker_amp_temp_rcv: 0
+05-27 13:21:14.448 D/AHAL_ModulePrimary_QTI( 2291): getVendorParameters: id count: 1
+05-27 13:21:14.448 I/PAL: ResourceManager( 2291): getActiveStream_l: 6587: no active streams found for device 3 ret -2
+05-27 13:21:14.448 D/AHAL_SecModulePrimary( 2291): onGetSECGenericParameters get temperature for g_hw_speaker_amp_temp_spk: 0
+05-27 13:21:14.449 I/SDHMS:x (10448): SIOP:: AP:347 BAT:324 USB:303 CHG:345 PA:343 WIFI:353 CF:-200 BLK:0 SUBBAT:0 LRPTHM:338 SKIN:328 SKINF:328 SKINB:328 LRP:328 LRF:328 LRB:328 APT:328 APR:327 RCV:319 SPK:297 CHGF:324 CHGR:326 MEMF:328 MEMR:328 WIFIF:327 WIFIR:327 FCAM:302 UPSPK:339 DNSPK:302 VAP:358 VWIFI:360 AMB2:274 HIGH:0 AVGCUR:-24 AVGSYS:354 POWER:-103
+05-27 13:21:14.449 I/AudioManager(10448): setParameters keyValuePairs = g_hw_speaker_amp_temp_spk=30
+05-27 13:21:14.449 D/AudioFlinger( 2337): setParameters: filtered dev setParameters keyvalue g_hw_speaker_amp_temp_spk=30
+05-27 13:21:14.450 D/AHAL_HFP_QTI( 2291): hfp_set_parameters enter
+05-27 13:21:14.450 D/AHAL_HFP_QTI( 2291): hfp_set_parameters Exit
+05-27 13:21:14.450 D/AHAL_SecModulePrimary( 2291): processSetVendorParameters: configured g_hw_speaker_amp_temp_spk
+05-27 13:21:14.450 D/AHAL_SecModulePrimary( 2291): processSetVendorParameters: handler set on Feature:0
+05-27 13:21:14.450 D/AHAL_SecModulePrimary( 2291): onSetSECGenericParameters set temperature for g_hw_speaker_amp_temp_spk: 30
+05-27 13:21:14.450 I/PAL: API( 2291): pal_set_param: 1377: Enter: param id 3002
+05-27 13:21:14.450 I/PAL: ResourceManager( 2291): getActiveStream_l: 6587: no active streams found for device 3 ret -2
+05-27 13:21:14.450 E/DeviceHalAidl( 2337): Function: parseAndSetVendorParameters Line: 414 Failed 
+05-27 13:21:14.450 E/DeviceHalAidl( 2337): Function: parseAndSetVendorParameters Line: 414 Failed 
+05-27 13:21:14.450 I/AudioManager(10448): setParameters keyValuePairs = g_hw_speaker_amp_temp_rcv=32
+05-27 13:21:14.450 D/AudioFlinger( 2337): setParameters: filtered dev setParameters keyvalue g_hw_speaker_amp_temp_rcv=32
+05-27 13:21:14.450 D/AHAL_HFP_QTI( 2291): hfp_set_parameters enter
+05-27 13:21:14.450 D/AHAL_HFP_QTI( 2291): hfp_set_parameters Exit
+05-27 13:21:14.450 D/AHAL_SecModulePrimary( 2291): processSetVendorParameters: configured g_hw_speaker_amp_temp_rcv
+05-27 13:21:14.450 D/AHAL_SecModulePrimary( 2291): processSetVendorParameters: handler set on Feature:0
+05-27 13:21:14.450 D/AHAL_SecModulePrimary( 2291): onSetSECGenericParameters set temperature for g_hw_speaker_amp_temp_rcv: 32
+05-27 13:21:14.450 I/PAL: API( 2291): pal_set_param: 1377: Enter: param id 3001
+05-27 13:21:14.450 I/PAL: ResourceManager( 2291): getActiveStream_l: 6587: no active streams found for device 3 ret -2
+05-27 13:21:14.451 E/DeviceHalAidl( 2337): Function: parseAndSetVendorParameters Line: 414 Failed 
+05-27 13:21:14.451 E/DeviceHalAidl( 2337): Function: parseAndSetVendorParameters Line: 414 Failed 
+05-27 13:21:14.486 I/sensors-hal( 2288): handle_sns_client_event:379, [0][168115] accel_sample [-0.117, -0.376,  9.830] 29527583818775
+05-27 13:21:14.563 D/SemWifiUsabilityStatsMonitor( 3263): onWifiUsabilityStats - seqNum 2652, isSameBssidAndFreq true
+05-27 13:21:14.565 I/HoneySpace.StatusIconTracker( 6190): invokeEvent() called with: event = Wifi(visible=true, resId=2114459812, activityId=2114459832)
+05-27 13:21:14.571 D/SGM:GameManager( 3263): identifyGamePackage. com.xiaomi.wearable, mCurrentUserId: 0, callingMethodInfo: com.samsung.android.game.SemGameManager.isGamePackage(SemGameManager.java:106)
+05-27 13:21:14.571 D/SGM:SemGameManager( 3263): isGamePackage(), pkgName=com.xiaomi.wearable, ret=false
+05-27 13:21:14.571 I/SurfaceFlinger( 2354): SFWD update time=10881795460587
+05-27 13:21:14.572 I/SDM     ( 2308): AIScalerFeatureIntfImpl::LookupConfig: Scale ratio = 1.780000
+05-27 13:21:14.572 I/SDM     ( 2308): AIScalerParserIntfImpl::LookupConfig: Scale Ratio Match Found Here
+05-27 13:21:14.575 I/SurfaceFlinger( 2354): Current= 120, Period= 120, Distance= 0
+05-27 13:21:14.583 I/SurfaceFlinger( 2354): Current= 120, Period= 120, Distance= 120
+05-27 13:21:14.643 I/SDM     ( 2308): DisplayBase::CommitThread: Received idle timeout, panel: cmd, timeout: 70000 us
+05-27 13:21:14.723 D/PowerManagerService( 3263): [api] setMasterBrightnessLimit : lowerLimit : -1  upperLimit : 1275  mMasterBrightnessLimitPeriod : 200 (uid: 1000 pid: 10448)
+05-27 13:21:14.723 D/PowerManagerService( 3263): [api] BrightnessLimitRunnable done
+05-27 13:21:14.955 I/sensors-hal( 2288): handle_sns_std_sensor_event:409, [SSC_LIGHT] P: 19(19),c:39,b:82,m:0,cl:8,l:19,s:19,l0:61265,l1:20614,s0:175,s1:68,acl:1,opr:0.04,f(r):73,u(bl):100,if:64,wi:57,si:58,64(N:0)
+05-27 13:21:14.992 I/vendor.qti.bluetooth@1.0-ibs_handler( 2283): ProcessIbsCmd: Received IBS_WAKE_IND: 0xFD
+05-27 13:21:14.992 D/vendor.qti.bluetooth@1.0-ibs_handler( 2283): SerialClockVote: vote for UART CLK ON
+05-27 13:21:14.992 D/vendor.qti.bluetooth@1.0-wake_lock( 2283): Acquire wakelock is acquired 
+05-27 13:21:14.992 I/vendor.qti.bluetooth@1.0-ibs_handler( 2283): ProcessIbsCmd: Writing IBS_WAKE_ACK
+05-27 13:21:14.999 W/bt_btm_pm(29829): system/stack/acl/btm_pm.cc:725 btm_pm_proc_mode_change: Power mode switched from immediate:sniff[2] to immediate:active[0]
+05-27 13:21:15.000 W/bluetooth(29829): system/bta/dm/bta_dm_pm.cc:777 bta_dm_pm_set_mode: no available timers
+05-27 13:21:15.019 I/vendor.qti.bluetooth@1.0-ibs_handler( 2283): DeviceWakeUp: Writing IBS_WAKE_IND
+05-27 13:21:15.019 I/vendor.qti.bluetooth@1.0-ibs_handler( 2283): ProcessIbsCmd: Received IBS_WAKE_ACK: 0xFC
+05-27 13:21:15.019 I/vendor.qti.bluetooth@1.0-ibs_handler( 2283): ProcessIbsCmd: Signal wack_cond_
+05-27 13:21:15.019 D/vendor.qti.bluetooth@1.0-ibs_handler( 2283): DeviceWakeUp: Unblocked from waiting for FC, pthread_cond_timedwait ret = 0
+05-27 13:21:15.019 I/SppChannel_16898_8580(16898): onDataReceive: A5A5039C1800B0B3
+05-27 13:21:15.019 I/TaskQueueV2_16898_17790(16898): onDataReceive: header: A5A5039C1800B0B3
+05-27 13:21:15.020 I/TaskQueueV2_16898_17790(16898): -------------> RECEIVE: DATA: seq-> 156, size:24, frx:0
+05-27 13:21:15.020 I/TaskQueueV2_16898_17790(16898): onDataReceive: ack cum
+05-27 13:21:15.020 I/WearApiCall_16898_17790(16898): handleData  type=102
+05-27 13:21:15.020 I/DataDispatcher_16898_17790(16898): dispatchData() called with: subType = 102, dataHandlers 1, dataHandler android.os.RemoteCallbackList@aaa981
+05-27 13:21:15.020 I/DataDispatcher_16898_17790(16898): dispatchData() called with: 0
+05-27 13:21:15.020 I/DataHandlerAdapter_16898_16898(16898): handleData() called with: did = 870717940, type = 102
+05-27 13:21:15.020 I/Device-Sync_16898_17101(16898): dispatchMessage() called with: did = 870717940, type = 102, data = 22
+05-27 13:21:15.020 I/Device-Sync_16898_17101(16898): DeviceDataHandler-handleData:type=102, did=870717940, handlers=android.os.RemoteCallbackList@b652e56 dataSize:22
+05-27 13:21:15.020 I/Device-Sync_16898_17101(16898): DeviceDataHandler handleData: type=102, handler=com.xiaomi.fitness.device.contact.DeviceDataHandlerAdapter@a44cfc6
+05-27 13:21:15.021 I/Device-Sync_16898_17101(16898): handle data, did=870717940, type=102
+05-27 13:21:15.021 I/fitness_16898_17101(16898): [FitnessDataReceiver] sid = 870717940, onReceive, sequence = 1, total = 1
+05-27 13:21:15.021 I/fitness_16898_17101(16898): [FitnessDataReceiver] merge
+05-27 13:21:15.021 I/fitness_16898_17101(16898): [FitnessDataReceiver] received 18 bytes(timeStamp = 1779832800, timeZone = 8, dataType = 0, sportType = 0, dailyType = 6, fileType = 0, version = 2) dataType(0);sportType(0);dailyType(6)
+05-27 13:21:15.021 I/Device-Sync_16898_17101(16898): com.xiaomi.fit.fitness.device.mi.receive.FitnessReceiverHandler@3a44a26>>>handleData: true
+05-27 13:21:15.021 I/Device-Sync_16898_17101(16898): DeviceDataHandler-handleData: type=102, handler=com.xiaomi.fitness.device.contact.DeviceDataHandlerAdapter@a44cfc6, handleData=true
+05-27 13:21:15.021 I/fitness_16898_8946(16898): [FitnessDataParser] parse dataId(timeStamp = 1779832800, timeZone = 8, dataType = 0, sportType = 0, dailyType = 6, fileType = 0, version = 2)
+05-27 13:21:15.021 I/fitness_16898_8946(16898): [Schema_NetUtils] config:null
+05-27 13:21:15.021 I/fitness_16898_8946(16898): [Schema_NetUtils] Configuration cache not found, using default configuration,enable schema
+05-27 13:21:15.021 I/fitness_16898_8946(16898): [Schema_ParserWayControl] findSchemaFilePath:isMd5Updated:false , isUseLocalSchema:false
+05-27 13:21:15.021 I/fitness_16898_8946(16898): [Schema_ParserWayControl] findSchemaFilePath from assets
+05-27 13:21:15.021 I/fitness_16898_8946(16898): [FitnessDataParser] parse schemaParse
+05-27 13:21:15.021 I/fitness_16898_8946(16898): [ManualMeasureParser] schemaParse measure
+05-27 13:21:15.021 I/fitness_16898_8946(16898): [Schema_ParserWayControl] getSchema:timeStamp = 1779832800, timeZone = 8, dataType = 0, sportType = 0, dailyType = 6, fileType = 0, version = 2
+05-27 13:21:15.022 I/fitness_16898_8946(16898): [Schema_NetUtils] config:null
+05-27 13:21:15.022 I/fitness_16898_8946(16898): [Schema_NetUtils] Configuration cache not found, using default configuration,enable schema
+05-27 13:21:15.022 I/fitness_16898_8946(16898): [Schema_ParserWayControl] isMd5Updated:false , isUseLocalSchema:false
+05-27 13:21:15.022 I/fitness_16898_8946(16898): [Schema_ParserWayControl] getSchema from assets
+05-27 13:21:15.029 I/fitness_16898_8946(16898): [Schema_ParserWayControl] isMd5Updated:false , schema is null: false
+05-27 13:21:15.033 I/fitness_16898_8946(16898): [DailyRecordDaoUtils] recordDailyRecordToDB: persistKey=single_heart_rate, sid=870717940, recordSize=1
+05-27 13:21:15.033 I/fitness_16898_8946(16898): [FitnessDataSyncImpl] processBinaryData: (isSuccess = true)-(timeStamp = 1779832800, timeZone = 8, dataType = 0, sportType = 0, dailyType = 6, fileType = 0, version = 2)
+05-27 13:21:15.035 I/fitness_16898_8946(16898): [FitnessDataSyncImpl] onSyncSuccess: dataId(timeStamp = 1779832800, timeZone = 8, dataType = 0, sportType = 0, dailyType = 6, fileType = 0, version = 2), status(2)-force(false)
+05-27 13:21:15.036 I/BreakSilentUpgradeAspec_16898_8946(16898): aroundBreakSilentUpgrade: state = UPGRADE_IDLE
+05-27 13:21:15.036 I/BreakSilentUpgradeAspec_16898_8946(16898): aroundBreakSilentUpgrade: end cost = 0
+05-27 13:21:15.036 I/Device-Sync_16898_8946(16898): enqueue: call type = 8, id = 5
+05-27 13:21:15.036 I/Device-Sync_16898_8946(16898): Device(870717940)'s callback, type=101
+05-27 13:21:15.036 I/MiWearCoreClient_16898_8946(16898): call() called with: type = 101, did = 870717940, data = [B@a2d2830, callback = com.xiaomi.fitness.device.contact.remote.ContactTaskQueue$callback$1@c98eca9, timeout = 60000, service = com.xiaomi.wearable.core.server.IMiWearCoreImpl@8645266
+05-27 13:21:15.036 I/IMiWearCoreImpl_16898_8946(16898): call() called with: type = 101, did = 870717940, data = [B@a2d2830, needResponse = false, callback = com.xiaomi.fitness.device.contact.remote.ContactTaskQueue$callback$1@c98eca9, timeout = 60000
+05-27 13:21:15.036 I/TaskQueueV2_16898_17790(16898): enqueue: type:3, seqNumber:0
+05-27 13:21:15.036 I/TaskQueueV2_16898_17790(16898): runNext() called thread: Spp Dispatcher
+05-27 13:21:15.036 I/TaskQueueV2_16898_17790(16898): change tx status to TX_STATE_BUSY
+05-27 13:21:15.036 I/TaskQueueV2_16898_17790(16898): window [packet type: 3, seq: 2], window size: 1, retransmission: false
+05-27 13:21:15.036 I/TaskQueueV2_16898_17790(16898): -------------> SEND: DATA base: 2, nextseq: 3, size: 17, seq: 2, frx: 0
+05-27 13:21:15.036 I/fitness_16898_8946(16898): [FitnessDataSyncSummary] syncedSuccess = true, unSynced size = 0, finish = true
+05-27 13:21:15.036 I/TaskQueueV2_16898_17790(16898): onCallback() called with: packetId = 980, code = SEND_START, channel = TRANSPORT_CHANNEL_PB
+05-27 13:21:15.036 I/fitness_16898_16898(16898): [FitnessDataSyncSummary] handleSyncResult(did = 870717940, success = true， syncFinished = true)
+05-27 13:21:15.037 W/XiaomiFit_16898_16898(16898): [FitnessDataSyncSummary] notifySyncResultListener: no sync listener: sid = 870717940
+05-27 13:21:15.037 I/fitness_16898_8946(16898): [FitnessDataSyncImpl] removeDeviceStatusListener , listener:com.xiaomi.fit.fitness.device.FitnessDataSyncBaseImpl$deviceStatusListener$1@f6cba4d
+05-27 13:21:15.037 I/fitness_16898_16898(16898): [VitaliyDataSender] registerBroadcast
+05-27 13:21:15.037 I/fitness_16898_16898(16898): [VitaliyDataSender] cur device vitaliy fearute is true
+05-27 13:21:15.037 I/SyncPhysicalStateToDevice_16898_16898(16898): registerSyncPhysicalBroadcast :true
+05-27 13:21:15.037 I/TaskQueueV2_16898_17790(16898): sendPacket() called with: packet = L1Packet (header: Header (type: DATA, seqNumber: 2, dataLength: 17, frx: 0, crc: -20734))}, crc = -20734, mtu = 16394
+05-27 13:21:15.037 I/IMiWearCoreImpl_16898_20769(16898): getDeviceCapabilities() called with: did = 870717940
+05-27 13:21:15.037 W/bluetooth(29829): system/bta/dm/bta_dm_pm.cc:786 bta_dm_pm_set_mode: pm_action 64
+05-27 13:21:15.037 I/MiWearCoreClient_16898_20769(16898): getDeviceCapabilities() called with: did = 870717940 334495549
+05-27 13:21:15.037 I/fitness_16898_20769(16898): [SleepSegmentUtils] writeBackSleepToDevice: 7 days (1779314400-1779919200)
+05-27 13:21:15.037 W/bluetooth(29829): system/bta/dm/bta_dm_pm.cc:777 bta_dm_pm_set_mode: no available timers
+05-27 13:21:15.038 I/fitness_16898_16898(16898): [SleepHrvWriteBackUtils] maybeWriteBackSleepHrvToDevice: skip (did=870717940, hasNewSleep=false, byConnect=false)
+05-27 13:21:15.038 I/fitness_16898_16898(16898): [FitnessServerSyncMgr] syncWithServer
+05-27 13:21:15.038 I/fitness_16898_16898(16898): [FitnessServerSyncInc] syncWithServer, forceSync = false, triggerSource = device_sync
+05-27 13:21:15.038 I/TaskQueueV2_16898_17790(16898): onSendComplete() called with: packet: L1Packet (header: Header (type: DATA, seqNumber: 2, dataLength: 17, frx: 0, crc: -20734)), thread: Spp Dispatcher
+05-27 13:21:15.038 I/TaskQueueV2_16898_17790(16898): sendTimerStart: sendItem 2
+05-27 13:21:15.038 I/TaskQueueV2_16898_17790(16898): onCallback() called with: packetId = 980, code = SEND_SUCCESS, channel = TRANSPORT_CHANNEL_PB
+05-27 13:21:15.038 I/TaskQueueV2_16898_17790(16898): change tx status to TX_STATE_IDLE
+05-27 13:21:15.038 I/TaskQueueV2_16898_17790(16898): runNext() called thread: Spp Dispatcher
+05-27 13:21:15.038 I/TaskQueueV2_16898_17790(16898): change tx status to TX_STATE_BUSY
+05-27 13:21:15.038 I/TaskQueueV2_16898_17790(16898): change tx status to TX_STATE_IDLE
+05-27 13:21:15.038 I/fitness_16898_20769(16898): [SleepSegmentUtils] writeBackSleepToDevice: no sleep(870717940)
+05-27 13:21:15.040 I/fitness_16898_16898(16898): [DailyRecordDaoUtils] getDailyRecord persistKey = steps, size = 0
+05-27 13:21:15.041 I/fitness_16898_16898(16898): [DailyRecordDaoUtils] getDailyRecord persistKey = mc_ecg, size = 0
+05-27 13:21:15.041 I/fitness_16898_16898(16898): [FitnessServerSyncInc] syncWithServer: isBg = false, isAuto = false, last sync time(1779880612161), and abort
+05-27 13:21:15.041 I/fitness_16898_16898(16898): [FitnessServerSyncInc] notifySyncResult, notify Listener(0)
+05-27 13:21:15.041 I/fitness_16898_16898(16898): [FitnessDataChangedUtils] sendRecentDataChangedBroadcast(server_sync), success=true, code=0
+05-27 13:21:15.042 I/fitness_16898_16898(16898): [FitnessServerSyncHistory] pullRecentLeastOneYearData
+05-27 13:21:15.042 I/fitness_16898_16898(16898): [FitnessDataChangedUtils] sendRecentDataChangedBroadcast(device_sync), success=true, code=0
+05-27 13:21:15.043 I/SettingItemComponent_31304_31304(31304): onReceive: data sync event #Intent;action=recent_data_changed_broadcast;launchFlags=0x10;extendedLaunchFlags=0x4;package=com.xiaomi.wearable;S.reason_data_changed=server_sync;B.boolean_result=true;B.first_cloud_sync=false;i.error_code=0;end
+05-27 13:21:15.043 I/fitness_16898_16898(16898): [Summary_Sync_Receiver] onReceive: intent = #Intent;action=recent_data_changed_broadcast;launchFlags=0x10;extendedLaunchFlags=0x4;package=com.xiaomi.wearable;S.reason_data_changed=server_sync;B.boolean_result=true;B.first_cloud_sync=false;i.error_code=0;end
+05-27 13:21:15.043 E/fitness_16898_16898(16898): [Summary_Sync] >>> start update summary, action: recent_data_changed_broadcast, reason: server_sync
+05-27 13:21:15.043 I/fitness_16898_16898(16898): [Summary_Sync] update database fitness_data
+05-27 13:21:15.043 I/fitness_16898_16898(16898): [SRecordSummaryRepo] received sync sign observer = true
+05-27 13:21:15.043 I/fitness_16898_16898(16898): [SRecordSummaryRepo] init, isSet = true
+05-27 13:21:15.044 I/fitness_31304_31304(31304): [HealthFragmentV2] onReceive: data changed reason = server_sync, code = 0
+05-27 13:21:15.044 I/fitness_16898_8947(16898): [CrossYearSyncController] pullAllProjectData: (true)
+05-27 13:21:15.044 I/fitness_31304_31304(31304): [HealthFragmentV2] getAndDrawHomeData，[SPORT_REPORT, SLEEP, HR, STEP, CALORIE, VALID_STAND, MH_STRENGTH, BLOOD_PRESSURE, STRESS, SPO2, PAI, ENERGY, V02_MAX, WEIGHT, HEARING_HEALTH, WOMEN_HEALTH, TRAINING_LOAD, TEMPERATURE, RUNNING_INDICATOR, VITALITY, ECG_MEDICAL, BLOOD_SUGAR, PHYSICAL_STATUS, TODAY_HEALTH]
+05-27 13:21:15.044 I/xiaomiLocalData_31304_31304(31304): toDateTimeAtStartOfDay  1779832800000   getRealOffset  0
+05-27 13:21:15.044 I/fitness_16898_16898(16898): [SRecordSummaryRepo] onReportSynced before: count = 0, updateCount = 0 syncing = false, synced = true
+05-27 13:21:15.044 I/fitness_31304_31304(31304): [RainbowRepository] getDailyRainbowReport:timeInSecond = 1779832800,widthDetail = false
+05-27 13:21:15.044 I/CurseRepo_16898_16898(16898): on receive Intent { act=recent_data_changed_broadcast flg=0x10 xflg=0x4 pkg=com.xiaomi.wearable (has extras) }
+05-27 13:21:15.044 I/CurseRepo_16898_16898(16898): received sync sign observer = true
+05-27 13:21:15.044 I/fitness_31304_31304(31304): [RainbowDaoProxy] queryRainbowListAsync: startTime = 1779832800, endTime = 1779919200,real = [1779840000, 1779926400)
+05-27 13:21:15.044 I/fitness_31304_31304(31304): [FitnessServerSyncMgr] pullAndPushRainbowData
+05-27 13:21:15.045 I/Account_16898_19358(16898): First request
+05-27 13:21:15.045 I/fitness_16898_17503(16898): [Summary_Sync] >>>> start doSync table step_record, reason:Common Update
+05-27 13:21:15.045 I/fitness_16898_19402(16898): [CrossYearSyncController] pullRecentOneYearMedicalData: has done
+05-27 13:21:15.045 I/fitness_16898_8945(16898): [CrossYearSyncController] pullOneYearWeight: startTime = 1741906800, endTime = 0, need = false
+05-27 13:21:15.045 I/CurseRepo_16898_16898(16898): curseSync: count = 0, force = false, syncing = false
+05-27 13:21:15.045 I/fitness_16898_16898(16898): [Summary_Sync_Receiver] onReceive: intent = #Intent;action=recent_data_changed_broadcast;launchFlags=0x10;extendedLaunchFlags=0x4;package=com.xiaomi.wearable;S.reason_data_changed=device_sync;B.boolean_result=true;i.error_code=0;end
+05-27 13:21:15.045 E/fitness_16898_16898(16898): [Summary_Sync] >>> start update summary, action: recent_data_changed_broadcast, reason: device_sync
+05-27 13:21:15.045 I/fitness_16898_16898(16898): [Summary_Sync] update database fitness_data
+05-27 13:21:15.045 I/XiaomiFit_16898_19358(16898): Remote is connected, then get token
+05-27 13:21:15.045 I/fitness_16898_16898(16898): [SRecordSummaryRepo] received sync sign observer = true
+05-27 13:21:15.045 I/Account_16898_19358(16898): getToken: mAccessTokens[miothealth] is MiAccessToken()
+05-27 13:21:15.045 I/Account_16898_19358(16898): refreshToken is false, re-fetch cookie for /app/v1/data/get_project_data_by_time
+05-27 13:21:15.045 I/fitness_16898_17503(16898): [Summary_Sync] step_record: sync update count=0
+05-27 13:21:15.045 I/fitness_16898_17503(16898): [Summary_Updater] >>>>> do update STEP, timeList size = 0
+05-27 13:21:15.045 I/fitness_16898_17503(16898): [Summary_Updater] <<<<<<<<< do update finished: STEP
+05-27 13:21:15.045 I/fitness_16898_17503(16898): [Summary_Sync] delete 0 items from _draft_step_record
+05-27 13:21:15.045 I/fitness_16898_17503(16898): [Summary_Sync] <<<< finished doSync table step_record
+05-27 13:21:15.045 I/fitness_16898_17503(16898): [Summary_Sync] >>>> start doSync table calorie_record, reason:Common Update
+05-27 13:21:15.046 I/fitness_16898_8947(16898): [CrossYearSyncController] pullAllSportReport: has request done and abort this
+05-27 13:21:15.046 I/fitness_16898_16898(16898): [SRecordSummaryRepo] init, isSet = true
+05-27 13:21:15.046 I/fitness_16898_8945(16898): [CrossYearSyncController] pullRecentOneYearFitnessData: has requested, requestWeight = SyncRequestResult(success=false, hasNewData=false, isRequestOnline=false, serverCode=null, serverMsg=null, isFirstCloudSync=false)
+05-27 13:21:15.046 I/fitness_16898_16898(16898): [SRecordSummaryRepo] onReportSynced before: count = 0, updateCount = 0 syncing = false, synced = true
+05-27 13:21:15.046 I/CurseRepo_16898_16898(16898): on receive Intent { act=recent_data_changed_broadcast flg=0x10 xflg=0x4 pkg=com.xiaomi.wearable (has extras) }
+05-27 13:21:15.046 I/CurseRepo_16898_16898(16898): received sync sign observer = true
+05-27 13:21:15.046 I/baronqi_16898_19358(16898): intercept() called with: secret SecretData(encryptResponse=true, pathPrefix=, filterSignatureKeys=[data], sid=, loginPolicy=2)
+05-27 13:21:15.046 I/XiaomiFit_16898_19358(16898): Remote is connected, then get token
+05-27 13:21:15.046 I/Account_16898_19358(16898): getToken: mAccessTokens[miothealth] is MiAccessToken()
+05-27 13:21:15.046 I/baronqi_16898_19358(16898): intercept() called with: nonce hxirTn9s4f4BxKWp, GET
+05-27 13:21:15.046 I/CurseRepo_16898_16898(16898): curseSync: count = 0, force = false, syncing = false
+05-27 13:21:15.046 I/Account_16898_19369(16898): First request
+05-27 13:21:15.046 I/fitness_16898_17503(16898): [Summary_Sync] calorie_record: sync update count=0
+05-27 13:21:15.046 I/fitness_16898_17503(16898): [Summary_Updater] >>>>> do update CALORIE, timeList size = 0
+05-27 13:21:15.046 I/XiaomiFit_16898_19369(16898): Remote is connected, then get token
+05-27 13:21:15.046 I/fitness_16898_17503(16898): [Summary_Updater] <<<<<<<<< do update finished: CALORIE
+05-27 13:21:15.046 I/fitness_16898_17503(16898): [Summary_Sync] delete 0 items from _draft_calorie_record
+05-27 13:21:15.046 I/fitness_16898_17503(16898): [Summary_Sync] <<<< finished doSync table calorie_record
+05-27 13:21:15.046 I/Account_16898_19369(16898): getToken: mAccessTokens[miothealth] is MiAccessToken()
+05-27 13:21:15.047 I/Account_16898_19369(16898): refreshToken is false, re-fetch cookie for /app/v1/data/get_aggregated_fitness_data_by_watermark
+05-27 13:21:15.047 I/fitness_16898_17503(16898): [Summary_Sync] >>>> start doSync table stand_record, reason:Common Update
+05-27 13:21:15.047 I/fitness_16898_17503(16898): [Summary_Sync] stand_record: sync update count=0
+05-27 13:21:15.047 I/fitness_16898_17503(16898): [Summary_Updater] >>>>> do update VALID_STAND, timeList size = 0
+05-27 13:21:15.047 I/baronqi_16898_19369(16898): intercept() called with: secret SecretData(encryptResponse=true, pathPrefix=, filterSignatureKeys=[data], sid=, loginPolicy=2)
+05-27 13:21:15.047 I/fitness_16898_17503(16898): [Summary_Updater] <<<<<<<<< do update finished: VALID_STAND
+05-27 13:21:15.047 I/XiaomiFit_16898_19369(16898): Remote is connected, then get token
+05-27 13:21:15.047 I/fitness_16898_17503(16898): [Summary_Sync] delete 0 items from _draft_stand_record
+05-27 13:21:15.047 I/fitness_16898_17503(16898): [Summary_Sync] <<<< finished doSync table stand_record
+05-27 13:21:15.047 I/fitness_16898_17503(16898): [Summary_Sync] >>>> start doSync table mh_strength_record, reason:Common Update
+05-27 13:21:15.047 I/Account_16898_19369(16898): getToken: mAccessTokens[miothealth] is MiAccessToken()
+05-27 13:21:15.047 I/baronqi_16898_19369(16898): intercept() called with: nonce 5iRAjz6iDjIBxKWp, GET
+05-27 13:21:15.047 I/fitness_16898_17503(16898): [Summary_Sync] mh_strength_record: sync update count=0
+05-27 13:21:15.047 I/fitness_16898_17503(16898): [Summary_Updater] >>>>> do update MH_STRENGTH, timeList size = 0
+05-27 13:21:15.047 I/fitness_16898_17503(16898): [Summary_Updater] <<<<<<<<< do update finished: MH_STRENGTH
+05-27 13:21:15.047 I/fitness_16898_17503(16898): [Summary_Sync] delete 0 items from _draft_mh_strength_record
+05-27 13:21:15.047 I/fitness_16898_17503(16898): [Summary_Sync] <<<< finished doSync table mh_strength_record
+05-27 13:21:15.047 I/fitness_16898_17503(16898): [Summary_Sync] >>>> start doSync table sleep_segment, reason:Common Update
+05-27 13:21:15.047 I/fitness_16898_17503(16898): [Summary_Sync] sleep_segment: sync update count=0
+05-27 13:21:15.047 I/fitness_16898_17503(16898): [Summary_Updater] >>>>> do update SLEEP, timeList size = 0
+05-27 13:21:15.047 I/fitness_16898_17503(16898): [Summary_Updater] <<<<<<<<< do update finished: SLEEP
+05-27 13:21:15.047 I/fitness_16898_17503(16898): [Summary_Sync] delete 0 items from _draft_sleep_segment
+05-27 13:21:15.047 I/fitness_16898_17503(16898): [Summary_Sync] <<<< finished doSync table sleep_segment
+05-27 13:21:15.047 I/fitness_16898_17503(16898): [Summary_Sync] >>>> start doSync table blood_pressure_record, reason:Common Update
+05-27 13:21:15.047 I/fitness_16898_17503(16898): [Summary_Sync] blood_pressure_record: sync update count=0
+05-27 13:21:15.047 I/fitness_16898_17503(16898): [Summary_Updater] >>>>> do update BLOOD_PRESSURE, timeList size = 0
+05-27 13:21:15.047 I/fitness_16898_17503(16898): [Summary_Updater] <<<<<<<<< do update finished: BLOOD_PRESSURE
+05-27 13:21:15.047 I/fitness_16898_17503(16898): [Summary_Sync] delete 0 items from _draft_blood_pressure_record
+05-27 13:21:15.047 I/fitness_16898_17503(16898): [Summary_Sync] <<<< finished doSync table blood_pressure_record
+05-27 13:21:15.047 I/fitness_16898_17503(16898): [Summary_Sync] not support (blood_pressure_medical_record)
+05-27 13:21:15.047 I/fitness_16898_17503(16898): [Summary_Sync] >>>> start doSync table hr_record, reason:Common Update
+05-27 13:21:15.047 I/fitness_16898_17503(16898): [Summary_Sync] hr_record: sync update count=1
+05-27 13:21:15.047 I/fitness_16898_17503(16898): [Summary_Updater] >>>>> do update HR, timeList size = 1
+05-27 13:21:15.048 I/fitness_16898_17503(16898): [DailyRecordDaoUtils] getDailyRecord dataType = HR, sid = null, startTime = 1779840000, endTime = 1780012800
+05-27 13:21:15.048 I/fitness_16898_17503(16898): [DailyRecordDaoUtils] getDailyRecord dataType = HR, size = 2
+05-27 13:21:15.048 I/UserProfile_31304_31304(31304): getRainbowItemGoalMap: src goalList = [DallyGoalItem(field=2, target=600), DallyGoalItem(field=1, target=6000), DallyGoalItem(field=4, target=30)]
+05-27 13:21:15.048 I/SettingItemComponent_31304_31304(31304): onReceive: data sync event #Intent;action=recent_data_changed_broadcast;launchFlags=0x10;extendedLaunchFlags=0x4;package=com.xiaomi.wearable;S.reason_data_changed=device_sync;B.boolean_result=true;i.error_code=0;end
+05-27 13:21:15.048 I/fitness_31304_31304(31304): [HealthFragmentV2] onReceive: data changed reason = device_sync, code = 0
+05-27 13:21:15.048 I/fitness_31304_31304(31304): [HealthFragmentV2] getAndDrawHomeData，[SPORT_REPORT, SLEEP, HR, STEP, CALORIE, VALID_STAND, MH_STRENGTH, BLOOD_PRESSURE, STRESS, SPO2, PAI, ENERGY, V02_MAX, WEIGHT, HEARING_HEALTH, WOMEN_HEALTH, TRAINING_LOAD, TEMPERATURE, RUNNING_INDICATOR, VITALITY, ECG_MEDICAL, BLOOD_SUGAR, PHYSICAL_STATUS, TODAY_HEALTH]
+05-27 13:21:15.048 I/xiaomiLocalData_31304_31304(31304): toDateTimeAtStartOfDay  1779832800000   getRealOffset  0
+05-27 13:21:15.048 I/fitness_31304_31304(31304): [RainbowRepository] getDailyRainbowReport:timeInSecond = 1779832800,widthDetail = false
+05-27 13:21:15.048 I/fitness_31304_31304(31304): [RainbowDaoProxy] queryRainbowListAsync: startTime = 1779832800, endTime = 1779919200,real = [1779840000, 1779926400)
+05-27 13:21:15.048 I/fitness_31304_31304(31304): [FitnessServerSyncMgr] pullAndPushRainbowData
+05-27 13:21:15.049 I/fitness_31304_26717(31304): [HomeDataRepository] triggerHomeDataRequest
+05-27 13:21:15.049 I/HomeDataRepository_31304_26717(31304): triggerHomeDataRequest: startZero=1779832800, endZero=1779919200, viewTag=home
+05-27 13:21:15.049 I/fitness_31304_26717(31304): [DailyRecordDaoUtils] getDailyRecord dataType = SLEEP, sid = null, startTime = 1779832800, endTime = 1779919200
+05-27 13:21:15.049 I/fitness_31304_26717(31304): [DailyRecordDaoUtils] getDailyRecord dataType = SLEEP, size = 0
+05-27 13:21:15.049 I/fitness_31304_26717(31304): [HomeDataRepository] srcDataMap = {}
+05-27 13:21:15.049 I/SleepBiz_31304_26717(31304): splitDailyReport viewTag home 1779832800
+05-27 13:21:15.050 I/fitness_31304_26717(31304): [HomeDataRepository] SLEEP - (AllDaySleepReport{time= 1779832800, totalDuration= 0, avgDuration= 0, deepDuration= 0, lightDuration= 0, remDuration= null, awakeDuration= null, avgHr= null, avgSpo2= null, stage = 0, longSleepCommentCode = 0, commentCode = 0, score = 0, scoreOutperformedPercent = null, timestamp = 2026-05-27-00-00-00，segmentList.size = null, dayReportList.size =null})
+05-27 13:21:15.050 I/UserProfile_31304_31304(31304): getRainbowItemGoalMap: src goalList = [DallyGoalItem(field=2, target=600), DallyGoalItem(field=1, target=6000), DallyGoalItem(field=4, target=30)]
+05-27 13:21:15.050 I/fitness_31304_26717(31304): [DailyRecordDaoUtils] getDailyRecord dataType = HR, sid = null, startTime = 1779832800, endTime = 1779919200
+05-27 13:21:15.050 I/fitness_31304_26717(31304): [DailyRecordDaoUtils] getDailyRecord dataType = HR, size = 2
+05-27 13:21:15.051 I/fitness_31304_26717(31304): [HomeDataRepository] srcDataMap = {single_heart_rate=[HrItem(sid=870717940, time=1779880874, hr=75)], heart_rate=[HrItem(sid=870717940, time=1779880140, hr=64)], resting_heart_rate=[]}
+05-27 13:21:15.051 I/fitness_31304_26717(31304): [HomeDataRepository] HR - (DailyHrReport(time=1779832800, time = 2026-05-27 00:00:00, tag='home', restHr=null, avgHr=69, maxHr=75, minHr=64, latestHrRecord=HrItem(sid=870717940, time=1779880874, hr=75), hrDistribute=null, hrRecords=[TimesDataRecordInt(time=1779879600, avgValue=0, maxValue=0, minValue=0, valueArray=[64, 75])], singleHrRecords=[HrItem(sid=870717940, time=1779880874, hr=75)], abnormalHrRecords=null, abnormalHigh=[], abnormalLow=[], abnormalFibRecords=[]))
+05-27 13:21:15.051 I/fitness_31304_26717(31304): [HomeDataRepository] srcDataMap = {steps=[]}
+05-27 13:21:15.051 I/fitness_31304_26717(31304): [HomeDataRepository] STEP - (DailyStepReport(time=1779832800, time = 2026-05-27 00:00:00, tag='home', steps=0, distance=0, calories=0, minStartTime=null, maxEndTime=null, avgStep=0, avgDis=0, active=null, stepRecords=[]))
+05-27 13:21:15.051 I/fitness_31304_26717(31304): [HomeDataRepository] srcDataMap = {calories=[CaloriesItem(time=1779880440, calories = 1.0, sid=870717940), CaloriesItem(time=1779880200, calories = 1.0, sid=870717940), CaloriesItem(time=1779879900, calories = 1.0, sid=870717940), CaloriesItem(time=1779879840, calories = 1.0, sid=870717940)]}
+05-27 13:21:15.052 I/fitness_31304_26717(31304): [HomeDataRepository] CALORIE - (DailyCalorieReport(time=1779832800, time=2026-05-27 00:00:00, tag='home', calories=4, calRecords=[CalorieRecord(time=1779879600, calories=4)], minStartTime=1779879840, maxEndTime=1779880440))
+05-27 13:21:15.052 I/fitness_31304_26717(31304): [HomeDataRepository] srcDataMap = {valid_stand=[]}
+05-27 13:21:15.052 I/fitness_16898_17503(16898): [Summary_Updater] <<<<<<<<< do update finished: HR
+05-27 13:21:15.052 I/fitness_31304_26717(31304): [HomeDataRepository] VALID_STAND - (DailyStandReport(time=1779832800, time=2026-05-27 00:00:00, tag='home', standCount=0, minStartTime=null, maxEndTime=null, standDetail=[]))
+05-27 13:21:15.052 I/fitness_16898_17503(16898): [Summary_Sync] delete 1 items from _draft_hr_record
+05-27 13:21:15.052 I/fitness_16898_17503(16898): [Summary_Sync] hr_record: sync update count=0
+05-27 13:21:15.052 I/fitness_16898_17503(16898): [Summary_Updater] >>>>> do update HR, timeList size = 0
+05-27 13:21:15.053 I/fitness_16898_17503(16898): [Summary_Updater] <<<<<<<<< do update finished: HR
+05-27 13:21:15.053 I/fitness_31304_26717(31304): [HomeDataRepository] srcDataMap = {intensity=[]}
+05-27 13:21:15.053 I/fitness_31304_26717(31304): [HomeDataRepository] MH_STRENGTH - (DailyMHStrengthReport(time=1779832800, time=2026-05-27 00:00:00, tag='home', duration=0, avg=0, minStartTime=null, maxEndTime=null, recordList=[]))
+05-27 13:21:15.053 I/fitness_16898_17503(16898): [Summary_Sync] delete 0 items from _draft_hr_record
+05-27 13:21:15.053 I/fitness_16898_17503(16898): [Summary_Sync] <<<< finished doSync table hr_record
+05-27 13:21:15.053 I/fitness_16898_17503(16898): [Summary_Sync] >>>> start doSync table spo2_record, reason:Common Update
+05-27 13:21:15.053 I/fitness_31304_26717(31304): [DailyRecordDaoUtils] blood_pressure, no data
+05-27 13:21:15.053 I/fitness_16898_17503(16898): [Summary_Sync] spo2_record: sync update count=0
+05-27 13:21:15.053 I/fitness_16898_17503(16898): [Summary_Updater] >>>>> do update SPO2, timeList size = 0
+05-27 13:21:15.053 I/fitness_31304_26717(31304): [DailyRecordDaoUtils] mc_blood_pressure, no data
+05-27 13:21:15.053 I/fitness_16898_17503(16898): [Summary_Updater] <<<<<<<<< do update finished: SPO2
+05-27 13:21:15.053 I/fitness_31304_26717(31304): [HomeDataRepository] srcDataMap = {}
+05-27 13:21:15.053 I/fitness_16898_17503(16898): [Summary_Sync] delete 0 items from _draft_spo2_record
+05-27 13:21:15.053 I/fitness_16898_17503(16898): [Summary_Sync] <<<< finished doSync table spo2_record
+05-27 13:21:15.053 I/fitness_16898_17503(16898): [Summary_Sync] >>>> start doSync table v02max_record, reason:Common Update
+05-27 13:21:15.053 I/fitness_31304_26717(31304): [HomeDataRepository] BLOOD_PRESSURE - (DailyBloodPressureReport(time=1779832800, time = 2026-05-27 00:00:00, tag='home', avgHigh=0, maxHigh=0, minHigh=0, avgLow=0, maxLow=0, minLow=0, highRecords=[], lowRecords=[], pulesRecords=[],singleRecords=null))
+05-27 13:21:15.053 I/fitness_16898_17503(16898): [Summary_Sync] v02max_record: sync update count=0
+05-27 13:21:15.053 I/fitness_16898_17503(16898): [Summary_Updater] >>>>> do update V02_MAX, timeList size = 0
+05-27 13:21:15.053 I/fitness_31304_26717(31304): [DailyRecordDaoUtils] getDailyRecord dataType = STRESS, sid = null, startTime = 1779832800, endTime = 1779919200
+05-27 13:21:15.053 I/fitness_16898_17503(16898): [Summary_Updater] <<<<<<<<< do update finished: V02_MAX
+05-27 13:21:15.053 I/fitness_16898_17503(16898): [Summary_Sync] delete 0 items from _draft_v02max_record
+05-27 13:21:15.053 I/fitness_16898_17503(16898): [Summary_Sync] <<<< finished doSync table v02max_record
+05-27 13:21:15.053 I/fitness_16898_17503(16898): [Summary_Sync] >>>> start doSync table energy_record, reason:Common Update
+05-27 13:21:15.054 I/fitness_31304_26717(31304): [DailyRecordDaoUtils] getDailyRecord dataType = STRESS, size = 0
+05-27 13:21:15.054 I/fitness_31304_26717(31304): [HomeDataRepository] srcDataMap = {}
+05-27 13:21:15.054 I/fitness_16898_17503(16898): [Summary_Sync] energy_record: sync update count=0
+05-27 13:21:15.054 I/fitness_16898_17503(16898): [Summary_Updater] >>>>> do update ENERGY, timeList size = 0
+05-27 13:21:15.054 I/fitness_16898_17503(16898): [Summary_Updater] <<<<<<<<< do update finished: ENERGY
+05-27 13:21:15.054 I/fitness_31304_26717(31304): [HomeDataRepository] STRESS - (DailyStressReport(time=1779832800,time=2026-05-27 00:00:00, tag='home', sid='source data is empty', avgStress=0, maxStress=0, minStress=0, heavy=0, medium=0, light=0, relax=0, latestStressRecord=null, singleRecords=[], abnormalRecords=null, stressRecords=[]))
+05-27 13:21:15.054 I/fitness_16898_17503(16898): [Summary_Sync] delete 0 items from _draft_energy_record
+05-27 13:21:15.054 I/fitness_16898_17503(16898): [Summary_Sync] <<<< finished doSync table energy_record
+05-27 13:21:15.054 I/fitness_16898_17503(16898): [Summary_Sync] >>>> start doSync table stress_record, reason:Common Update
+05-27 13:21:15.054 I/fitness_31304_26717(31304): [DailyRecordDaoUtils] getDailyRecord dataType = SPO2, sid = null, startTime = 1779832800, endTime = 1779919200
+05-27 13:21:15.054 I/fitness_16898_17503(16898): [Summary_Sync] stress_record: sync update count=0
+05-27 13:21:15.054 I/fitness_16898_17503(16898): [Summary_Updater] >>>>> do update STRESS, timeList size = 0
+05-27 13:21:15.054 I/fitness_16898_17503(16898): [Summary_Updater] <<<<<<<<< do update finished: STRESS
+05-27 13:21:15.054 I/fitness_16898_17503(16898): [Summary_Sync] delete 0 items from _draft_stress_record
+05-27 13:21:15.054 I/fitness_16898_17503(16898): [Summary_Sync] <<<< finished doSync table stress_record
+05-27 13:21:15.054 I/fitness_16898_17503(16898): [Summary_Sync] >>>> start doSync table pai_record, reason:Common Update
+05-27 13:21:15.054 I/fitness_16898_17503(16898): [Summary_Sync] pai_record: sync update count=0
+05-27 13:21:15.054 I/fitness_16898_17503(16898): [Summary_Updater] >>>>> do update PAI, timeList size = 0
+05-27 13:21:15.054 I/fitness_16898_17503(16898): [Summary_Updater] <<<<<<<<< do update finished: PAI
+05-27 13:21:15.054 I/fitness_31304_26717(31304): [DailyRecordDaoUtils] getDailyRecord dataType = SPO2, size = 0
+05-27 13:21:15.054 I/fitness_31304_26717(31304): [HomeDataRepository] srcDataMap = {}
+05-27 13:21:15.054 I/fitness_16898_17503(16898): [Summary_Sync] delete 0 items from _draft_pai_record
+05-27 13:21:15.054 I/fitness_16898_17503(16898): [Summary_Sync] <<<< finished doSync table pai_record
+05-27 13:21:15.054 I/fitness_16898_17503(16898): [Summary_Sync] >>>> start doSync table hearing_health_record, reason:Common Update
+05-27 13:21:15.054 I/fitness_31304_26717(31304): [HomeDataRepository] SPO2 - (DailySpo2Report(time=1779832800, time=2026-05-27 00:00:00, tag='home', avgSpo2=0, maxSpo2=0, minSpo2=0, lackTimes=0, spo2Records=[], abnormalRecords=null, latestSpoRecord=null))
+05-27 13:21:15.054 I/fitness_16898_17503(16898): [Summary_Sync] hearing_health_record: sync update count=0
+05-27 13:21:15.054 I/fitness_16898_17503(16898): [Summary_Updater] >>>>> do update HEARING_HEALTH, timeList size = 0
+05-27 13:21:15.054 I/fitness_16898_17503(16898): [Summary_Updater] <<<<<<<<< do update finished: HEARING_HEALTH
+05-27 13:21:15.054 I/fitness_16898_17503(16898): [Summary_Sync] delete 0 items from _draft_hearing_health_record
+05-27 13:21:15.054 I/fitness_16898_17503(16898): [Summary_Sync] <<<< finished doSync table hearing_health_record
+05-27 13:21:15.054 I/fitness_16898_17503(16898): [Summary_Sync] >>>> start doSync table weight_item_record, reason:Common Update
+05-27 13:21:15.054 I/fitness_31304_26717(31304): [HomeDataRepository] srcDataMap = {pai=[]}
+05-27 13:21:15.054 I/fitness_31304_26717(31304): [DataBiz] pai pairList:no data to sid Default, time = 1779832800
+05-27 13:21:15.054 I/fitness_16898_17503(16898): [Summary_Sync] weight_item_record: sync update count=0
+05-27 13:21:15.054 I/fitness_16898_17503(16898): [Summary_Updater] >>>>> do update WEIGHT, timeList size = 0
+05-27 13:21:15.054 I/fitness_31304_26717(31304): [HomeDataRepository] PAI - (DailyPaiReport(time=1779832800, time=2026-05-27 00:00:00, sid=Default, pai=0.0, totalPai=0.0, highZonePai=0.0, mediumZonePai=0.0, lowZonePai=0.0, paiList=null, hrReport=null))
+05-27 13:21:15.054 I/fitness_16898_17503(16898): [Summary_Updater] <<<<<<<<< do update finished: WEIGHT
+05-27 13:21:15.054 I/fitness_16898_17503(16898): [Summary_Sync] delete 0 items from _draft_weight_item_record
+05-27 13:21:15.054 I/fitness_16898_17503(16898): [Summary_Sync] <<<< finished doSync table weight_item_record
+05-27 13:21:15.054 I/fitness_16898_17503(16898): [Summary_Sync] >>>> start doSync table training_load_record, reason:Common Update
+05-27 13:21:15.054 I/fitness_31304_26717(31304): [DailyRecordDaoUtils] getDailyRecord dataType = ENERGY, sid = null, startTime = 1779832800, endTime = 1779919200
+05-27 13:21:15.054 I/fitness_16898_17503(16898): [Summary_Sync] training_load_record: sync update count=0
+05-27 13:21:15.054 I/fitness_16898_17503(16898): [Summary_Updater] >>>>> do update TRAINING_LOAD, timeList size = 0
+05-27 13:21:15.054 I/fitness_31304_26717(31304): [DailyRecordDaoUtils] getDailyRecord dataType = ENERGY, size = 0
+05-27 13:21:15.054 I/fitness_16898_17503(16898): [Summary_Updater] <<<<<<<<< do update finished: TRAINING_LOAD
+05-27 13:21:15.054 I/fitness_31304_26717(31304): [HomeDataRepository] srcDataMap = {}
+05-27 13:21:15.054 I/fitness_16898_17503(16898): [Summary_Sync] delete 0 items from _draft_training_load_record
+05-27 13:21:15.054 I/fitness_16898_17503(16898): [Summary_Sync] <<<< finished doSync table training_load_record
+05-27 13:21:15.054 I/fitness_16898_17503(16898): [Summary_Sync] >>>> start doSync table temperature_record, reason:Common Update
+05-27 13:21:15.054 I/fitness_31304_26717(31304): [HomeDataRepository] ENERGY - (DailyEnergyReport(time=1779832800,time=2026-05-27 00:00:00, tag='home', sid='null', avgEnergy=0, maxEnergy=0, minEnergy=0, durationAct=0, durationRecov=0, durationStress=0, latestRecord=null, energyRecords=[], StateRecords=[]))
+05-27 13:21:15.054 I/fitness_16898_17503(16898): [Summary_Sync] temperature_record: sync update count=0
+05-27 13:21:15.054 I/fitness_16898_17503(16898): [Summary_Updater] >>>>> do update TEMPERATURE, timeList size = 0
+05-27 13:21:15.054 I/fitness_16898_17503(16898): [Summary_Updater] <<<<<<<<< do update finished: TEMPERATURE
+05-27 13:21:15.054 I/fitness_16898_17503(16898): [Summary_Sync] delete 0 items from _draft_temperature_record
+05-27 13:21:15.054 I/fitness_16898_17503(16898): [Summary_Sync] <<<< finished doSync table temperature_record
+05-27 13:21:15.054 I/fitness_16898_17503(16898): [Summary_Sync] >>>> start doSync table vitality_record, reason:Common Update
+05-27 13:21:15.054 I/fitness_31304_26717(31304): [DailyRecordDaoUtils] vo2_max, no data
+05-27 13:21:15.054 I/fitness_31304_26717(31304): [HomeDataRepository] srcDataMap = {}
+05-27 13:21:15.054 I/fitness_16898_17503(16898): [Summary_Sync] vitality_record: sync update count=0
+05-27 13:21:15.054 I/fitness_16898_17503(16898): [Summary_Updater] >>>>> do update VITALITY, timeList size = 0
+05-27 13:21:15.054 I/fitness_16898_17503(16898): [Summary_Updater] <<<<<<<<< do update finished: VITALITY
+05-27 13:21:15.054 I/fitness_16898_17503(16898): [Summary_Sync] delete 0 items from _draft_vitality_record
+05-27 13:21:15.054 I/fitness_31304_26717(31304): [HomeDataRepository] V02_MAX - (DailyVo2MaxReport(time=1779832800, time=2026-05-27 00:00:00, tag='home', maxVo2Max=0, minVo2Max=0, avgVoxMax=0, latestItem=null, vo2MaxList=null))
+05-27 13:21:15.054 I/fitness_16898_17503(16898): [Summary_Sync] <<<< finished doSync table vitality_record
+05-27 13:21:15.054 I/fitness_16898_17503(16898): [Summary_Sync] >>>> start doSync table blood_sugar_record, reason:Common Update
+05-27 13:21:15.055 I/fitness_16898_17503(16898): [Summary_Sync] blood_sugar_record: sync update count=0
+05-27 13:21:15.055 I/fitness_16898_17503(16898): [Summary_Updater] >>>>> do update BLOOD_SUGAR, timeList size = 0
+05-27 13:21:15.055 I/fitness_16898_17503(16898): [Summary_Updater] <<<<<<<<< do update finished: BLOOD_SUGAR
+05-27 13:21:15.055 I/fitness_16898_17503(16898): [Summary_Sync] delete 0 items from _draft_blood_sugar_record
+05-27 13:21:15.055 I/fitness_16898_17503(16898): [Summary_Sync] <<<< finished doSync table blood_sugar_record
+05-27 13:21:15.055 I/fitness_16898_17503(16898): [Summary_Sync] >>>> start doSync table physical_fitness_status, reason:Common Update
+05-27 13:21:15.055 I/fitness_31304_26717(31304): [DailyRecordDaoUtils] getRecordTime: leftDays = 7, rightDays = 0, resultDaySize = 2
+05-27 13:21:15.055 I/fitness_16898_17503(16898): [Summary_Sync] physical_fitness_status: sync update count=0
+05-27 13:21:15.055 I/fitness_16898_17503(16898): [Summary_Updater] >>>>> do update PHYSICAL_STATUS, timeList size = 0
+05-27 13:21:15.055 I/fitness_16898_17503(16898): [Summary_Updater] <<<<<<<<< do update finished: PHYSICAL_STATUS
+05-27 13:21:15.055 I/fitness_16898_17503(16898): [Summary_Sync] delete 0 items from _draft_physical_fitness_status
+05-27 13:21:15.055 I/fitness_16898_17503(16898): [Summary_Sync] <<<< finished doSync table physical_fitness_status
+05-27 13:21:15.055 I/fitness_16898_17503(16898): [Summary_Sync] >>>> start doSync table running_ability_record, reason:Common Update
+05-27 13:21:15.055 I/fitness_16898_17503(16898): [Summary_Sync] running_ability_record: sync update count=0
+05-27 13:21:15.055 I/fitness_16898_17503(16898): [Summary_Updater] >>>>> do update RUNNING_INDICATOR, timeList size = 0
+05-27 13:21:15.055 I/fitness_16898_17503(16898): [Summary_Updater] <<<<<<<<< do update finished: RUNNING_INDICATOR
+05-27 13:21:15.055 I/fitness_16898_17503(16898): [Summary_Sync] delete 0 items from _draft_running_ability_record
+05-27 13:21:15.055 I/fitness_16898_17503(16898): [Summary_Sync] <<<< finished doSync table running_ability_record
+05-27 13:21:15.055 I/fitness_16898_17503(16898): [Summary_Sync] >>>> start doSync table temperature_trend, reason:Common Update
+05-27 13:21:15.055 I/fitness_16898_17503(16898): [Summary_Sync] temperature_trend: sync update count=0
+05-27 13:21:15.055 I/fitness_16898_17503(16898): [Summary_Updater] >>>>> do update TEMPERATURE_TREND, timeList size = 0
+05-27 13:21:15.055 I/fitness_16898_17503(16898): [Summary_Updater] <<<<<<<<< do update finished: TEMPERATURE_TREND
+05-27 13:21:15.055 I/fitness_16898_17503(16898): [Summary_Sync] delete 0 items from _draft_temperature_trend
+05-27 13:21:15.055 I/fitness_31304_26717(31304): [HomeDataRepository] srcDataMap = {weight=[WeightItem(time=1773499824, sid=xiaomiwear_app_manually, weight=100.0)]}
+05-27 13:21:15.055 I/fitness_16898_17503(16898): [Summary_Sync] <<<< finished doSync table temperature_trend
+05-27 13:21:15.055 I/fitness_16898_17503(16898): [Summary_Sync] >>>> start doSync table temperature_characteristic_record, reason:Common Update
+05-27 13:21:15.055 I/fitness_16898_17503(16898): [Summary_Sync] temperature_characteristic_record: sync update count=0
+05-27 13:21:15.055 I/fitness_16898_17503(16898): [Summary_Updater] >>>>> do update TEMPERATURE_CHARACTER, timeList size = 0
+05-27 13:21:15.055 I/fitness_16898_17503(16898): [Summary_Updater] <<<<<<<<< do update finished: TEMPERATURE_CHARACTER
+05-27 13:21:15.055 I/fitness_31304_26717(31304): [HomeDataRepository] WEIGHT - (DailyWeightReport(time=1773499824, time=2026-03-14 15:50:24, tag='home', preDayWeightItem= 'null', weightRecordList=[WeightItem(time=1773499824, sid=xiaomiwear_app_manually, weight=100.0)]))
+05-27 13:21:15.055 I/fitness_16898_17503(16898): [Summary_Sync] delete 0 items from _draft_temperature_characteristic_record
+05-27 13:21:15.055 I/fitness_16898_17503(16898): [Summary_Sync] <<<< finished doSync table temperature_characteristic_record
+05-27 13:21:15.055 E/fitness_16898_17503(16898): [Summary_Sync] fitness DailyView,RedDot,Rainbow sync finished, start upload
+05-27 13:21:15.055 I/fitness_31304_26717(31304): [DailyRecordDaoUtils] getDailyRecord dataType = HEARING_HEALTH, sid = null, startTime = 1779832800, endTime = 1779919200
+05-27 13:21:15.055 I/fitness_31304_26717(31304): [DailyRecordDaoUtils] getDailyRecord dataType = HEARING_HEALTH, size = 0
+05-27 13:21:15.055 I/fitness_31304_26717(31304): [HomeDataRepository] srcDataMap = {}
+05-27 13:21:15.055 I/fitness_31304_26717(31304): [HomeDataRepository] HEARING_HEALTH - (DailyHearingReport(time=1779832800, time=2026-05-27 00:00:00, tag='home', totalDuration=0, highDuration=0, hearingDurationList=null, noiseList=null))
+05-27 13:21:15.055 I/fitness_31304_26717(31304): [DailyRecordDaoUtils] training_load, no data
+05-27 13:21:15.055 I/fitness_31304_26717(31304): [HomeDataRepository] srcDataMap = {}
+05-27 13:21:15.055 I/fitness_31304_26717(31304): [DataBiz] splitDailyTLReport: source data is empty
+05-27 13:21:15.055 I/fitness_31304_26717(31304): [HomeDataRepository] TRAINING_LOAD - (DailyTrainingLoadReport(time=1779832800, sid=null, wtlSum=0, wtlSumOptimalMin=null, wtlSumOptimalMax=null, wtlSumOverreaching=null, currentDayTL=null), dayTLList=null)
+05-27 13:21:15.055 I/fitness_31304_26717(31304): [DailyRecordDaoUtils] single_temperature, no data
+05-27 13:21:15.055 I/fitness_31304_26717(31304): [HomeDataRepository] srcDataMap = {}
+05-27 13:21:15.055 I/fitness_31304_26717(31304): [HomeDataRepository] TEMPERATURE - (DailyTempReport(time=1779832800, tag='home', sid=default, skinTempRecords=null, bodyTempRecords=null, avgSkinTemp=0.0, maxSkinTemp=0.0, minSkinTemp=0.0, avgBodyTemp=0.0, maxBodyTemp=0.0, minBodyTemp=0.0, dailyAllTempDatas=null))
+05-27 13:21:15.056 I/fitness_31304_26717(31304): [DailyRecordDaoUtils] running_ability_index, no data
+05-27 13:21:15.056 I/fitness_31304_26717(31304): [HomeDataRepository] srcDataMap = {}
+05-27 13:21:15.057 I/fitness_31304_8929(31304): [DailyReportDao] queryDailyList:dataType = HR,  begin = 1779832800, end = 1779919200, size = 1
+05-27 13:21:15.057 I/fitness_31304_8929(31304): [DailyReportDao] toReportList: DailyHrReport[time=1779832800, restHr=null, avgHr=69, maxHr=75, minHr=64, latestHrRecord=HrItem(sid=870717940, time=1779880874, hr=75), hrDistribute=DailyHrDistribute(smooth=1, warmUp=0, fatBurn=0, aerobic=0, anaerobic=0, extreme=0)]
+05-27 13:21:15.057 I/fitness_31304_8929(31304): [DailyRecordDaoUtils] abnormal_heart_beat, no data
+05-27 13:21:15.057 I/fitness_31304_19272(31304): [DailyReportDao] queryDailyList:dataType = HR,  begin = 1779660000, end = 1780264800, size = 1
+05-27 13:21:15.057 I/fitness_31304_19274(31304): [DailyReportDao] queryDailyList:dataType = HR,  begin = 1777586400, end = 1780264800, size = 1
+05-27 13:21:15.057 I/fitness_31304_19272(31304): [DailyReportDao] toReportList: DailyHrReport[time=1779832800, restHr=null, avgHr=69, maxHr=75, minHr=64, latestHrRecord=HrItem(sid=870717940, time=1779880874, hr=75), hrDistribute=DailyHrDistribute(smooth=1, warmUp=0, fatBurn=0, aerobic=0, anaerobic=0, extreme=0)]
+05-27 13:21:15.057 I/fitness_31304_19274(31304): [DailyReportDao] toReportList: DailyHrReport[time=1779832800, restHr=null, avgHr=69, maxHr=75, minHr=64, latestHrRecord=HrItem(sid=870717940, time=1779880874, hr=75), hrDistribute=DailyHrDistribute(smooth=1, warmUp=0, fatBurn=0, aerobic=0, anaerobic=0, extreme=0)]
+05-27 13:21:15.057 I/fitness_16898_17503(16898): [FitnessServerSyncMgr] pullAndPushRainbowData
+05-27 13:21:15.057 I/MiHealth:hrm_31304_31304(31304): refreshViewIfNeed:DailyHrReport(time=1779832800, time = 2026-05-27 00:00:00, tag='days', restHr=null, avgHr=69, maxHr=75, minHr=64, latestHrRecord=HrItem(sid=870717940, time=1779880874, hr=75), hrDistribute=DailyHrDistribute(smooth=1, warmUp=0, fatBurn=0, aerobic=0, anaerobic=0, extreme=0), hrRecords=[TimesDataRecordInt(time=1779879600, avgValue=0, maxValue=0, minValue=0, valueArray=[64, 75])], singleHrRecords=null, abnormalHrRecords=null, abnormalHigh=[], abnormalLow=[], abnormalFibRecords=[])
+05-27 13:21:15.057 I/xiaomiLocalData_31304_31304(31304): getChronology().days()  DurationField[days]  instant  1779926400000  getLocalMillis  1779840000000
+05-27 13:21:15.057 I/xiaomiLocalData_31304_31304(31304): newMillis  1779926400000 newMillis2  1779926400000
+05-27 13:21:15.057 I/xiaomiLocalData_31304_31304(31304): toDateTimeAtStartOfDay  1779919200000   getRealOffset  0
+05-27 13:21:15.057 I/fitness_31304_26717(31304): [DailyRecordDaoUtils] grade_prediction, no data
+05-27 13:21:15.057 I/fitness_31304_26717(31304): [DataBiz] splitDailyRunningIndicatorReport: source data is empty
+05-27 13:21:15.057 I/xiaomiLocalData_31304_31304(31304): toDateTimeAtStartOfDay  1779832800000   getRealOffset  0
+05-27 13:21:15.057 I/fitness_31304_26717(31304): [HomeDataRepository] RUNNING_INDICATOR - (DailyRunningIndicatorReport(time=1779832800, tag=home, latestItem=null, itemList=null, gradePredictionItem=null))
+05-27 13:21:15.057 I/xiaomiLocalData_31304_31304(31304): toDateTimeAtStartOfDay  1779832800000   getRealOffset  0
+05-27 13:21:15.058 I/xiaomiLocalData_31304_31304(31304): toDateTimeAtStartOfDay  1779832800000   getRealOffset  0
+05-27 13:21:15.058 I/fitness_31304_26717(31304): [HomeDataRepository] srcDataMap = {vitality=[]}
+05-27 13:21:15.058 I/xiaomiLocalData_31304_31304(31304): toDateTimeAtStartOfDay  1779832800000   getRealOffset  0
+05-27 13:21:15.058 I/fitness_31304_26717(31304): [DataBiz] vitality:no data to sid Default, time = 1779832800
+05-27 13:21:15.058 I/fitness_31304_26717(31304): [HomeDataRepository] VITALITY - (DailyVitalityReport(time=1779832800, sid=Default, latestVitality=null))
+05-27 13:21:15.058 I/xiaomiLocalData_31304_31304(31304): toDateTimeAtStartOfDay  1779832800000   getRealOffset  0
+05-27 13:21:15.058 I/xiaomiLocalData_31304_31304(31304): toDateTimeAtStartOfDay  1779832800000   getRealOffset  0
+05-27 13:21:15.058 I/fitness_16898_19403(16898): [CloudRedDotHelper] pushRedDotUpCloud dataList.size=1
+05-27 13:21:15.058 I/xiaomiLocalData_31304_31304(31304): toDateTimeAtStartOfDay  1779832800000   getRealOffset  0
+05-27 13:21:15.058 I/fitness_31304_26717(31304): [DailyRecordDaoUtils] mc_ecg, no data
+05-27 13:21:15.058 I/xiaomiLocalData_31304_31304(31304): toDateTimeAtStartOfDay  1779832800000   getRealOffset  0
+05-27 13:21:15.058 I/xiaomiLocalData_31304_31304(31304): toDateTimeAtStartOfDay  1779832800000   getRealOffset  0
+05-27 13:21:15.058 I/fitness_31304_26717(31304): [HomeDataRepository] srcDataMap = {}
+05-27 13:21:15.058 I/fitness_31304_26717(31304): [HomeDataRepository] ECG_MEDICAL - (DailyEcgReport(time=1779832800, tag=home))
+05-27 13:21:15.058 I/xiaomiLocalData_31304_31304(31304): toDateTimeAtStartOfDay  1779832800000   getRealOffset  0
+05-27 13:21:15.058 I/xiaomiLocalData_31304_31304(31304): toDateTimeAtStartOfDay  1779832800000   getRealOffset  0
+05-27 13:21:15.058 I/xiaomiLocalData_31304_31304(31304): toDateTimeAtStartOfDay  1779832800000   getRealOffset  0
+05-27 13:21:15.058 I/fitness_31304_26717(31304): [DailyRecordDaoUtils] blood_sugar, no data
+05-27 13:21:15.058 I/xiaomiLocalData_31304_31304(31304): toDateTimeAtStartOfDay  1779832800000   getRealOffset  0
+05-27 13:21:15.058 I/xiaomiLocalData_31304_31304(31304): toDateTimeAtStartOfDay  1779832800000   getRealOffset  0
+05-27 13:21:15.058 I/xiaomiLocalData_31304_31304(31304): toDateTimeAtStartOfDay  1779832800000   getRealOffset  0
+05-27 13:21:15.058 I/fitness_31304_26717(31304): [DailyRecordDaoUtils] single_blood_sugar, no data
+05-27 13:21:15.058 I/fitness_31304_26717(31304): [HomeDataRepository] srcDataMap = {}
+05-27 13:21:15.058 I/fitness_31304_26717(31304): [HomeDataRepository] BLOOD_SUGAR - (DailyBloodSugarReport{time=1779832800, latestItem(null), latestFingerItem(null), bloodSugarSize(null), fingerBSSize(null), statisticBloodSugar(null), bloodSugarDistribute(null), statisticFingerBS(null)})
+05-27 13:21:15.058 I/Account_16898_19391(16898): First request
+05-27 13:21:15.058 I/XiaomiFit_16898_19391(16898): Remote is connected, then get token
+05-27 13:21:15.058 I/Account_16898_19391(16898): getToken: mAccessTokens[miothealth] is MiAccessToken()
+05-27 13:21:15.058 I/fitness_31304_26717(31304): [DailyRecordDaoUtils] physical_fitness_status, no data
+05-27 13:21:15.058 I/xiaomiLocalData_31304_31304(31304): toDateTimeAtStartOfDay  1779832800000   getRealOffset  0
+05-27 13:21:15.058 I/fitness_31304_26717(31304): [HomeDataRepository] srcDataMap = {}
+05-27 13:21:15.058 I/fitness_31304_26717(31304): [DataBiz] splitDailyVitalityReport: source data is empty
+05-27 13:21:15.058 I/fitness_31304_26717(31304): [HomeDataRepository] PHYSICAL_STATUS - (DailyPhysicalStatusReport(time=1779832800, sid=null, latestPhysicalStatusItem=null))
+05-27 13:21:15.058 I/fitness_31304_26717(31304): [HomeDataRepository] triggerHomeDataRequest
+05-27 13:21:15.058 I/xiaomiLocalData_31304_31304(31304): toDateTimeAtStartOfDay  1779832800000   getRealOffset  0
+05-27 13:21:15.058 I/HomeDataRepository_31304_26717(31304): triggerHomeDataRequest: startZero=1779832800, endZero=1779919200, viewTag=home
+05-27 13:21:15.058 I/Account_16898_19391(16898): refreshToken is false, re-fetch cookie for /app/v1/data/up_aggregated_fitness_data
+05-27 13:21:15.058 I/xiaomiLocalData_31304_31304(31304): toDateTimeAtStartOfDay  1779832800000   getRealOffset  0
+05-27 13:21:15.058 I/xiaomiLocalData_31304_31304(31304): toDateTimeAtStartOfDay  1779832800000   getRealOffset  0
+05-27 13:21:15.058 I/xiaomiLocalData_31304_31304(31304): toDateTimeAtStartOfDay  1779832800000   getRealOffset  0
+05-27 13:21:15.058 I/xiaomiLocalData_31304_31304(31304): toDateTimeAtStartOfDay  1779832800000   getRealOffset  0
+05-27 13:21:15.058 I/fitness_31304_26717(31304): [DailyRecordDaoUtils] getDailyRecord dataType = SLEEP, sid = null, startTime = 1779832800, endTime = 1779919200
+05-27 13:21:15.059 I/xiaomiLocalData_31304_31304(31304): toDateTimeAtStartOfDay  1779832800000   getRealOffset  0
+05-27 13:21:15.059 I/fitness_31304_26717(31304): [DailyRecordDaoUtils] getDailyRecord dataType = SLEEP, size = 0
+05-27 13:21:15.059 I/fitness_31304_26717(31304): [HomeDataRepository] srcDataMap = {}
+05-27 13:21:15.059 I/xiaomiLocalData_31304_31304(31304): toDateTimeAtStartOfDay  1779832800000   getRealOffset  0
+05-27 13:21:15.059 I/SleepBiz_31304_26717(31304): splitDailyReport viewTag home 1779832800
+05-27 13:21:15.059 I/xiaomiLocalData_31304_31304(31304): toDateTimeAtStartOfDay  1779832800000   getRealOffset  0
+05-27 13:21:15.059 I/baronqi_16898_19391(16898): intercept() called with: secret SecretData(encryptResponse=true, pathPrefix=, filterSignatureKeys=[data], sid=, loginPolicy=2)
+05-27 13:21:15.059 I/XiaomiFit_16898_19391(16898): Remote is connected, then get token
+05-27 13:21:15.059 I/fitness_31304_26717(31304): [HomeDataRepository] SLEEP - (AllDaySleepReport{time= 1779832800, totalDuration= 0, avgDuration= 0, deepDuration= 0, lightDuration= 0, remDuration= null, awakeDuration= null, avgHr= null, avgSpo2= null, stage = 0, longSleepCommentCode = 0, commentCode = 0, score = 0, scoreOutperformedPercent = null, timestamp = 2026-05-27-00-00-00，segmentList.size = null, dayReportList.size =null})
+05-27 13:21:15.059 I/Account_16898_19391(16898): getToken: mAccessTokens[miothealth] is MiAccessToken()
+05-27 13:21:15.059 I/baronqi_16898_19391(16898): intercept() called with: nonce eu3V4zXn1gsBxKWp, POST
+05-27 13:21:15.059 I/fitness_31304_26717(31304): [DailyRecordDaoUtils] getDailyRecord dataType = HR, sid = null, startTime = 1779832800, endTime = 1779919200
+05-27 13:21:15.059 I/fitness_31304_26717(31304): [DailyRecordDaoUtils] getDailyRecord dataType = HR, size = 2
+05-27 13:21:15.059 I/HealthConnectDataSyncedReceiver_16898_16898(16898): data change event!!:fitness.action.SUMMARY_SYNCED
+05-27 13:21:15.059 I/fitness_31304_26717(31304): [HomeDataRepository] srcDataMap = {single_heart_rate=[HrItem(sid=870717940, time=1779880874, hr=75)], heart_rate=[HrItem(sid=870717940, time=1779880140, hr=64)], resting_heart_rate=[]}
+05-27 13:21:15.059 I/fitness_16898_16898(16898): [VitaliyDataSender] Vitaliy Data BroadcastReceiver
+05-27 13:21:15.059 I/HealthConnectSyncUtils_16898_15863(16898): lack step record write permission !!
+05-27 13:21:15.059 I/fitness_31304_26717(31304): [HomeDataRepository] HR - (DailyHrReport(time=1779832800, time = 2026-05-27 00:00:00, tag='home', restHr=null, avgHr=69, maxHr=75, minHr=64, latestHrRecord=HrItem(sid=870717940, time=1779880874, hr=75), hrDistribute=null, hrRecords=[TimesDataRecordInt(time=1779879600, avgValue=0, maxValue=0, minValue=0, valueArray=[64, 75])], singleHrRecords=[HrItem(sid=870717940, time=1779880874, hr=75)], abnormalHrRecords=null, abnormalHigh=[], abnormalLow=[], abnormalFibRecords=[]))
+05-27 13:21:15.059 I/HealthConnectSyncUtils_16898_15863(16898): lack heart record write permission !!
+05-27 13:21:15.059 I/HealthConnectSyncUtils_16898_15863(16898): lack heart record write permission !!
+05-27 13:21:15.059 I/xiaomiLocalData_16898_16898(16898): toDateTimeAtStartOfDay  1779832800000   getRealOffset  0
+05-27 13:21:15.059 I/HealthConnectSyncUtils_16898_15863(16898): lack sleep record write permission !!
+05-27 13:21:15.059 I/HealthConnectSyncUtils_16898_15863(16898): lack heart record write permission !!
+05-27 13:21:15.059 I/fitness_16898_16898(16898): [RainbowRepository] getAllDailyReport:timeInSecond = 1779832800,widthDetail = true
+05-27 13:21:15.059 I/HealthConnectSyncUtils_16898_15863(16898): sync daily record result:true
+05-27 13:21:15.059 I/xiaomiLocalData_31304_31304(31304): toDateTimeAtStartOfDay  1779832800000   getRealOffset  0
+05-27 13:21:15.059 I/HealthConnectSyncUtils_16898_15863(16898): lack sport report write permission !!
+05-27 13:21:15.059 I/fitness_31304_26717(31304): [HomeDataRepository] srcDataMap = {steps=[]}
+05-27 13:21:15.059 I/xiaomiLocalData_31304_31304(31304): toDateTimeAtStartOfDay  1779832800000   getRealOffset  0
+05-27 13:21:15.059 I/fitness_31304_26717(31304): [HomeDataRepository] STEP - (DailyStepReport(time=1779832800, time = 2026-05-27 00:00:00, tag='home', steps=0, distance=0, calories=0, minStartTime=null, maxEndTime=null, avgStep=0, avgDis=0, active=null, stepRecords=[]))
+05-27 13:21:15.059 I/xiaomiLocalData_31304_31304(31304): toDateTimeAtStartOfDay  1779832800000   getRealOffset  0
+05-27 13:21:15.059 I/xiaomiLocalData_31304_31304(31304): toDateTimeAtStartOfDay  1779832800000   getRealOffset  0
+05-27 13:21:15.059 I/xiaomiLocalData_31304_31304(31304): toDateTimeAtStartOfDay  1779832800000   getRealOffset  0
+05-27 13:21:15.059 I/xiaomiLocalData_31304_31304(31304): toDateTimeAtStartOfDay  1779832800000   getRealOffset  0
+05-27 13:21:15.059 I/xiaomiLocalData_31304_31304(31304): toDateTimeAtStartOfDay  1779832800000   getRealOffset  0
+05-27 13:21:15.059 I/fitness_31304_26717(31304): [HomeDataRepository] srcDataMap = {calories=[CaloriesItem(time=1779880440, calories = 1.0, sid=870717940), CaloriesItem(time=1779880200, calories = 1.0, sid=870717940), CaloriesItem(time=1779879900, calories = 1.0, sid=870717940), CaloriesItem(time=1779879840, calories = 1.0, sid=870717940)]}
+05-27 13:21:15.059 I/xiaomiLocalData_31304_31304(31304): toDateTimeAtStartOfDay  1779832800000   getRealOffset  0
+05-27 13:21:15.059 I/xiaomiLocalData_31304_31304(31304): toDateTimeAtStartOfDay  1779832800000   getRealOffset  0
+05-27 13:21:15.059 I/fitness_31304_26717(31304): [HomeDataRepository] CALORIE - (DailyCalorieReport(time=1779832800, time=2026-05-27 00:00:00, tag='home', calories=4, calRecords=[CalorieRecord(time=1779879600, calories=4)], minStartTime=1779879840, maxEndTime=1779880440))
+05-27 13:21:15.059 I/xiaomiLocalData_31304_31304(31304): toDateTimeAtStartOfDay  1779832800000   getRealOffset  0
+05-27 13:21:15.059 I/xiaomiLocalData_31304_31304(31304): toDateTimeAtStartOfDay  1779832800000   getRealOffset  0
