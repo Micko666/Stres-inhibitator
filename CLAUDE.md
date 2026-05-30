@@ -151,15 +151,38 @@ Claude Code  ←stdio→  Node.js (build/index.js)  ←WebSocket:8090→  Unity 
 - Unity mora biti otvoren i MCP Server Window mora biti **Online** da bi konekcija radila
 - Svaka Unity kompilacija/domain reload privremeno prekida WebSocket — sačekati da završi
 
-### Konfiguracija
-| Fajl | Ko ga koristi | Putanja |
-|------|--------------|---------|
-| Root `.mcp.json` | **Claude Code** (otvoren iz root foldera) | `VR_StressTraining/Library/PackageCache/com.gamelovers.mcp-unity@aade29c7dd84/Server~/build/index.js` |
-| `VR_StressTraining/.mcp.json` | Unity auto-generisan (ne koristi Claude Code iz root-a) | `Library/PackageCache/com.gamelovers.mcp-unity@aade29c7dd84/Server~/build/index.js` |
+### Konfiguracija — root `.mcp.json`
+```json
+{
+  "mcpServers": {
+    "mcp-unity": {
+      "command": "node",
+      "args": ["Library/PackageCache/com.gamelovers.mcp-unity@aade29c7dd84/Server~/build/index.js"],
+      "cwd": "VR_StressTraining",
+      "env": { "LOGGING_FILE": "true" }
+    }
+  }
+}
+```
 
-> **Važno:** Claude Code uvijek koristi `.mcp.json` iz foldera iz kojeg je otvoren.
+**`cwd: "VR_StressTraining"` je kritičan!**
+Node.js server čita `./ProjectSettings/McpUnitySettings.json` relativno od `process.cwd()`.
+Bez `cwd`, kad je Claude Code otvoren iz root-a, node ne može naći fajl →
+`RequestTimeoutSeconds` pada na hardcoded default od **10 sekundi** (uvijek) →
+svaki request timeoutuje.
+
+Sa `cwd: "VR_StressTraining"`:
+- `process.cwd()` = `VR_StressTraining/`
+- `ProjectSettings/McpUnitySettings.json` se nađe ✓
+- `RequestTimeoutSeconds: 60` se pročita ✓
+
+| Fajl | Ko ga koristi | Napomena |
+|------|--------------|----------|
+| Root `.mcp.json` | **Claude Code** (iz root foldera) | `cwd: VR_StressTraining` mora biti postavljen |
+| `VR_StressTraining/.mcp.json` | Unity auto-generisan | Ignoriše ga Claude Code iz root-a |
+
+> Claude Code uvijek koristi `.mcp.json` iz foldera iz kojeg je otvoren.
 > Uvijek otvarati Claude Code iz **root foldera repozitorijuma**, ne iz `VR_StressTraining/`.
-> Oba fajla su ispravni i ne konfliktuju — samo imaju drugačije relativne putanje.
 
 ### Ključne postavke — `ProjectSettings/McpUnitySettings.json`
 ```json

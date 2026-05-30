@@ -3,8 +3,9 @@
     "mcp-unity": {
       "command": "node",
       "args": [
-        "VR_StressTraining/Library/PackageCache/com.gamelovers.mcp-unity@aade29c7dd84/Server~/build/index.js"
+        "Library/PackageCache/com.gamelovers.mcp-unity@aade29c7dd84/Server~/build/index.js"
       ],
+      "cwd": "VR_StressTraining",
       "env": {
         "LOGGING_FILE": "true"
       }

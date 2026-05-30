@@ -77,13 +77,40 @@ Write-Host "[5] Root .mcp.json"
 $mcpJson = "$ROOT\.mcp.json"
 if (Test-Path $mcpJson) {
     $m = Get-Content $mcpJson | ConvertFrom-Json
+    $serverCwd  = $m.mcpServers.'mcp-unity'.cwd
     $serverPath = $m.mcpServers.'mcp-unity'.args[0]
+
+    # cwd check -- CRITICAL: node reads ProjectSettings/McpUnitySettings.json from cwd
+    if ($serverCwd) {
+        $resolvedCwd = Join-Path $ROOT $serverCwd
+        Write-Host "    cwd            : $serverCwd  -> $resolvedCwd"
+        if (Test-Path $resolvedCwd) {
+            Write-Host "    OK  cwd exists" -ForegroundColor Green
+            # Verify settings can be found from cwd
+            $settingsFromCwd = Join-Path $resolvedCwd "ProjectSettings\McpUnitySettings.json"
+            if (Test-Path $settingsFromCwd) {
+                Write-Host "    OK  McpUnitySettings.json reachable from cwd" -ForegroundColor Green
+            } else {
+                Write-Host "    BROKEN  McpUnitySettings.json NOT reachable from cwd: $settingsFromCwd" -ForegroundColor Red
+                Write-Host "    node will use default 10s timeout!" -ForegroundColor Red
+            }
+        } else {
+            Write-Host "    BROKEN  cwd does not exist: $resolvedCwd" -ForegroundColor Red
+        }
+    } else {
+        Write-Host "    MISSING  cwd not set in .mcp.json" -ForegroundColor Red
+        Write-Host "    node cannot find McpUnitySettings.json -> always 10s timeout!" -ForegroundColor Red
+        Write-Host "    Fix: add ""cwd"": ""VR_StressTraining"" to .mcp.json" -ForegroundColor Yellow
+    }
+
     Write-Host "    Node args path : $serverPath"
-    $resolved = Join-Path $ROOT $serverPath
+    # Resolve args relative to cwd (not ROOT)
+    $cwdForArgs = if ($serverCwd) { Join-Path $ROOT $serverCwd } else { $ROOT }
+    $resolved = Join-Path $cwdForArgs $serverPath
     if (Test-Path $resolved) {
         Write-Host "    OK  Resolved path exists" -ForegroundColor Green
     } else {
-        Write-Host "    BROKEN  Resolved path does not exist: $resolved" -ForegroundColor Red
+        Write-Host "    BROKEN  index.js not found at: $resolved" -ForegroundColor Red
     }
 } else {
     Write-Host "    NOT FOUND  $mcpJson" -ForegroundColor Red
