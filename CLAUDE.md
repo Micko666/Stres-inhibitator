@@ -142,22 +142,126 @@ com.gamelovers.mcp-unity         (git)
 
 ## MCP Unity — Claude Code integracija
 
+### Arhitektura (two-tier)
+```
+Claude Code  ←stdio→  Node.js (build/index.js)  ←WebSocket:8090→  Unity Editor
+```
+- Node.js process se pokreće automatski kada Claude Code učita `.mcp.json`
+- Node.js se konektuje na Unity-jev WebSocket server na `ws://localhost:8090/McpUnity`
+- Unity mora biti otvoren i MCP Server Window mora biti **Online** da bi konekcija radila
+- Svaka Unity kompilacija/domain reload privremeno prekida WebSocket — sačekati da završi
+
 ### Konfiguracija
-- Root `.mcp.json` — relativna putanja: `VR_StressTraining/Library/PackageCache/com.gamelovers.mcp-unity@aade29c7dd84/Server~/build/index.js`
-- `VR_StressTraining/.mcp.json` — Unity auto-generisan, relativna putanja od project foldera
+| Fajl | Ko ga koristi | Putanja |
+|------|--------------|---------|
+| Root `.mcp.json` | **Claude Code** (otvoren iz root foldera) | `VR_StressTraining/Library/PackageCache/com.gamelovers.mcp-unity@aade29c7dd84/Server~/build/index.js` |
+| `VR_StressTraining/.mcp.json` | Unity auto-generisan (ne koristi Claude Code iz root-a) | `Library/PackageCache/com.gamelovers.mcp-unity@aade29c7dd84/Server~/build/index.js` |
 
-### Pokretanje
-1. Otvori Unity Editor sa projektom
-2. Tools → MCP Unity → Server Window → Status: **Server Online**
-3. Otvori Claude Code iz root foldera
-4. MCP alati se automatski pojavljuju
+> **Važno:** Claude Code uvijek koristi `.mcp.json` iz foldera iz kojeg je otvoren.
+> Uvijek otvarati Claude Code iz **root foldera repozitorijuma**, ne iz `VR_StressTraining/`.
+> Oba fajla su ispravni i ne konfliktuju — samo imaju drugačije relativne putanje.
 
-### Rebuild servera (samo ako treba)
+### Ključne postavke — `ProjectSettings/McpUnitySettings.json`
+```json
+{
+  "Port": 8090,
+  "RequestTimeoutSeconds": 60,
+  "AutoStartServer": true,
+  "EnableInfoLogs": true
+}
+```
+> `RequestTimeoutSeconds` mora biti **60**, ne 10. Sa 10s Unity može timeoutovati
+> tokom scene importa ili kada Editor radi background task.
+>
+> **VAŽNO:** Ako je Unity otvoren dok se fajl mijenja, Unity može ga resetovati na 10.
+> Pouzdan način da se postavi na 60: **Tools → MCP Unity → Server Window →
+> polje "Request Timeout (seconds)"** → ukucati 60 → Enter. Unity tada sam sačuva vrijednost.
+
+### Normalno pokretanje
+1. Otvori Unity Editor sa `VR_StressTraining/` projektom
+2. Sačekaj da kompajliranje završi (Console bez grešaka)
+3. **Tools → MCP Unity → Server Window** → Status: **Server Online**
+4. **Ne klikati "Start" ponovo ako je već Online**
+5. **Request Timeout = 60** (provjeriti u Server Window)
+6. Otvori Claude Code iz root foldera repozitorijuma
+7. Prihvati MCP server prompt
+8. MCP alati se automatski pojavljuju
+
+### Rebuild Node servera (samo ako je potrebno)
 ```bash
 cd "VR_StressTraining/Library/PackageCache/com.gamelovers.mcp-unity@aade29c7dd84/Server~"
 npm install
 npm run build
 ```
+Rebuild je potreban samo ako je Library reimportovana ili ako `build/index.js` ne postoji.
+
+---
+
+## MCP Unity — Troubleshooting
+
+### Dijagnoza: `netstat -ano | findstr :8090`
+| Rezultat | Značenje | Akcija |
+|----------|----------|--------|
+| `Unity.exe LISTENING` + Server Window = Online | ✅ Normalno | Ništa |
+| `Unity.exe LISTENING` + Server Window = Offline | Unity drži port, server nije startovao | Restart Unity |
+| `node.exe LISTENING` | Stari Node process živi | Zatvoriti Claude Code, ubiti node.exe |
+| Ništa | Port slobodan, server nije pokrenut | Otvoriti Unity, pokrenuti MCP Server Window |
+
+### Uzroci timeouta `get_scene_info`
+1. **`RequestTimeoutSeconds: 10`** — prekratko. Fix: postaviti na `60` u McpUnitySettings.json ← **najčešći uzrok**
+2. **Unity kompajlira** — domain reload prekida WebSocket. Sačekati da završi, pa pozvati ponovo
+3. **Unity u Play Mode-u** — MCP radi u Play Mode-u, ali neke operacije su ograničene
+4. **Modal dialog otvoren** — Unity blokirano dijalogom (npr. "Import settings changed"). Zatvoriti dialog
+5. **Stari Node process** — zatvori Claude Code, sačekaj 5s, ponovo otvori
+
+### Procedura resetovanja ako ništa ne pomaže
+```
+1. Zatvori Claude Code
+2. Zatvori Unity
+3. netstat -ano | findstr :8090    ← provjeri da nema zaostalih procesa
+4. Ako node.exe ili Unity.exe drži port → ubiti u Task Manager-u
+5. Otvoriti Unity, sačekati import/compile
+6. Tools → MCP Unity → Server Window → provjeriti Server Online
+7. Provjeriti Request Timeout = 60
+8. Otvoriti Claude Code iz root foldera
+9. Testirati: pozvati get_scene_info
+```
+
+### Safe test procedura (korak po korak)
+```
+1. Unity otvoren, projekt učitan
+2. NIJE u Play Mode-u
+3. Console je miran (bez compile errors ili ongoing import)
+4. Tools → MCP Unity → Server Window → Status: Server Online
+5. Request Timeout = 60  (promijeniti ako piše 10)
+6. Otvoriti Claude Code iz: C:\Users\djuro\Desktop\Stres-inhibitator-main\
+7. Prihvatiti MCP server
+8. Poslati: "Test MCP Unity connection. Do not modify anything. Call get_scene_info only."
+9. Ako timeoutuje → pogledati Unity Console za MCP greške
+10. Ako i dalje timeoutuje → proći kroz "Procedura resetovanja" iznad
+```
+
+### MCP Debug logging (kad treba dublje dijagnosticirati)
+U `ProjectSettings/McpUnitySettings.json` postaviti `"EnableInfoLogs": true` (već je true).
+Na Node strani, dodati u root `.mcp.json` pod `"env"`:
+```json
+"env": { "LOGGING_FILE": "true" }
+```
+Log se kreira kao `log.txt` u root folderu. `.gitignore` već ignoriše `log.txt`.
+
+---
+
+## Meta XR Required Fix (dokumentacija — ne rješavati sada)
+
+Unity može stalno pokazivati "1 Required Fix" u Meta XR Project Setup Tool.
+- Klik na "Fix" mijenja neki `ProjectSettings` fajl
+- Ako se Fix vraća, fajl se možda ne čuva ili se override-uje
+- **Rješenje (kad dođe red):**
+  1. Kliknuti Fix
+  2. `File → Save Project`
+  3. `git status` → identificirati koji fajl se promijenio
+  4. Commitovati promjenu
+- Ne diraj sada — ne utiče na funkcionisanje projekta
 
 ---
 
