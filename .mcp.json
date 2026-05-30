@@ -1,11 +1,11 @@
 {
   "mcpServers": {
     "mcp-unity": {
-      "command": "node",
+      "command": "cmd.exe",
       "args": [
-        "Library/PackageCache/com.gamelovers.mcp-unity@aade29c7dd84/Server~/build/index.js"
+        "/c",
+        "tools\\run-mcp-unity.bat"
       ],
-      "cwd": "VR_StressTraining",
       "env": {
         "LOGGING_FILE": "true"
       }

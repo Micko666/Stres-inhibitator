@@ -71,46 +71,57 @@ if (Test-Path $settingsFile) {
     Write-Host "    NOT FOUND  $settingsFile" -ForegroundColor Red
 }
 
-# 5. Root .mcp.json
+# 5. Root .mcp.json + wrapper
 Write-Host ""
-Write-Host "[5] Root .mcp.json"
+Write-Host "[5] Root .mcp.json + Windows wrapper"
 $mcpJson = "$ROOT\.mcp.json"
+$wrapperBat = "$ROOT\tools\run-mcp-unity.bat"
+
+# 5a. Wrapper bat file
+if (Test-Path $wrapperBat) {
+    Write-Host "    OK  tools\run-mcp-unity.bat exists" -ForegroundColor Green
+    # Check bat cds into VR_StressTraining
+    $batContent = Get-Content $wrapperBat -Raw
+    if ($batContent -match "VR_StressTraining") {
+        Write-Host "    OK  wrapper cds into VR_StressTraining" -ForegroundColor Green
+    } else {
+        Write-Host "    WARN  wrapper does not reference VR_StressTraining" -ForegroundColor Yellow
+    }
+    # Check node path in bat
+    $nodeInBat = "Library\PackageCache\com.gamelovers.mcp-unity@aade29c7dd84\Server~\build\index.js"
+    $resolvedNodeInBat = Join-Path "$ROOT\VR_StressTraining" $nodeInBat
+    if (Test-Path $resolvedNodeInBat) {
+        Write-Host "    OK  node path in wrapper resolves correctly" -ForegroundColor Green
+    } else {
+        Write-Host "    BROKEN  node path in wrapper does not exist: $resolvedNodeInBat" -ForegroundColor Red
+    }
+    # Check settings reachable from wrapper cwd
+    $settingsFromWrapper = "$ROOT\VR_StressTraining\ProjectSettings\McpUnitySettings.json"
+    if (Test-Path $settingsFromWrapper) {
+        $s2 = Get-Content $settingsFromWrapper | ConvertFrom-Json
+        Write-Host "    OK  McpUnitySettings.json reachable (timeout=$($s2.RequestTimeoutSeconds)s)" -ForegroundColor Green
+    } else {
+        Write-Host "    BROKEN  McpUnitySettings.json not found from wrapper cwd" -ForegroundColor Red
+    }
+} else {
+    Write-Host "    MISSING  tools\run-mcp-unity.bat not found" -ForegroundColor Red
+    Write-Host "    Fix: create tools\run-mcp-unity.bat (see CLAUDE.md)" -ForegroundColor Yellow
+}
+
+# 5b. .mcp.json command check
 if (Test-Path $mcpJson) {
     $m = Get-Content $mcpJson | ConvertFrom-Json
-    $serverCwd  = $m.mcpServers.'mcp-unity'.cwd
-    $serverPath = $m.mcpServers.'mcp-unity'.args[0]
-
-    # cwd check -- CRITICAL: node reads ProjectSettings/McpUnitySettings.json from cwd
-    if ($serverCwd) {
-        $resolvedCwd = Join-Path $ROOT $serverCwd
-        Write-Host "    cwd            : $serverCwd  -> $resolvedCwd"
-        if (Test-Path $resolvedCwd) {
-            Write-Host "    OK  cwd exists" -ForegroundColor Green
-            # Verify settings can be found from cwd
-            $settingsFromCwd = Join-Path $resolvedCwd "ProjectSettings\McpUnitySettings.json"
-            if (Test-Path $settingsFromCwd) {
-                Write-Host "    OK  McpUnitySettings.json reachable from cwd" -ForegroundColor Green
-            } else {
-                Write-Host "    BROKEN  McpUnitySettings.json NOT reachable from cwd: $settingsFromCwd" -ForegroundColor Red
-                Write-Host "    node will use default 10s timeout!" -ForegroundColor Red
-            }
-        } else {
-            Write-Host "    BROKEN  cwd does not exist: $resolvedCwd" -ForegroundColor Red
-        }
+    $cmd = $m.mcpServers.'mcp-unity'.command
+    $arg0 = $m.mcpServers.'mcp-unity'.args[0]
+    Write-Host "    command        : $cmd"
+    Write-Host "    args[0]        : $arg0"
+    if ($cmd -eq "cmd.exe" -and $arg0 -eq "/c") {
+        Write-Host "    OK  .mcp.json uses cmd.exe wrapper pattern" -ForegroundColor Green
+    } elseif ($m.mcpServers.'mcp-unity'.cwd) {
+        Write-Host "    WARN  .mcp.json uses direct cwd -- may not work in Claude Code" -ForegroundColor Yellow
+        Write-Host "    Use cmd.exe wrapper instead" -ForegroundColor Yellow
     } else {
-        Write-Host "    MISSING  cwd not set in .mcp.json" -ForegroundColor Red
-        Write-Host "    node cannot find McpUnitySettings.json -> always 10s timeout!" -ForegroundColor Red
-        Write-Host "    Fix: add ""cwd"": ""VR_StressTraining"" to .mcp.json" -ForegroundColor Yellow
-    }
-
-    Write-Host "    Node args path : $serverPath"
-    # Resolve args relative to cwd (not ROOT)
-    $cwdForArgs = if ($serverCwd) { Join-Path $ROOT $serverCwd } else { $ROOT }
-    $resolved = Join-Path $cwdForArgs $serverPath
-    if (Test-Path $resolved) {
-        Write-Host "    OK  Resolved path exists" -ForegroundColor Green
-    } else {
-        Write-Host "    BROKEN  index.js not found at: $resolved" -ForegroundColor Red
+        Write-Host "    WARN  unexpected command pattern" -ForegroundColor Yellow
     }
 } else {
     Write-Host "    NOT FOUND  $mcpJson" -ForegroundColor Red

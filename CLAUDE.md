@@ -151,38 +151,52 @@ Claude Code  ←stdio→  Node.js (build/index.js)  ←WebSocket:8090→  Unity 
 - Unity mora biti otvoren i MCP Server Window mora biti **Online** da bi konekcija radila
 - Svaka Unity kompilacija/domain reload privremeno prekida WebSocket — sačekati da završi
 
-### Konfiguracija — root `.mcp.json`
+### Konfiguracija — root `.mcp.json` (Windows wrapper pristup)
 ```json
 {
   "mcpServers": {
     "mcp-unity": {
-      "command": "node",
-      "args": ["Library/PackageCache/com.gamelovers.mcp-unity@aade29c7dd84/Server~/build/index.js"],
-      "cwd": "VR_StressTraining",
+      "command": "cmd.exe",
+      "args": ["/c", "tools\\run-mcp-unity.bat"],
       "env": { "LOGGING_FILE": "true" }
     }
   }
 }
 ```
 
-**`cwd: "VR_StressTraining"` je kritičan!**
-Node.js server čita `./ProjectSettings/McpUnitySettings.json` relativno od `process.cwd()`.
-Bez `cwd`, kad je Claude Code otvoren iz root-a, node ne može naći fajl →
-`RequestTimeoutSeconds` pada na hardcoded default od **10 sekundi** (uvijek) →
-svaki request timeoutuje.
+### Windows wrapper — `tools/run-mcp-unity.bat`
+```bat
+@echo off
+cd /d "%~dp0..\VR_StressTraining"
+node "Library\PackageCache\com.gamelovers.mcp-unity@aade29c7dd84\Server~\build\index.js"
+```
 
-Sa `cwd: "VR_StressTraining"`:
+**Zašto wrapper, a ne direktan `"cwd"` u `.mcp.json`?**
+Claude Code ne primjenjuje `"cwd"` iz project `.mcp.json` pouzdano na Windowsu.
+Wrapper rješava problem: `cd /d "%~dp0..\VR_StressTraining"` osigurava da node
+startuje sa ispravnim `process.cwd()`.
+
+**Zašto je `process.cwd()` = `VR_StressTraining/` kritičan?**
+`com.gamelovers.mcp-unity` čita timeout ovako (mcpUnity.ts, ln 10):
+```typescript
+path.resolve(process.cwd(), './ProjectSettings/McpUnitySettings.json')
+```
+Bez ispravnog cwd, fajl nije nađen → timeout pada na **hardcoded 10s default** →
+svaki request timeoutuje, Unity ne stigne da odgovori.
+
+Sa wrapperom:
 - `process.cwd()` = `VR_StressTraining/`
-- `ProjectSettings/McpUnitySettings.json` se nađe ✓
-- `RequestTimeoutSeconds: 60` se pročita ✓
+- `ProjectSettings/McpUnitySettings.json` nađen ✓
+- `RequestTimeoutSeconds: 60` pročitan ✓
 
 | Fajl | Ko ga koristi | Napomena |
 |------|--------------|----------|
-| Root `.mcp.json` | **Claude Code** (iz root foldera) | `cwd: VR_StressTraining` mora biti postavljen |
-| `VR_StressTraining/.mcp.json` | Unity auto-generisan | Ignoriše ga Claude Code iz root-a |
+| Root `.mcp.json` | **Claude Code** (iz root foldera) | koristi `cmd.exe` + wrapper |
+| `tools/run-mcp-unity.bat` | pozvan iz `.mcp.json` | cd u VR_StressTraining, startuje node |
+| `VR_StressTraining/.mcp.json` | Unity auto-generisan | ignoriše ga Claude Code iz root-a |
 
-> Claude Code uvijek koristi `.mcp.json` iz foldera iz kojeg je otvoren.
-> Uvijek otvarati Claude Code iz **root foldera repozitorijuma**, ne iz `VR_StressTraining/`.
+> Claude Code **uvijek** otvarati iz root foldera repozitorijuma (`Stres-inhibitator-main/`).
+> Wrapper automatski ulazi u `VR_StressTraining/` — nema potrebe za promjenom kako se otvara CC.
 
 ### Ključne postavke — `ProjectSettings/McpUnitySettings.json`
 ```json
