@@ -78,34 +78,73 @@ $mcpJson = "$ROOT\.mcp.json"
 $wrapperBat = "$ROOT\tools\run-mcp-unity.bat"
 
 # 5a. Wrapper bat file
+$mcpUnityJs = "$ROOT\VR_StressTraining\Library\PackageCache\com.gamelovers.mcp-unity@aade29c7dd84\Server~\build\unity\mcpUnity.js"
 if (Test-Path $wrapperBat) {
     Write-Host "    OK  tools\run-mcp-unity.bat exists" -ForegroundColor Green
-    # Check bat cds into VR_StressTraining
     $batContent = Get-Content $wrapperBat -Raw
+
+    # cwd check
     if ($batContent -match "VR_StressTraining") {
         Write-Host "    OK  wrapper cds into VR_StressTraining" -ForegroundColor Green
     } else {
-        Write-Host "    WARN  wrapper does not reference VR_StressTraining" -ForegroundColor Yellow
+        Write-Host "    WARN  wrapper does not cd into VR_StressTraining" -ForegroundColor Yellow
     }
-    # Check node path in bat
+
+    # Timeout env var forced in bat
+    if ($batContent -match "MCPUNITY_REQUEST_TIMEOUT_SECONDS=60") {
+        Write-Host "    OK  wrapper forces MCPUNITY_REQUEST_TIMEOUT_SECONDS=60" -ForegroundColor Green
+    } else {
+        Write-Host "    WARN  wrapper does not set MCPUNITY_REQUEST_TIMEOUT_SECONDS=60" -ForegroundColor Yellow
+        Write-Host "    Add: set MCPUNITY_REQUEST_TIMEOUT_SECONDS=60" -ForegroundColor Yellow
+    }
+
+    # node path
     $nodeInBat = "Library\PackageCache\com.gamelovers.mcp-unity@aade29c7dd84\Server~\build\index.js"
     $resolvedNodeInBat = Join-Path "$ROOT\VR_StressTraining" $nodeInBat
     if (Test-Path $resolvedNodeInBat) {
         Write-Host "    OK  node path in wrapper resolves correctly" -ForegroundColor Green
     } else {
-        Write-Host "    BROKEN  node path in wrapper does not exist: $resolvedNodeInBat" -ForegroundColor Red
+        Write-Host "    BROKEN  node path not found: $resolvedNodeInBat" -ForegroundColor Red
     }
-    # Check settings reachable from wrapper cwd
+
+    # Settings reachable from wrapper cwd
     $settingsFromWrapper = "$ROOT\VR_StressTraining\ProjectSettings\McpUnitySettings.json"
     if (Test-Path $settingsFromWrapper) {
         $s2 = Get-Content $settingsFromWrapper | ConvertFrom-Json
-        Write-Host "    OK  McpUnitySettings.json reachable (timeout=$($s2.RequestTimeoutSeconds)s)" -ForegroundColor Green
+        Write-Host "    OK  McpUnitySettings.json reachable (timeout=$($s2.RequestTimeoutSeconds)s in file)" -ForegroundColor Green
     } else {
         Write-Host "    BROKEN  McpUnitySettings.json not found from wrapper cwd" -ForegroundColor Red
     }
 } else {
     Write-Host "    MISSING  tools\run-mcp-unity.bat not found" -ForegroundColor Red
     Write-Host "    Fix: create tools\run-mcp-unity.bat (see CLAUDE.md)" -ForegroundColor Yellow
+}
+
+# 5b-patch. Check mcpUnity.js local patch
+Write-Host ""
+Write-Host "[5b] mcpUnity.js local patch"
+if (Test-Path $mcpUnityJs) {
+    $jsContent = Get-Content $mcpUnityJs -Raw
+    $hasPatch     = $jsContent -match "MCPUNITY_REQUEST_TIMEOUT_SECONDS"
+    $hasDefault60 = $jsContent -match "requestTimeout = 60000"
+    $has10k       = $jsContent -match ": 10000"
+    $hasBak       = Test-Path ($mcpUnityJs + ".bak")
+    if ($hasPatch -and $hasDefault60) {
+        Write-Host "    OK  patch applied (env var + 60s fallback)" -ForegroundColor Green
+    } else {
+        Write-Host "    MISSING  patch not found in mcpUnity.js" -ForegroundColor Red
+        Write-Host "    Reapply patch from CLAUDE.md troubleshooting section" -ForegroundColor Yellow
+    }
+    if ($has10k) {
+        Write-Host "    WARN  still contains 10000 ms somewhere -- check patch" -ForegroundColor Yellow
+    }
+    if ($hasBak) {
+        Write-Host "    OK  backup mcpUnity.js.bak exists" -ForegroundColor Green
+    } else {
+        Write-Host "    INFO  no .bak file (backup before patching is recommended)" -ForegroundColor Yellow
+    }
+} else {
+    Write-Host "    NOT FOUND  $mcpUnityJs" -ForegroundColor Red
 }
 
 # 5b. .mcp.json command check
