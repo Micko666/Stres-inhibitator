@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 9a1210adc8782214caf65b11fc98d5a9
+guid: 096a5469e516bd749b81ca5a6cf0527d
 ModelImporter:
   serializedVersion: 24200
   internalIDToNameTable: []
@@ -7,8 +7,23 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: Neutral_Industrial_Shell.042
-    second: {fileID: 2100000, guid: 0f3ff529474703f4298b4f93ac3ab504, type: 2}
+      name: Dark_Gunmetal.009
+    second: {fileID: 2100000, guid: 0172aebb11bb9b145bc199f6bd93c531, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Dark_Rubber_Cable.009
+    second: {fileID: 2100000, guid: 9ba61f9ca534c2547a5a322445619cbe, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Muted_Industrial_Accent.009
+    second: {fileID: 2100000, guid: 878d57a045279714b8f849b868fdf442, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Slightly_Lighter_Joint_Metal.009
+    second: {fileID: 2100000, guid: 01ab8704a618bd44781359ae07f9fec3, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
@@ -73,7 +88,7 @@ ModelImporter:
     secondaryUVMinLightmapResolution: 40
     secondaryUVMinObjectScale: 1
     secondaryUVPackMargin: 4
-    useFileScale: 1
+    useFileScale: 0
     strictVertexDataChecks: 0
   tangentSpace:
     normalSmoothAngle: 60

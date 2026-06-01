@@ -76,3 +76,8 @@ stari fajlovi/auth_key.txt
 # ADB / platform-tools (binaries — install separately)
 # ==============================
 platform-tools/
+
+# ==============================
+# Coplay MCP editor plugin (dev tool — not project source)
+# ==============================
+VR_StressTraining/Packages/Coplay/
