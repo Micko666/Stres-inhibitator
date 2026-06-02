@@ -81,3 +81,10 @@ platform-tools/
 # Coplay MCP editor plugin (dev tool — not project source)
 # ==============================
 VR_StressTraining/Packages/Coplay/
+
+# ==============================
+# Unity Test Framework Performance — transient run artifacts
+# (Unity regenerates/deletes these on build; not project source)
+# ==============================
+**/PerformanceTestRunInfo.json
+**/PerformanceTestRunSettings.json

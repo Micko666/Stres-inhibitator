@@ -308,6 +308,83 @@ Unity može stalno pokazivati "1 Required Fix" u Meta XR Project Setup Tool.
 
 ---
 
+## URP Rendering — Troubleshooting (magenta/rozo)
+
+> **Riješeno 2026-06-02, commit `9ebfd44`.** Ova sekcija objašnjava uzrok i fix
+> ako se magenta/rozo ponovo pojavi. Detaljnije u memory: `project_urp_render_pipeline.md`.
+
+### Simptom
+Objekti (Corridor_Blockout, Console, RobotArm) se renderuju **magenta/rozo** u
+Scene view-u ili na Questu.
+
+### Ključno razumijevanje — magenta = shader ↔ pipeline mismatch
+Magenta NIJE problem materijala nego **nepoklapanja shadera i aktivnog render pipeline-a**:
+
+| Shader na materijalu | Built-in pipeline | URP pipeline aktivan |
+|----------------------|-------------------|----------------------|
+| Standard             | renderuje OK      | **MAGENTA**          |
+| URP/Lit              | **MAGENTA**       | renderuje OK         |
+
+Quest build koristi URP. Zato je Standard bio magenta na Questu; kad smo konvertovali
+u URP/Lit postao je magenta u Editoru — jer **nije bio dodijeljen URP pipeline asset**.
+
+### Root cause (šta smo našli)
+Projekat NIJE imao aktivan URP Render Pipeline Asset:
+- `ProjectSettings/GraphicsSettings.asset` → `m_CustomRenderPipeline: {fileID: 0}` (null)
+- `ProjectSettings/QualitySettings.asset` → svih 7 levela `customRenderPipeline: {fileID: 0}` (null)
+- Nijedan `UniversalRenderPipelineAsset` nije postojao u `Assets/`
+
+> ⚠️ `Assets/UniversalRenderPipelineGlobalSettings.asset` NIJE pipeline asset —
+> to su samo global/shader-stripping settings i ne aktiviraju URP sam po sebi.
+
+### Fix (već primijenjen — postoji u repou)
+Kreiran preko **Unity API-ja**, NE hand-written YAML:
+- `Assets/Settings/URP_Balanced.asset` (Forward, MSAA 2x, HDR off, render scale 1.0)
+- `Assets/Settings/URP_Balanced_Renderer.asset` (xrSystemData + postProcessData popunjeni za Quest)
+- Dodijeljen u `GraphicsSettings.defaultRenderPipeline` + svih 7 quality levela
+
+### Dijagnostika ako se magenta vrati
+```bash
+# 1. Pipeline NE smije biti null (mora imati guid, ne {fileID: 0})
+grep "m_CustomRenderPipeline" VR_StressTraining/ProjectSettings/GraphicsSettings.asset
+# 2. URP asset mora postojati
+ls VR_StressTraining/Assets/Settings/URP_Balanced.asset
+# 3. Materijal mora biti URP/Lit (shader guid 933532a4fcc9baf4fa0491de14d08ed7)
+```
+
+### Pravila
+- **NE konvertovati materijale u URP/Lit bez aktivnog URP pipeline-a** (prvo pipeline, pa materijali)
+- URP assete kreirati preko `UniversalRenderPipelineAsset.Create(rendererData)` — NE hand-written YAML
+- `QualitySettings.SetRenderPipelineAssetAt(...)` **NE postoji** u Unity 6 →
+  koristiti `SerializedObject` na `customRenderPipeline` polju svakog quality levela
+- FBX embedded materijali se resetuju na `SaveAndReimport()` → ekstraktovati u
+  eksterni `.mat` (`materialLocation = External`) prije konverzije shadera
+
+---
+
+## Build na Quest preko Coplay (execute_script)
+
+Kad je Coplay MCP konektovan, build se može pokrenuti programski (bez ručnog GUI klika):
+
+1. **Provjeri uređaj:** `platform-tools\adb.exe devices` → Quest mora biti `device`
+2. **Provjeri readiness** (execute_script): `EditorUserBuildSettings.activeBuildTarget == Android`
+3. **Pokreni build** preko `BuildPipeline.BuildPlayer(BuildPlayerOptions)`:
+   - scenes iz `EditorBuildSettings`, `target = BuildTarget.Android`,
+     `options = BuildOptions.AutoRunPlayer` (deploy + launch na Quest)
+   - output: `Builds/VR_StressTraining.apk` (`Builds/` je gitignored)
+   - **`BuildPlayerOptions` = klasičan Android build** — zaobilazi "Meta Quest" build
+     profile i njegov `ovr-manifest-write-failed` bug
+   - **Queue preko `EditorApplication.delayCall`** da MCP poziv vrati odmah; build
+     zamrzava Editor 5-10 min i Coplay je nedostupan dok traje
+4. **Rezultat** se piše u console (marker npr. `[CoplayBuild] RESULT=...`) —
+   pročitati preko `get_unity_logs` kad Editor odmrzne
+
+> Helper `execute_script` fajlove staviti **VAN `Assets/` foldera** (npr. project root
+> `VR_StressTraining/`) da Unity ne kompajlira/pollutuje projekat. Obrisati nakon builda.
+> **Nikad ne commitovati** `_Temp_*` ni `[InitializeOnLoad]` helper skripte.
+
+---
+
 ## MVP Scope — Zaključan
 
 1. Jedna scena: `Assets/Scenes/MainScene.unity`
