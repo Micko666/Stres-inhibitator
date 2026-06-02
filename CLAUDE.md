@@ -385,6 +385,87 @@ Kad je Coplay MCP konektovan, build se može pokrenuti programski (bez ručnog G
 
 ---
 
+## Robot Arm — Pravila za animaciju (inspekcija 2026-06-02; NE animirati još)
+
+> Robotska ruka `RobotArm_Scene` je inspektovana ali **NIJE** spremna za animaciju
+> velikog opsega. Ova sekcija je obavezno štivo prije pisanja BILO KAKVE animacije
+> ruke. Cilj: **bez čudnog pomjeranja zglobova, bez vizuelnog rastavljanja (detach).**
+> Trenutno aktivan: `RobotArmPoseTester.cs` (TEMP, `playTestLoop=false`).
+
+### Hijerarhija — tri klase objekata
+```
+RobotArm_Scene                         ← root, ovdje je RobotArmPoseTester
+└─ RobotArm_Placeholder                ← FBX instanca: pos(0.297,1.948,1.712) rot(90,0,0)
+   └─ RobotArm_Main_WallMount          ← strukturni čvor (local identity)
+      ├─ MountPlate            [FIXED]  ← NIKAD ne pomjerati (zidni nosač)
+      ├─ MountBolt_01..04      [FIXED]  ← NIKAD ne pomjerati
+      ├─ BasePivot          ★ [PIVOT 1] ← rotirati: local Y (yaw)
+      │  ├─ BaseJoint          [MESH]   ← rigid, prati pivot
+      │  ├─ Cable_01_01..04    [MESH]   ← rigid kablovi (fake, ne savijaju se)
+      │  └─ ShoulderPivot   ★ [PIVOT 2] ← rotirati: local X (pitch)
+      │     ├─ UpperArm        [MESH]
+      │     └─ ElbowPivot    ★ [PIVOT 3] ← rotirati: local X (pitch)
+      │        ├─ ElbowJoint        [MESH]
+      │        ├─ Forearm           [MESH]
+      │        ├─ MutedAccent_SmallPlate [MESH]
+      │        ├─ Cable_02_01..02   [MESH]
+      │        └─ WristPivot ★ [PIVOT 4] ← rotirati: local X (pitch)
+      │           ├─ WristJoint     [MESH]
+      │           ├─ ToolEnd_Housing[MESH]
+      │           ├─ ClawPalm       [MESH]
+      │           ├─ Claw_A / Claw_B[MESH]  ← NEMAJU pivot (vidi dolje)
+      │           ├─ ClawPad_A / _B [MESH]
+      │           └─ ClawSocket_AttachPoint [ATTACH] ← end-effector, za alat; ne rotirati
+```
+
+- **PIVOTI (4 empties)** — JEDINO ove rotirati: `BasePivot, ShoulderPivot, ElbowPivot, WristPivot`
+- **MESH LINKOVI** — rigid djelovi, prate svoj pivot; **NIKAD ne rotirati/pomjerati pojedinačno**
+- **FIXED MOUNT** — `MountPlate` + `MountBolt_01..04`; sibling su BasePivot-a (ne dijete), pa rotacija ruke ih ne pomjera. **NIKAD ne dirati.**
+- **ClawSocket_AttachPoint** — tačka za kačenje alata (end-effector). Ne animirati.
+
+### Os rotacije i opseg po zglobu (iz known-good `RobotArmPoseTester`)
+| Pivot | Os (local) | Testirani opseg (poze) | Hard clamp |
+|-------|-----------|------------------------|------------|
+| BasePivot     | **Y** (yaw)   | −12° … +12°   | ±90°       |
+| ShoulderPivot | **X** (pitch) | −35° … 0°     | ±90°       |
+| ElbowPivot    | **X** (pitch) | −45° … −10°   | −120°…+10° |
+| WristPivot    | **X** (pitch) | +5° … +30°    | ±90°       |
+
+> Poze koje rade (Idle/Reach/Present) drže se gornjeg **testiranog** opsega, NE hard clampa.
+
+### ⚠ KRITIČNO — pivoti su ko-locirani na FBX originu
+Sva 4 pivota imaju `localPosition (0,0,0)` i `localRotation` identity → **svi rotiraju oko
+ISTE tačke** (FBX origin), a ne oko svoje mehaničke pozicije zgloba. Ta tačka je čak iznad
+vidljive ruke (≈ world `(-1.45, 3.62, -4.68)`, dok meš ruke ide do y≈2.54).
+
+Posljedica:
+- **Mali uglovi izgledaju OK** (student potvrdio) — luk je mali.
+- **Veliki uglovi = nerealan zamah oko udaljene tačke = izgleda kao da se ruka raspada/detachuje.**
+- Najgori su Elbow i Wrist (najdalji od zajedničke tačke).
+
+### Pravila kodiranja (OBAVEZNO — da se izbjegne weird movement / detach)
+1. Rotiraj **SAMO** 4 pivota. Nikad mesh, nikad mount, nikad ClawSocket.
+2. **Uvijek additivno** od cache-ovanog rest pose-a: `localRotation = restRot * Quaternion.Euler(offset)`.
+   **NIKAD** `localEulerAngles = X` od nule, NIKAD overwrite sirovih uglova.
+3. Cache rest pose u `Awake()` PRIJE ikakve rotacije (pos+rot+scale svakog pivota).
+4. Osi su fiksne: **Base=Y, Shoulder/Elbow/Wrist=X**. Ne izmišljati druge ose.
+5. **Drži se testiranih malih opsega** iz tabele. Veći uglovi → detach-look (vidi gore).
+6. **NIKAD** ne reparentuj, ne mijenjaj `localScale`, ne diraj collidere (ruka ih nema — namjerno).
+7. **Klješta se NE mogu otvarati/zatvarati** — `Claw_A/Claw_B` su meš objekti BEZ pivot
+   emptyja. Animiranje meša direktno = rastavljanje. Za claw animaciju treba **Blender**:
+   dodati `ClawPivot_A/ClawPivot_B` empties na zglob klješta, pa re-export.
+8. `RobotArmAnimation.cs` je OBRISAN jer je kršio #1 i #2 (animirao meš + overwrite euler) →
+   vizuelni rastav. Ne vraćati ga.
+
+### Za buduću realističniju animaciju — dvije opcije
+- **A (MVP, sigurno):** skripta malih uglova + tween između poza (kao `RobotArmPoseTester`),
+  strogo unutar testiranog opsega. Bez Blender izmjena.
+- **B (proper, veći opseg):** Blender re-rig — pomjeriti origin SVAKOG pivota na stvarnu
+  poziciju zgloba (sad su svi na FBX originu), dodati claw pivote, re-export FBX. Tek onda
+  Unity Animator/IK daje realnu kinematiku bez detach-a.
+
+---
+
 ## MVP Scope — Zaključan
 
 1. Jedna scena: `Assets/Scenes/MainScene.unity`
