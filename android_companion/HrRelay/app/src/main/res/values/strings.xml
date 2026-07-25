@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">HR Relej</string>
+    <string name="subtitle">Mi Fitness logcat → lokalni UDP → Unity/Quest</string>
+    <string name="target_mode_label">Odredište</string>
+    <string-array name="target_modes">
+        <item>Unity Play Mode / Quest Link</item>
+        <item>Standalone Quest</item>
+    </string-array>
+    <string name="destination_ip_label">LAN IP računara ili Questa</string>
+    <string name="quest_port_label">UDP port</string>
+    <string name="connect">Pokreni slanje</string>
+    <string name="disconnect">Zaustavi</string>
+    <string name="status_idle">Servis nije pokrenut.</string>
+    <string name="destination_help">Za Unity Play Mode koristi IP računara.\nZa standalone Quest koristi IP Questa.</string>
+</resources>

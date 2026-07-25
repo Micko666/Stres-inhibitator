@@ -88,3 +88,30 @@ VR_StressTraining/Packages/Coplay/
 # ==============================
 **/PerformanceTestRunInfo.json
 **/PerformanceTestRunSettings.json
+
+# Veliki izvorni art fajlovi (HDRI/EXR) — cuvaju se lokalno, ne u gitu.
+# Runtime koristi konvertovanu LDR verziju u Assets/Resources/SafeSpace/.
+source_assets/
+
+# ==============================
+# Stari BLE eksperimenti — SADRZE Band 9 auth key vrijednost. Nikad ne commitovati.
+# ==============================
+stari fajlovi/
+
+# Codex dev-tool config (nije projektni izvor)
+VR_StressTraining/.codex/
+
+# Nacrti pisanog rada (drze se van code repozitorijuma)
+*.docx
+
+# Stari backup-i implementacije (.bak/.patch) — mrtvi artefakti, ne u repo
+_implementation_backup/
+_pressure_backup_130159/
+_*_backup*/
+
+# Veliki HDRI/EXR izvornici (root ili bilo gdje) — runtime koristi LDR PNG u Resources/
+*.exr
+
+# Unity crash-recovery scene backup-i — mrtvi artefakti
+**/_Recovery/
+**/_Recovery.meta

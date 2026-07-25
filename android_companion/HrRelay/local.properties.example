@@ -1,0 +1,8 @@
+# Copy to local.properties and point at an Android SDK.
+# IMPORTANT: use FORWARD SLASHES. A .properties file treats "\" as an escape
+# character, so backslashes silently corrupt the path and AGP fails with
+# "The filename, directory name, or volume label syntax is incorrect".
+#
+# Unity already ships an SDK you can reuse (adjust the editor version):
+sdk.dir=C:/Program Files/Unity/Hub/Editor/6000.3.16f1/Editor/Data/PlaybackEngines/AndroidPlayer/SDK
+# local.properties itself is machine-specific and git-ignored.

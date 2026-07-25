@@ -1,40 +1,47 @@
 @echo off
-title SmartLine VR - HR Monitor
+title Stress VR - HR Monitor
+setlocal
+
+:: Portable launcher — every path is derived from this script's location.
+:: %~dp0 = directory of this .bat (repo root), trailing backslash included.
+set "ROOT=%~dp0"
+set "ADB=%ROOT%platform-tools\adb.exe"
+set "BRIDGE=%ROOT%hr_dashboard_v2.py"
+set "LOG=%ROOT%bridge.log"
 
 echo ================================================
-echo  SmartLine VR - Heart Rate Monitor
+echo  Stress VR - Heart Rate Monitor (portable)
+echo  Root: %ROOT%
 echo ================================================
 echo.
 echo  Provjeri:
-echo  [1] Band 9 na ruci i spojen na telefon BT
+echo  [1] Band 9 na ruci i spojen na telefon (BT)
 echo  [2] Mi Fitness radi u pozadini na telefonu
-echo  [3] Telefon na WiFi 192.168.1.x
-echo.
-echo  Pokretanje...
+echo  [3] Telefon i racunar na istoj WiFi mrezi
 echo.
 
-:: Ubij stare instance
-taskkill /F /IM python3.12.exe /T >nul 2>&1
-timeout /t 1 /nobreak >nul
+if not exist "%BRIDGE%" (
+    echo  GRESKA: nije nadjen %BRIDGE%
+    pause & exit /b 1
+)
 
-:: ADB connect
-"C:\Users\Korisnik\Desktop\Diplomski\platform-tools\adb.exe" connect 192.168.1.222:5555 >nul 2>&1
+:: Kill old bridge instances (best effort)
+taskkill /F /IM python.exe /FI "WINDOWTITLE eq Stress VR*" >nul 2>&1
 
-:: Pokreni bridge u pozadini
-start "" /B python -u "C:\Users\Korisnik\Desktop\Diplomski\hr_dashboard_v2.py" > "C:\Users\Korisnik\Desktop\Diplomski\bridge.log" 2>&1
+:: ADB connect (bridge also scans/falls back on its own)
+if exist "%ADB%" (
+    "%ADB%" connect 192.168.1.222:5555 >nul 2>&1
+) else (
+    echo  NAPOMENA: %ADB% ne postoji - bridge ce pokusati adb sa PATH-a
+)
 
-:: Cekaj da Flask startuje
-echo  Cekam da se pokrene server...
+echo  Pokrecem bridge... (log: %LOG%)
+start "Stress VR HR Bridge" /B python -u "%BRIDGE%" > "%LOG%" 2>&1
+
 timeout /t 4 /nobreak >nul
-
-:: Otvori dashboard u Chrome
-echo  Otvaram dashboard...
-start chrome "http://127.0.0.1:8888"
+start "" "http://127.0.0.1:8888"
 
 echo.
 echo  Dashboard: http://127.0.0.1:8888
-echo  Log:       C:\Users\Korisnik\Desktop\Diplomski\bridge.log
-echo.
-echo  Pritisni bilo koji taster za zatvaranje ovog prozora.
-echo  (Bridge nastavlja raditi u pozadini)
+echo  Bridge nastavlja raditi u pozadini. Pritisni taster za zatvaranje prozora.
 pause >nul

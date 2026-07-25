@@ -1,0 +1,11 @@
+# Android / Gradle build outputs and machine-specific files
+HrRelay/local.properties
+HrRelay/.gradle/
+HrRelay/.gradle-home/
+HrRelay/build/
+HrRelay/app/build/
+HrRelay/captures/
+HrRelay/*.log
+tools/out/
+*.iml
+.idea/

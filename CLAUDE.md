@@ -144,10 +144,10 @@ com.gamelovers.mcp-unity         (git)
 
 ### Arhitektura (two-tier)
 ```
-Claude Code  ←stdio→  Node.js (build/index.js)  ←WebSocket:8090→  Unity Editor
+Claude Code  ←stdio→  Node.js (build/index.js)  ←WebSocket:8092→  Unity Editor
 ```
 - Node.js process se pokreće automatski kada Claude Code učita `.mcp.json`
-- Node.js se konektuje na Unity-jev WebSocket server na `ws://localhost:8090/McpUnity`
+- Node.js se konektuje na Unity-jev WebSocket server na `ws://localhost:8092/McpUnity`
 - Unity mora biti otvoren i MCP Server Window mora biti **Online** da bi konekcija radila
 - Svaka Unity kompilacija/domain reload privremeno prekida WebSocket — sačekati da završi
 
@@ -187,7 +187,7 @@ svaki request timeoutuje, Unity ne stigne da odgovori.
 Sa wrapperom:
 - `process.cwd()` = `VR_StressTraining/`
 - `ProjectSettings/McpUnitySettings.json` nađen ✓
-- `RequestTimeoutSeconds: 60` pročitan ✓
+- `RequestTimeoutSeconds: 120` pročitan ✓
 
 | Fajl | Ko ga koristi | Napomena |
 |------|--------------|----------|
@@ -201,16 +201,16 @@ Sa wrapperom:
 ### Ključne postavke — `ProjectSettings/McpUnitySettings.json`
 ```json
 {
-  "Port": 8091,
-  "RequestTimeoutSeconds": 60,
+  "Port": 8092,
+  "RequestTimeoutSeconds": 120,
   "AutoStartServer": true,
   "EnableInfoLogs": true
 }
 ```
-> **Port je 8091** (promijenjeno sa 8090 zbog zombie socket konflikta koji blokira Start Server).
-> Ako se port vrati na 8090 i server ne može startovati, promijeni ga na 8091 u Server Window UI.
+> **Trenutni port je 8092.** Ne vraćati ga naslijepo na stari 8090/8091;
+> uvijek prvo pročitati `ProjectSettings/McpUnitySettings.json` i Server Window.
 >
-> `RequestTimeoutSeconds` mora biti **60**, ne 10. Sa 10s Unity može timeoutovati
+> `RequestTimeoutSeconds` je **120**, ne 10. Sa 10s Unity može timeoutovati
 > tokom scene importa ili kada Editor radi background task.
 >
 > **VAŽNO:** Ako je Unity otvoren dok se fajl mijenja, Unity može ga resetovati.
@@ -222,7 +222,7 @@ Sa wrapperom:
 2. Sačekaj da kompajliranje završi (Console bez grešaka)
 3. **Tools → MCP Unity → Server Window** → Status: **Server Online**
 4. **Ne klikati "Start" ponovo ako je već Online**
-5. **Request Timeout = 60** (provjeriti u Server Window)
+5. **Request Timeout = 120** (provjeriti u Server Window)
 6. Otvori Claude Code iz root foldera repozitorijuma
 7. Prihvati MCP server prompt
 8. MCP alati se automatski pojavljuju
@@ -239,8 +239,8 @@ Rebuild je potreban samo ako je Library reimportovana ili ako `build/index.js` n
 
 ## MCP Unity — Troubleshooting
 
-### Dijagnoza: `netstat -ano | findstr :8091`
-> **Port je 8091** od 2026-05-31 (promijenjeno sa 8090 zbog zombie socket problema).
+### Dijagnoza: `netstat -ano | findstr :8092`
+> Port se mora poklapati sa `ProjectSettings/McpUnitySettings.json`; trenutno je 8092.
 
 | Rezultat | Značenje | Akcija |
 |----------|----------|--------|
@@ -248,10 +248,10 @@ Rebuild je potreban samo ako je Library reimportovana ili ako `build/index.js` n
 | `Unity.exe LISTENING` + Server Window = Offline | Unity drži port, server nije startovao | Restart Unity |
 | `node.exe LISTENING` | Stari Node process živi | Zatvoriti Claude Code, ubiti node.exe |
 | Ništa | Port slobodan, server nije pokrenut | Otvoriti Unity, pokrenuti MCP Server Window |
-| PID bez procesa (zombie socket) | Kernel drži socket od mrtvog procesa | Promijeni port na slobodan (8091→8092), klikni Start |
+| PID bez procesa (zombie socket) | Kernel drži socket od mrtvog procesa | Izaberi novi slobodan port i ažuriraj Server Window + dokumentaciju |
 
 ### Uzroci timeouta `get_scene_info`
-1. **`RequestTimeoutSeconds: 10`** — prekratko. Fix: postaviti na `60` u McpUnitySettings.json ← **najčešći uzrok**
+1. **`RequestTimeoutSeconds: 10`** — prekratko. Fix: postaviti na `120` u McpUnitySettings.json ← **najčešći uzrok**
 2. **Unity kompajlira** — domain reload prekida WebSocket. Sačekati da završi, pa pozvati ponovo
 3. **Unity u Play Mode-u** — MCP radi u Play Mode-u, ali neke operacije su ograničene
 4. **Modal dialog otvoren** — Unity blokirano dijalogom (npr. "Import settings changed"). Zatvoriti dialog
@@ -261,11 +261,11 @@ Rebuild je potreban samo ako je Library reimportovana ili ako `build/index.js` n
 ```
 1. Zatvori Claude Code
 2. Zatvori Unity
-3. netstat -ano | findstr :8090    ← provjeri da nema zaostalih procesa
+3. Pročitaj port iz McpUnitySettings.json, zatim: netstat -ano | findstr :8092
 4. Ako node.exe ili Unity.exe drži port → ubiti u Task Manager-u
 5. Otvoriti Unity, sačekati import/compile
 6. Tools → MCP Unity → Server Window → provjeriti Server Online
-7. Provjeriti Request Timeout = 60
+7. Provjeriti Request Timeout = 120
 8. Otvoriti Claude Code iz root foldera
 9. Testirati: pozvati get_scene_info
 ```
@@ -276,7 +276,7 @@ Rebuild je potreban samo ako je Library reimportovana ili ako `build/index.js` n
 2. NIJE u Play Mode-u
 3. Console je miran (bez compile errors ili ongoing import)
 4. Tools → MCP Unity → Server Window → Status: Server Online
-5. Request Timeout = 60  (promijeniti ako piše 10)
+5. Request Timeout = 120  (promijeniti ako piše 10)
 6. Otvoriti Claude Code iz: C:\Users\djuro\Desktop\Stres-inhibitator-main\
 7. Prihvatiti MCP server
 8. Poslati: "Test MCP Unity connection. Do not modify anything. Call get_scene_info only."
@@ -366,18 +366,28 @@ ls VR_StressTraining/Assets/Settings/URP_Balanced.asset
 
 Kad je Coplay MCP konektovan, build se može pokrenuti programski (bez ručnog GUI klika):
 
-1. **Provjeri uređaj:** `platform-tools\adb.exe devices` → Quest mora biti `device`
-2. **Provjeri readiness** (execute_script): `EditorUserBuildSettings.activeBuildTarget == Android`
-3. **Pokreni build** preko `BuildPipeline.BuildPlayer(BuildPlayerOptions)`:
+1. **Provjeri readiness** (execute_script): `EditorUserBuildSettings.activeBuildTarget == Android`
+2. **Provjeri da build već nije aktivan:** `BuildPipeline.isBuildingPlayer == false`.
+3. **Pokreni samo build** preko `BuildPipeline.BuildPlayer(BuildPlayerOptions)`:
    - scenes iz `EditorBuildSettings`, `target = BuildTarget.Android`,
-     `options = BuildOptions.AutoRunPlayer` (deploy + launch na Quest)
+     `options = BuildOptions.None` (**bez** deploy/launch koraka)
    - output: `Builds/VR_StressTraining.apk` (`Builds/` je gitignored)
    - **`BuildPlayerOptions` = klasičan Android build** — zaobilazi "Meta Quest" build
      profile i njegov `ovr-manifest-write-failed` bug
-   - **Queue preko `EditorApplication.delayCall`** da MCP poziv vrati odmah; build
-     zamrzava Editor 5-10 min i Coplay je nedostupan dok traje
-4. **Rezultat** se piše u console (marker npr. `[CoplayBuild] RESULT=...`) —
-   pročitati preko `get_unity_logs` kad Editor odmrzne
+   - `EditorApplication.delayCall` može vratiti MCP poziv prije početka builda;
+     queue-ovati samo jednom i ispisati jedinstvene `QUEUED`, `START` i `RESULT` markere
+4. **Ne zaključivati da build nije krenuo samo zato što Coplay/watch timeoutuje.**
+   Tokom builda Editor/MCP je nedostupan. Provjeriti `Editor.log`, `RESULT` marker i
+   timestamp/veličinu `Builds/VR_StressTraining.apk`.
+5. **Deploy odvojeno poslije uspješnog builda:**
+   - `platform-tools\adb.exe devices` → Quest mora biti `device`
+   - `platform-tools\adb.exe install -r VR_StressTraining\Builds\VR_StressTraining.apk`
+   - tek zatim pokrenuti aplikaciju na Questu
+
+> Potvrđeno 2026-07-20: build označen sa `[BuildOnly] QUEUED` jeste prešao u
+> `[BuildOnly] START` i završio sa `RESULT=Succeeded` za oko 4:55. Fokus Unity
+> prozora nije bio dokazani uzrok. Stari zaključak „delayCall se ne prazni dok
+> Editor nije fokusiran” ne koristiti kao dijagnozu.
 
 > Helper `execute_script` fajlove staviti **VAN `Assets/` foldera** (npr. project root
 > `VR_StressTraining/`) da Unity ne kompajlira/pollutuje projekat. Obrisati nakon builda.

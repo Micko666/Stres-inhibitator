@@ -1,0 +1,93 @@
+{
+  "schemaVersion": 1,
+  "updatedAtUtc": "2026-07-14T20:30:00Z",
+  "currentPhase": "ART/UX PROLAZ: puzzle hodnik + collapse engine, Safe Space aurora scaffold, UiTheme dizajn sistem",
+  "currentMilestone": "M_ART_UX_PASS (kod + testovi napisani; FBX uvoz/AVIF konverzija/Play/Quest su rucni Editor koraci = NOT RUN)",
+  "artUxPass": {
+    "puzzleFbx": "Assets/Art/PuzzleCorridor/PuzzleCorridor.fbx (kopiran). Hijerarhija parsirana iz binarnog FBX-a: Corridor_Modular_Puzzle_ROOT -> Segment_S1..S6 + Segment_Safe, svaki Floor/Ceiling/Wall_L/Wall_R + CollapsePivot/FXAnchor/LightAnchor. Model pokriva Z -5..+5 (=10m), sirina ~3m - identicno postojecem hodniku. Segment_Safe (Z -5..-2.5) obuhvata konzolu i igraca.",
+    "collapseEngine": "PuzzleCollapseData (cist C#) + PuzzleSegmentController + PuzzleCorridorController. Deterministicki: S1 (najdalji) pada prvi -> S6; Safe nikad, pod Safe-a nije movable. Pragovi 70/50/30/10/0 = Early/Mid/Late/Critical/Expired. Pauza=freeze (aktivno vrijeme). PressureController.AttachPuzzleCorridor() prije Initialize() gasi proceduralne ploce; fallback + Console upozorenje kad puzzle nedostaje.",
+    "aurora": "SafeSpaceBuilder.TryBuildAuroraDome() ucita Resources/SafeSpace/AuroraPanorama (2D tekstura). AVIF se NE uvozi u Unity i nema codeca ovdje -> RUCNA konverzija u PNG. Bez teksture: gradijentni dome fallback (AuroraApplied=false).",
+    "uiTheme": "Assets/Scripts/UI/UiTheme.cs - centralni tokeni; UiBuilder ih cita (aliasi stabilni).",
+    "rucniEditorKoraci": "FBX uvoz (scale/axis/materijali/collideri na Segment_Safe_Floor), AVIF->PNG u Resources/SafeSpace/, postavljanje puzzle roota u scenu imenom Corridor_Modular_Puzzle_ROOT. Detalji: PUZZLE_CORRIDOR_INTEGRATION_REPORT.md, SAFE_SPACE_AURORA_SETUP.md.",
+    "novi_testovi": "FablePuzzleCorridorTests (16), FableSafeSpaceAndUiTests (5)"
+  },
+  "uxCorrections": {
+    "profileUi_uzrok": "create-mode nije imao nijedno Button (samo Text strip) + UIManager.ConfigureControllerNavigation(false) -> ray nema sta da klikne, A/B se ne citaju. Fix: prava uGUI dugmad + RawButton.A/B (desni kontroler; NE Button.One/Two jer hvata X/Y na lijevom, a Y je pauza).",
+    "corsi_uzrok": "prethodni fix je flipovao SAMO Z = ogledalo, ne rotacija. Sad se negiraju OBJE ose. Izvod: CorridorSpawn Y=180 -> ucesnik gleda -Z -> lijeva mu je +X; konzola identity -> njen +X JESTE ucesnikova lijeva; tablet gleda ucesnika -> tabletni +X je desna.",
+    "pressure_uzrok": "developer.productionUsePressureCondition=false -> svaka sesija Neutral -> ShouldRunFor(Neutral)=false -> ResetPressure(). Pressure sistem je bio ISPRAVAN, samo nikad nije pokrenut. Dodat dev prekidac uslova na profilnom ekranu.",
+    "zamka": "AdaptationDirective default je 0 = NoDecisionInvalidSession - uvijek postaviti Hold eksplicitno."
+  },
+  "lastCompletedMilestone": "M8_HR_ARCHITECTURE_COMPLETE (2026-07-14)",
+  "standaloneHrPipeline": {
+    "arhitektura": "Band 9 -> Mi Fitness -> HrItem u logcat-u -> HR Relej (custom Android app cita logcat lokalno, READ_LOGS grant jednom preko ADB) -> UDP protokol-v1 unicast -> Quest NetworkHeartRateSource -> HeartRateService",
+    "companion": "android_companion/HrRelay (Java; foreground service + wakelock + heartbeat; minimalni UI; bez cloud-a/naloga/HR istorije)",
+    "unityOcvrscavanje": "HrRelayIngest (identitet sesije/dedup/redosljed/watch-freshness/heartbeat) + HrPacketParser kind=heartbeat|sample + NetworkHeartRateSource ingest wiring; produkcija otkljucana samo GetProductionReadiness().IsReady (real NetworkBridge + svjez validan uzorak)",
+    "verifikovano": {
+      "feasibility_band_to_phone": "DA (realni HrItem + parser 24/24 na stvarnom podatku)",
+      "parser_jvm": "PASS 24/24 (javac+java)",
+      "android_junit": "PASS 7/7 (gradlew test)",
+      "android_apk_build": "PASS (app-debug.apk ~3.1MB, Unity-bundled Gradle 8.13 + OpenJDK17 + build-tools 36)",
+      "unity_compile": "PASS",
+      "unity_editmode": "PASS 148/148 (uklj. HrRelayIngestTests x8)"
+    },
+    "verifikovano_na_uredjaju_2026_07_14": "DA - real band acquisition + phone->Quest POTVRDJENO na Samsung SM-S936B + Band 9: HR Relej 'logcat cita', 'PULS: 85 bpm · star 0.5 s', 'QUEST: povezan -> 192.168.1.217:5005', 'Poslato paketa seq: 218'; virtuelni sat 'Povezan · Stabilno'. READ_LOGS radi i za work-profil Mi Fitness.",
+    "NIJE_verifikovano_trazi_duzi_test": [
+      "screen-lock (ugasen ekran 10+ min)",
+      "hotspot (AP isolation)",
+      "60-min stabilnost",
+      "reconnect na promjenu mreze/IP"
+    ],
+    "jedina_koncesija": "READ_LOGS grant jednom preko ADB-a pri instalaciji; poslije toga bez racunara. Python bridge ostaje kao dev fallback (netaknut).",
+    "docs": [
+      "STANDALONE_HR_ARCHITECTURE.md",
+      "STANDALONE_HR_SETUP.md",
+      "STANDALONE_HR_TEST_MATRIX.md",
+      "STANDALONE_HR_KNOWN_LIMITATIONS.md",
+      "android_companion/HrRelay/README.md"
+    ]
+  },
+  "phaseStatus": {
+    "FAZA_0_do_6": "ZAVRSENE (audit, demo stabilizacija, production skeleton 3-of-4/15 blokova, Corsi, konzola v2 + robot presenter, pre/post tok, scheduler v2)",
+    "FAZA_7_pressure": "ZAVRSENA (PressureTimeline/PressureController, game over finale, FablePressureTests u 121/121 runu)",
+    "FAZA_8_hr": "ZAVRSENA (4 moda Disconnected/Simulated/Network/NativeAdbPlaceholder; HeartRateService.Shutdown() gasi sve source-ove; WristWatchDisplay CreateOrFind + fallback anchor + RefreshNow; placeholder nikad ne prijavljuje vezu; 10 novih testova FableHrArchitectureTests)",
+    "FAZA_9_voice": "PARTIAL (VoiceCueSystem 28 cue ID-jeva + subtitle fallback kompajlira i radi u Play Mode; svi pozivi su Voice?.Play bez event pretplata; NEDOSTAJE: VOICE_SCRIPT_BCS.md, audio klipovi, finalno UX poliranje)",
+    "FAZA_10": "NIJE POCETA"
+  },
+  "userPatchesToPreserve": [
+    "QuestionnairePanel.cs (2026-07-14): novi paged SSQ/STAI UI - 16 Kennedy simptoma, 4 po stranici, prava Button dugmad 0-3, ray+trigger; TLX korak 5 + quick select. NE VRACATI stari jedan-item UI.",
+    "QuestionnaireFlowController.cs + QuestionnairePanelTests.cs (2026-07-14): korisnicke izmjene, testovi prolaze"
+  ],
+  "compileStatus": "NOT RUN za art/UX prolaz (korisnik pokrece); braces provjereni na svim izmijenjenim fajlovima; prethodne UX korekcije: compile PASS",
+  "editModeTestStatus": "NOT RUN za nove testove (FablePuzzleCorridorTests, FableSafeSpaceAndUiTests); prethodni run bio zelen nakon popravke AdaptationSummary testa",
+  "playModeTestStatus": "HMD-free probe PASS 2026-07-14: boot OK, 1x bootstrapper/watch/pressure/voice/subtitles/questionnaire panel (bez duplikata), hrMode=Simulated receiving=True, watchStatus='Povezan · Stabilno' (bez BPM), watchDev='72 bpm · Simulated · SIMULIRANI PODACI', profil panel aktivan; poslije izlaska 0 MissingReference/NullReference/Error",
+  "sceneIntegrationStatus": "bez novih izmjena scene u ovoj sesiji; AppRoot/AppBootstrapper serialized refs rade",
+  "questLinkVerificationStatus": "demo potvrdjen od korisnika PRIJE Fable iteracije; poslije F1-F9 izmjena Quest prolaz JOS NIJE uradjen (QUEST_MANUAL_TEST_CHECKLIST u FAZI 10)",
+  "standaloneBuildStatus": "Quest APK nije pravljen u ovoj sesiji; ANDROID COMPANION (HR Relej) APK build PASS (app-debug.apk ~3.1MB)",
+  "filesCurrentlyBeingEdited": [],
+  "sceneObjectsCurrentlyBeingEdited": [],
+  "blockingIssues": [],
+  "knownRegressions": [],
+  "knownLimitations": [
+    "NativeAdbHeartRateSource je trajni placeholder (State=NotImplemented) - pravi native plugin po HR_NATIVE_ADB_PLAN.md nije MVP",
+    "Voice: nema snimljenih klipova, subtitle-only; VOICE_SCRIPT_BCS.md nije napisan",
+    "Developer panel (spec 38) nije implementiran",
+    "PlayMode VerticalSliceSmokeTests nije izvrsen kroz Test Runner (probe uradjen rucno preko execute_script)"
+  ],
+  "safeResumeInstructions": [
+    "Procitaj FABLE_ARCHITECTURE_MAP.md prije bilo koje izmjene",
+    "NE lomi demo tok (SessionCoordinator demo grane, DemoTaskFactory)",
+    "NE vracaj stari questionnaire UI - novi paged UI je korisnicka izmjena",
+    "NE pravi paralelni bootstrapper/koordinator/runner/UI manager",
+    "Scene izmjene samo preko installera/idempotentnih buildera + backup u _implementation_backup"
+  ],
+  "nextExactAction": "1) U Unity-ju: sacekaj rekompajl, provjeri Console. 2) Pokreni EditMode Run All (novi FableFinalIntegrationTests + azurirani FablePhase86Tests/ConsoleInteractionTests/FableCorsiTests). 3) Ako sve prodje: jedan Play Mode produkcijski tok (9 blokova) i upis rezultata u FULL_9_BLOCK_MANUAL_TEST_CHECKLIST.md. 4) Tek onda veliki UX audit.",
+  "lastGitStatusShort": [
+    "M: MainScene.unity, URP_Balanced(.Renderer).asset, McpUnitySettings.json, QualitySettings.asset, hr_dashboard_v2.py, start.bat",
+    "?? Assets/Scripts/** (StressTraining + novi HR/HrRelayIngest.cs + Tests/HrRelayIngestTests.cs), FABLE_*.md/json, STANDALONE_HR_*.md, HR_NATIVE_ADB_PLAN.md, android_companion/ (HR Relej APK projekat), _implementation_backup/, _FableTestRunner.cs (TEMP)"
+  ],
+  "methodologyChange": "NeutralBaseline ZAMIJENJEN sa BreathingReferenceBaseline. Disanje i referentno HR mjerenje su JEDNA faza istog intervala (config baseline duration). PROJECT-DEFINED BREATHING-ASSISTED REFERENCE - NIJE neutralni resting baseline. SessionHrPhase.BreathingReferenceBaseline=3, ProductionFlowStage.BreathingReferenceBaseline=5.",
+  "preSessionOrder": "HR gate -> [STAI-6 samo prva sesija ciklusa] -> BreathingReferenceBaseline -> pre-session SSQ -> tutorial (samo ako treba) -> Ready -> 9 blokova -> recovery -> post-SSQ -> NASA-TLX -> [STAI-6 samo posljednja sesija] -> validity/adaptation/save/summary",
+  "pauseRule": "NEMA automatske pauze. Pauza = ISKLJUCIVO Y na lijevom kontroleru (OVRInput.RawButton.Y); P samo u Editoru, ista putanja. Konzola nema PAUSE dugme. HrTechnicalPauseController OBRISAN.",
+  "schedulerAudit": "10/10 PASS, nijedan bug, algoritam netaknut. Vidi SCHEDULER_VERIFICATION_REPORT.md",
+  "questVerificationStatus": "NOT RUN - FULL_9_BLOCK_MANUAL_TEST_CHECKLIST.md (sve stavke NOT RUN)"
+}

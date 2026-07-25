@@ -1,0 +1,5 @@
+#!/usr/bin/env sh
+# Minimal Gradle wrapper launcher (POSIX). Windows users: use gradlew.bat.
+DIR=$(cd "$(dirname "$0")" && pwd)
+exec "${JAVA_HOME:-/usr}/bin/java" -classpath "$DIR/gradle/wrapper/gradle-wrapper.jar" \
+  org.gradle.wrapper.GradleWrapperMain "$@"
