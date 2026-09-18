@@ -1,0 +1,8 @@
+// Root build script. Plugin versions are resolved from the pluginManagement
+// repositories in settings.gradle. AGP 8.1 pairs with Gradle 8.x (see
+// gradle/wrapper/gradle-wrapper.properties).
+plugins {
+    // AGP 8.7 pairs with Gradle 8.9+; the wrapper pins Gradle 8.13 (the version
+    // Unity ships), so no separate Gradle download is needed on this machine.
+    id 'com.android.application' version '8.7.2' apply false
+}

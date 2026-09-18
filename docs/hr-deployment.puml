@@ -1,0 +1,49 @@
+@startuml
+' Deployment diagram — prenos srcane frekvencije (produkcijski tok)
+skinparam backgroundColor white
+skinparam shadowing false
+skinparam defaultFontName Arial
+skinparam defaultFontSize 12
+skinparam roundCorner 0
+skinparam ArrowColor black
+skinparam ArrowFontColor black
+skinparam node {
+  BackgroundColor white
+  BorderColor black
+  FontColor black
+}
+skinparam component {
+  BackgroundColor white
+  BorderColor black
+  FontColor black
+}
+skinparam artifact {
+  BackgroundColor white
+  BorderColor black
+  FontColor black
+}
+
+left to right direction
+
+node "Xiaomi Smart Band 9" as band {
+  component "Optičko mjerenje\nsrčane frekvencije" as ppg
+}
+
+node "Android telefon" as phone {
+  component "Mi Fitness" as mifit
+  component "HR Relay" as relay
+}
+
+node "Meta Quest 3" as quest {
+  component "NetworkHeartRateSource" as netsrc
+  component "HeartRateService" as hrsvc
+  artifact "Sesijski HR zapis" as hrlog
+}
+
+ppg --> mifit : BLE / BPM
+mifit --> relay : BPM podatak
+relay --> netsrc : UDP :5005\n(BPM, sequence,\ntimestamp, token)
+netsrc --> hrsvc : validirani uzorak
+hrsvc --> hrlog : HR uz tok sesije
+
+@enduml

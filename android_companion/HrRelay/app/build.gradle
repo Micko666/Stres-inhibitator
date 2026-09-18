@@ -1,0 +1,45 @@
+plugins {
+    id 'com.android.application'
+}
+
+android {
+    namespace 'me.djurovic.hrrelay'
+    compileSdk 34
+    // Pin to the build-tools that ship with Unity's SDK so AGP does not try to
+    // auto-install 34.0.0 into the read-only Program Files SDK (which fails on a
+    // license/permission check). Any machine with a writable SDK can drop this.
+    buildToolsVersion "36.0.0"
+
+    defaultConfig {
+        applicationId "me.djurovic.hrrelay"
+        minSdk 26            // java.time.Instant, modern foreground service
+        targetSdk 34
+        versionCode 1
+        versionName "0.1-spike"
+    }
+
+    buildTypes {
+        debug {
+            // debuggable defaults; sideload-only build
+        }
+        release {
+            minifyEnabled false
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
+    }
+}
+
+dependencies {
+    // Align all kotlin-stdlib modules to one version. AndroidX transitively pulls
+    // kotlin-stdlib 1.8.x plus legacy kotlin-stdlib-jdk7/jdk8 1.6.0, whose classes
+    // were folded into the main stdlib in 1.8 -> duplicate-class error without this.
+    implementation platform('org.jetbrains.kotlin:kotlin-bom:1.8.22')
+
+    implementation 'androidx.appcompat:appcompat:1.6.1'
+    implementation 'androidx.core:core:1.12.0'
+    testImplementation 'junit:junit:4.13.2'
+}

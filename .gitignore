@@ -1,0 +1,132 @@
+# ==============================
+# Unity
+# ==============================
+**/[Ll]ibrary/
+**/[Tt]emp/
+**/[Oo]bj/
+**/[Bb]uild/
+**/[Bb]uilds/
+**/[Ll]ogs/
+**/[Uu]ser[Ss]ettings/
+**/*.pidb.meta
+**/*.pdb.meta
+**/*.mdb.meta
+**/sysinfo.txt
+**/*.apk
+**/*.aab
+**/*.unitypackage
+
+# Visual Studio / Rider
+**/.vs/
+**/.idea/
+**/*.csproj
+**/*.sln
+**/*.userprefs
+
+# ==============================
+# Node.js (MCP Unity server)
+# ==============================
+**/node_modules/
+
+# MCP logs
+log.txt
+
+# ==============================
+# Python
+# ==============================
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.venv/
+venv/
+
+# Unity build temp (Android NDK cmake artifacts)
+**/.utmp/
+
+# Unity Burst compiler debug info
+*DoNotShip*/
+
+# Zip archives
+*.zip
+
+# Watch logs / debug logs
+watch_logs/
+*.log
+
+# ==============================
+# OS
+# ==============================
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# ==============================
+# Secrets / local config
+# ==============================
+.env
+*.local.json
+
+# Hardverski kljucevi i lokalna konfiguracija
+*auth_key*
+*.key
+
+
+# ==============================
+# ADB / platform-tools (binaries — install separately)
+# ==============================
+platform-tools/
+
+# ==============================
+# Coplay MCP editor plugin (dev tool — not project source)
+# ==============================
+VR_StressTraining/Packages/Coplay/
+
+# ==============================
+# Unity Test Framework Performance — transient run artifacts
+# (Unity regenerates/deletes these on build; not project source)
+# ==============================
+**/PerformanceTestRunInfo.json
+**/PerformanceTestRunSettings.json
+
+# Veliki izvorni art fajlovi (HDRI/EXR) — cuvaju se lokalno, ne u gitu.
+# Runtime koristi konvertovanu LDR verziju u Assets/Resources/SafeSpace/.
+source_assets/
+
+# ==============================
+# Lokalni eksperimentalni folder — nije dio artefakta
+# ==============================
+stari fajlovi/
+
+# Codex dev-tool config (nije projektni izvor)
+VR_StressTraining/.codex/
+
+# Nacrti pisanog rada (drze se van code repozitorijuma)
+*.docx
+
+# Stari backup-i implementacije (.bak/.patch) — mrtvi artefakti, ne u repo
+_implementation_backup/
+_pressure_backup_130159/
+_*_backup*/
+
+# Veliki HDRI/EXR izvornici (root ili bilo gdje) — runtime koristi LDR PNG u Resources/
+*.exr
+
+# Unity crash-recovery scene backup-i — mrtvi artefakti
+**/_Recovery/
+**/_Recovery.meta
+
+# ==============================
+# Literatura i licne slike — ne pripadaju kodnom repozitorijumu
+# (Radovi/ su tudji radovi pod autorskim pravom; pictrue/ su licne fotografije)
+# ==============================
+Radovi/
+pictrue/
+UDG_Diplomski_Rad_Procedura_Metodologija_*.pdf
+
+# Lokalne bezbjednosne biljeske — nikad u repozitorijum
+SECURITY_REMEDIATION_LOCAL.md
+
+# Interni radni audit dokumenti (AI workflow) — nisu sadrzaj artefakta
+VR_StressTraining/PROJECT_AUDIT_FOR_CHATGPT.md
+VR_StressTraining/CODEX_PROGRESS_AUDIT.md

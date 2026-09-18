@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- DayNight AppCompat theme so no extra Material dependency is required. -->
+    <style name="Theme.HrRelay" parent="Theme.AppCompat.DayNight.DarkActionBar" />
+</resources>

@@ -1,0 +1,12 @@
+{
+  "_comment": "Copy to hr_bridge_config.json next to hr_dashboard_v2.py and edit. CLI arguments override these values.",
+  "adb_path": "",
+  "device": "",
+  "device_fallback": "192.168.1.222:5555",
+  "unity_hosts": [],
+  "unity_port": 5005,
+  "dashboard_port": 8888,
+  "keepalive_seconds": 180,
+  "max_logcat_age_seconds": 120,
+  "source_id": "xiaomi_mifitness_logcat"
+}

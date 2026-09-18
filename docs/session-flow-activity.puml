@@ -1,0 +1,71 @@
+@startuml
+' Activity diagram — tok trening sesije, mjerenja i provjera validnosti
+skinparam backgroundColor white
+skinparam shadowing false
+skinparam defaultFontName Arial
+skinparam defaultFontSize 12
+skinparam ArrowColor black
+skinparam ArrowFontColor black
+skinparam activity {
+  BackgroundColor white
+  BorderColor black
+  FontColor black
+  DiamondBackgroundColor white
+  DiamondBorderColor black
+  DiamondFontColor black
+  StartColor black
+  EndColor black
+  BarColor black
+}
+skinparam note {
+  BackgroundColor white
+  BorderColor black
+  FontColor black
+}
+
+start
+:Izbor profila;
+:Provjera termina;
+:Provjera HR veze;
+
+if (STAI-6 na početku ciklusa?) then (da)
+  :STAI-6 — početak ciklusa;
+else (ne)
+endif
+
+:Referentno HR mjerenje
+uz vođeno disanje;
+:Pre-session SSQ;
+
+if (Tutorijal potreban?) then (da)
+  :Tutorijal;
+  note right
+    Izlaz u demo režim sa ekrana uputstava
+    završava sesiju prije koridora:
+    bez Recovery-ja, ali se izvršavaju
+    post-session SSQ, NASA-TLX i uslovni
+    STAI-6, pa provjera validnosti.
+  end note
+else (ne)
+endif
+
+:Ulazak u koridor;
+:Aktivni dio — 9 blokova;
+
+if (Kako je sesija okončana?) then (dobrovoljni prekid)
+else (uredan završetak ili isteklo vrijeme)
+  :Recovery;
+  :Post-session SSQ;
+  :NASA-TLX;
+  if (STAI-6 na kraju ciklusa?) then (da)
+    :STAI-6 — kraj ciklusa;
+  else (ne)
+  endif
+endif
+
+:Provjera validnosti;
+:Adaptacija, čuvanje podataka
+i sažetak sesije;
+stop
+
+@enduml

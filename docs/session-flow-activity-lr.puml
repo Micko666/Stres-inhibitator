@@ -1,0 +1,56 @@
+@startuml
+' Activity diagram — tok trening sesije, mjerenja i provjera validnosti.
+' Tok je prelomljen u redove preko konektora (A)-(D), sto je standardna UML
+' activity notacija, da bi slika bila citljiva na sirini Word stranice.
+' Uslovni koraci nose guard [ako je potreban] umjesto zasebnog decision cvora.
+left to right direction
+
+skinparam backgroundColor white
+skinparam shadowing false
+skinparam defaultFontName Arial
+skinparam defaultFontSize 11
+skinparam ArrowColor black
+skinparam ArrowFontColor black
+skinparam activityBackgroundColor white
+skinparam activityBorderColor black
+skinparam activityFontColor black
+skinparam activityDiamondBackgroundColor white
+skinparam activityDiamondBorderColor black
+skinparam activityDiamondFontColor black
+skinparam activityStartColor black
+skinparam activityEndColor black
+
+' ── red 5: validnost i zakljucivanje ──
+"(C) " --> "Provjera\nvalidnosti"
+--> "Adaptacija, čuvanje\ni sažetak sesije"
+--> (*)
+
+' ── red 3: aktivni dio i grananje na kraju ──
+"(B) " --> "Ulazak\nu koridor"
+--> "Aktivni dio\n9 blokova"
+if "Kako je sesija\nokončana?" then
+  -->[dobrovoljni prekid] "(C)"
+else
+  -->[uredan završetak\nili isteklo vrijeme] "(D)"
+endif
+
+' ── red 4: zavrsna mjerenja (samo regularni zavrsetak) ──
+"(D) " --> "Recovery"
+--> "Post-session\nSSQ"
+--> "NASA-TLX"
+--> "STAI-6 — kraj ciklusa\n[ako je potreban]"
+--> "(C)"
+
+' ── red 2: referentno mjerenje, SSQ, tutorijal ──
+"(A) " --> "Referentno HR mjerenje\nuz vođeno disanje"
+--> "Pre-session\nSSQ"
+--> "Tutorijal\n[ako je potreban]"
+--> "(B)"
+
+' ── red 1: priprema ──
+(*) --> "Izbor profila\ni provjera termina"
+--> "Provjera\nHR veze"
+--> "STAI-6 — početak ciklusa\n[ako je potreban]"
+--> "(A)"
+
+@enduml

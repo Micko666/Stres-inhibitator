@@ -1,0 +1,77 @@
+# Default: auto-detect text files and normalize line endings
+* text=auto
+
+# Force LF for all text source files
+*.cs        text eol=lf
+*.shader    text eol=lf
+*.cginc     text eol=lf
+*.hlsl      text eol=lf
+*.glsl      text eol=lf
+*.compute   text eol=lf
+
+# Unity YAML assets — force LF
+*.unity     text eol=lf
+*.prefab    text eol=lf
+*.asset     text eol=lf
+*.meta      text eol=lf
+*.controller text eol=lf
+*.anim      text eol=lf
+*.mask      text eol=lf
+*.mat       text eol=lf
+*.physicMaterial text eol=lf
+*.renderTexture  text eol=lf
+
+# Config / manifest / data files
+*.json      text eol=lf
+*.xml       text eol=lf
+*.txt       text eol=lf
+*.md        text eol=lf
+*.html      text eol=lf
+*.css       text eol=lf
+*.py        text eol=lf
+*.bat       text eol=lf
+*.sh        text eol=lf
+*.asmdef    text eol=lf
+
+# Binary files — no line-ending conversion, no diff
+*.png       binary
+*.jpg       binary
+*.jpeg      binary
+*.gif       binary
+*.bmp       binary
+*.tga       binary
+*.tif       binary
+*.tiff      binary
+*.psd       binary
+*.exr       binary
+*.hdr       binary
+*.cubemap   binary
+
+*.fbx       binary
+*.obj       binary
+*.blend     binary
+*.3ds       binary
+*.dae       binary
+
+*.wav       binary
+*.mp3       binary
+*.ogg       binary
+*.aif       binary
+
+*.mp4       binary
+*.mov       binary
+
+*.dll       binary
+*.exe       binary
+*.so        binary
+*.a         binary
+*.lib       binary
+
+*.apk       binary
+*.aab       binary
+*.ab        binary
+*.unitypackage binary
+
+*.zip       binary
+*.7z        binary
+*.gz        binary

@@ -1,0 +1,594 @@
+<title>Glasovne najave — lokalno snimanje</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700&family=JetBrains+Mono:wght@400;600&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap">
+
+<style>
+  :root{
+    --ground:#FBF7F0; --surface:#FFFFFF; --surface-2:#F2EBE0;
+    --ink:#241F18; --ink-soft:#5C5348; --muted:#8A8176; --line:#DDD3C4;
+    --accent:#B4732A; --accent-soft:#F0DFC6;
+    --done:#4E7A52; --done-soft:#DDE9DC;
+    --rec:#C0392B; --rec-soft:#F6DDD9;
+    --shadow:0 1px 2px rgba(36,31,24,.06),0 8px 24px rgba(36,31,24,.06);
+  }
+  @media (prefers-color-scheme:dark){
+    :root:not([data-theme="light"]){
+      --ground:#14120F; --surface:#1E1B16; --surface-2:#272319;
+      --ink:#F2EDE4; --ink-soft:#C3B9AB; --muted:#8A8176; --line:#332E25;
+      --accent:#E0A253; --accent-soft:#3A2E1C;
+      --done:#7FA87F; --done-soft:#23301F;
+      --rec:#E0644F; --rec-soft:#3A211C;
+      --shadow:0 1px 2px rgba(0,0,0,.4),0 10px 30px rgba(0,0,0,.35);
+    }
+  }
+  :root[data-theme="dark"]{
+    --ground:#14120F; --surface:#1E1B16; --surface-2:#272319;
+    --ink:#F2EDE4; --ink-soft:#C3B9AB; --muted:#8A8176; --line:#332E25;
+    --accent:#E0A253; --accent-soft:#3A2E1C;
+    --done:#7FA87F; --done-soft:#23301F;
+    --rec:#E0644F; --rec-soft:#3A211C;
+    --shadow:0 1px 2px rgba(0,0,0,.4),0 10px 30px rgba(0,0,0,.35);
+  }
+
+  *{box-sizing:border-box}
+  body{background:var(--ground);color:var(--ink);margin:0;line-height:1.5;
+       font-family:Archivo,system-ui,-apple-system,"Segoe UI",sans-serif}
+  .wrap{max-width:1080px;margin:0 auto;padding:26px 24px 64px;display:flex;flex-direction:column;gap:20px}
+
+  header{display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:12px}
+  h1{font-family:"Source Serif 4",Georgia,serif;font-size:26px;font-weight:600;margin:0;
+     letter-spacing:-.01em;text-wrap:balance}
+  .sub{color:var(--muted);font-size:13.5px;margin:2px 0 0}
+  .counter{font-family:"JetBrains Mono",ui-monospace,monospace;font-size:13px;color:var(--ink-soft);
+           font-variant-numeric:tabular-nums;display:flex;align-items:center;gap:10px}
+  .bar{width:140px;height:5px;border-radius:99px;background:var(--surface-2);overflow:hidden}
+  .bar>i{display:block;height:100%;background:var(--done);width:0;transition:width .25s ease}
+
+  .slate{background:var(--surface);border:1px solid var(--line);border-radius:4px;
+         box-shadow:var(--shadow);overflow:hidden}
+  .slate[data-rec="1"]{border-color:var(--rec)}
+  .slate-top{display:flex;flex-wrap:wrap;align-items:center;gap:12px;padding:13px 20px;
+             border-bottom:1px solid var(--line);background:var(--surface-2)}
+  .file{font-family:"JetBrains Mono",ui-monospace,monospace;font-size:16px;font-weight:600;
+        color:var(--accent);letter-spacing:-.01em}
+  .file-h{font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);
+          font-weight:600;display:block;margin-bottom:1px}
+  .chip{font-size:11px;font-weight:600;letter-spacing:.09em;text-transform:uppercase;
+        padding:3px 9px;border-radius:3px;background:var(--accent-soft);color:var(--ink-soft)}
+  .chip.ok{background:var(--done-soft);color:var(--done)}
+  .idx{margin-left:auto;font-family:"JetBrains Mono",ui-monospace,monospace;font-size:12px;
+       color:var(--muted);font-variant-numeric:tabular-nums}
+
+  .stage{padding:16px 40px 28px;display:flex;flex-direction:column;gap:18px;
+         min-height:200px;justify-content:center}
+  .say-h{font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);
+         font-weight:600;margin:0}
+  .line{font-family:"Source Serif 4",Georgia,serif;font-size:clamp(25px,4.2vw,38px);
+        line-height:1.28;font-weight:400;margin:0;text-wrap:balance;letter-spacing:-.012em}
+  .note{display:flex;gap:10px;align-items:flex-start;font-size:14px;color:var(--ink-soft);max-width:62ch}
+  .note b{font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);
+          font-weight:600;flex:0 0 auto;padding-top:3px}
+
+  .rail{display:flex;flex-wrap:wrap;gap:12px;align-items:center;padding:13px 20px;
+        border-top:1px solid var(--line);background:var(--surface-2)}
+  .vu{display:flex;gap:2px;align-items:flex-end;height:22px;width:104px}
+  .vu i{flex:1;background:var(--line);border-radius:1px;height:30%;transition:height .06s linear,background .06s}
+  .vu i.on{background:var(--done)} .vu i.hot{background:var(--rec)}
+  .time{font-family:"JetBrains Mono",ui-monospace,monospace;font-size:12px;color:var(--muted);
+        font-variant-numeric:tabular-nums;min-width:44px}
+  .takes{display:flex;gap:5px;flex-wrap:wrap;margin-left:auto}
+  .take{display:flex;align-items:center;gap:5px;font-size:11.5px;padding:3px 4px 3px 8px;
+        border-radius:3px;background:var(--done-soft);color:var(--done);font-weight:600}
+  .take button{border:0;background:none;padding:2px 4px;font-size:12px;line-height:1;
+               color:var(--done);cursor:pointer;border-radius:2px}
+  .take button:hover{background:rgba(0,0,0,.08)}
+
+  .nav{display:flex;flex-wrap:wrap;gap:10px;align-items:center;padding:13px 20px;
+       border-top:1px solid var(--line)}
+  button{font-family:inherit;font-size:13.5px;font-weight:600;padding:8px 15px;border-radius:3px;
+         cursor:pointer;border:1px solid var(--line);background:var(--surface);color:var(--ink);
+         transition:border-color .15s,background .15s}
+  button:hover:not(:disabled){border-color:var(--accent)}
+  button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+  button:disabled{opacity:.4;cursor:not-allowed}
+  button.rec{background:var(--rec);border-color:var(--rec);color:#fff;min-width:150px}
+  button.rec[data-on="1"]{background:var(--rec-soft);color:var(--rec)}
+  button.go{background:var(--accent);border-color:var(--accent);color:var(--ground)}
+  .keys{margin-left:auto;font-size:12px;color:var(--muted)}
+  kbd{font-family:"JetBrains Mono",ui-monospace,monospace;font-size:11px;border:1px solid var(--line);
+      border-bottom-width:2px;border-radius:3px;padding:1px 5px;background:var(--surface);color:var(--ink-soft)}
+  .msg{font-size:12.5px;color:var(--muted);padding:0 20px 13px;white-space:pre-line}
+  .msg[data-tone="bad"]{color:var(--rec)} .msg[data-tone="good"]{color:var(--done)}
+
+  .micrail{gap:9px}
+  .mic-l{font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);font-weight:600}
+  #mic{font-family:inherit;font-size:12.5px;padding:6px 9px;border-radius:3px;
+       border:1px solid var(--line);background:var(--surface);color:var(--ink);
+       max-width:340px;flex:1;min-width:150px}
+  #mic:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+  .micrail button{font-size:12.5px;padding:6px 11px}
+
+  .track{display:flex;flex-direction:column;gap:15px}
+  .phase-h{display:flex;align-items:baseline;gap:10px;font-size:11px;font-weight:700;
+           letter-spacing:.11em;text-transform:uppercase;color:var(--muted)}
+  .phase-h span{flex:1;height:1px;background:var(--line)}
+  .cells{display:grid;grid-template-columns:repeat(auto-fill,minmax(178px,1fr));gap:7px}
+  .cell{text-align:left;padding:9px 11px;border-radius:3px;border:1px solid var(--line);
+        background:var(--surface);display:flex;flex-direction:column;gap:3px;min-width:0;position:relative}
+  .cell:hover{border-color:var(--accent)}
+  .cell[data-cur="1"]{border-color:var(--accent);box-shadow:inset 3px 0 0 var(--accent)}
+  .cell[data-done="1"]{background:var(--done-soft);border-color:transparent}
+  .cell[data-done="1"][data-cur="1"]{border-color:var(--accent)}
+  .cell[data-rec="1"]{background:var(--rec-soft);border-color:var(--rec);box-shadow:inset 3px 0 0 var(--rec)}
+  .cell-top{display:flex;align-items:center;gap:6px;min-width:0}
+  .cell-f{font-family:"JetBrains Mono",ui-monospace,monospace;font-size:11.5px;font-weight:600;
+          color:var(--ink);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;flex:1}
+  .cell[data-done="1"] .cell-f{color:var(--done)}
+  .cell[data-rec="1"] .cell-f{color:var(--rec)}
+  .badge{font-family:"JetBrains Mono",ui-monospace,monospace;font-size:10.5px;font-weight:600;
+         padding:1px 5px;border-radius:2px;background:var(--done);color:var(--ground);flex:0 0 auto}
+  .cell-t{font-size:11.5px;color:var(--muted);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+
+  .spec{border:1px solid var(--line);border-radius:4px;background:var(--surface);padding:18px 20px;
+        display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:18px}
+  .spec h2{grid-column:1/-1;font-family:"Source Serif 4",Georgia,serif;font-size:16px;font-weight:600;margin:0}
+  .spec dl{margin:0;display:flex;flex-direction:column;gap:5px}
+  .spec dt{font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);font-weight:600}
+  .spec dd{margin:0;font-size:13.5px;color:var(--ink-soft)}
+  .spec code{font-family:"JetBrains Mono",ui-monospace,monospace;font-size:12.5px;color:var(--accent);
+             word-break:break-all}
+  @media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+
+<div class="wrap">
+  <header>
+    <div>
+      <h1>Glasovne najave</h1>
+      <p class="sub">Lokalna verzija · klikni karticu da snimiš · više varijanti se vrti nasumično u igri</p>
+    </div>
+    <div class="counter">
+      <span id="cnt">0 / 28</span>
+      <div class="bar"><i id="barfill"></i></div>
+    </div>
+  </header>
+
+  <div class="slate" id="slate">
+    <div class="slate-top">
+      <span><span class="file-h">Sačuvaj kao</span><span class="file" id="file">Welcome.wav</span></span>
+      <span class="chip" id="phase">Priprema</span>
+      <span class="chip ok" id="okchip" hidden>Snimljeno</span>
+      <span class="idx" id="idx">01 / 28</span>
+    </div>
+
+    <div class="stage">
+      <p class="say-h">Ovo izgovaraš</p>
+      <p class="line" id="line">Zdravo. Za početak izaberi svoj profil.</p>
+      <p class="note"><b>Ton</b><span id="note">Prvi kontakt sa učesnikom. Toplo i mirno, bez svečanosti.</span></p>
+    </div>
+
+    <div class="rail">
+      <button class="rec" id="rec">● Snimi varijantu</button>
+      <div class="vu" id="vu"></div>
+      <span class="time" id="time">0.0 s</span>
+      <div class="takes" id="takes"></div>
+    </div>
+
+    <div class="rail micrail">
+      <label class="mic-l" for="mic">Mikrofon</label>
+      <select id="mic"><option value="">Podrazumijevani ulaz</option></select>
+      <button id="micrefresh" title="Ponovo učitaj listu ulaza">Osvježi</button>
+      <button id="mictest">Provjeri dozvolu</button>
+    </div>
+
+    <div class="nav">
+      <button id="prev">← Prethodna</button>
+      <button id="next">Naredna →</button>
+      <button class="go" id="export">Izvezi sve kao ZIP</button>
+      <span class="keys"><kbd>Space</kbd> snimi / stani · <kbd>←</kbd> <kbd>→</kbd> kretanje</span>
+    </div>
+    <p class="msg" id="msg">Lokalni fajl — mikrofon radi bez ograničenja ugrađenog prikaza. Klikni karticu da počneš.</p>
+  </div>
+
+  <div class="track" id="track"></div>
+
+  <div class="spec">
+    <h2>Kako se čuva</h2>
+    <dl><dt>Više varijanti</dt><dd>Snimi istu repliku više puta. Igra pri svakom paljenju bira jednu nasumično i nikad istu dvaput zaredom.</dd></dl>
+    <dl><dt>Imena</dt><dd>Jedna varijanta → <code>Welcome.wav</code>. Više → <code>Welcome_1.wav</code>, <code>Welcome_2.wav</code>…</dd></dl>
+    <dl><dt>Raspakuj u</dt><dd><code>Assets/Resources/VoiceCues/</code></dd></dl>
+    <dl><dt>Format</dt><dd>WAV, mono, 16-bit. Izvoz je jedno čuvanje za sve snimke odjednom.</dd></dl>
+  </div>
+</div>
+
+<script>
+const CUES = [
+  ["Welcome","Zdravo. Za početak izaberi svoj profil.","Priprema","Prvi kontakt sa učesnikom. Toplo i mirno, bez svečanosti."],
+  ["ProfileSelected","Profil je spreman.","Priprema","Kratka potvrda. Neutralno, gotovo usput."],
+  ["ScheduleWarning","Još nije vrijeme za narednu sesiju.","Priprema","Obavještenje, ne prijekor."],
+  ["PreSSQ","Prvo kratak upitnik o tome kako se osjećaš.","Priprema","Opušteno. Najavljuje nešto kratko, pa neka tako i zvuči."],
+  ["BaselineStart","Sada mirno mjerenje pulsa. Samo miruj i diši prirodno.","Priprema","Sporije od ostalih. Poslije ove replike slijedi pet minuta tišine — postavi ton za to."],
+  ["BaselineComplete","Mjerenje je završeno. Hvala.","Priprema","Toplo i kratko."],
+  ["CopingIntro","Prije zadataka, kratka priprema.","Priprema","Neutralno, prelazna rečenica."],
+  ["BreathingPrompt","Prati krug — širi se dok udišeš, skuplja dok izdišeš.","Priprema","Ravnomjerno i sporo. Krug radi na ritmu udah 4 s / izdah 6 s; nemoj brzati."],
+  ["TutorialIntro","Kratak podsjetnik na pravila.","Priprema","Neutralno. Pravila dolaze kao tekst na tabletu."],
+  ["Ready","Ulazimo u hodnik kad ti kažeš.","Priprema","Mirno, bez požurivanja. Učesnik sam bira trenutak."],
+
+  ["SessionStart","Počinjemo. Idi korak po korak, bez žurbe.","Hodnik","Ohrabrujuće, ne komandno."],
+  ["TaskTransitionNBack","Naredni zadatak: N-back.","Hodnik","Kratko i ujednačeno. Sve četiri najave zadataka snimi istim tonom i tempom."],
+  ["TaskTransitionGoNoGo","Naredni zadatak: Go, No-Go.","Hodnik","Isti ton. „Go, No-Go“ izgovori razdvojeno."],
+  ["TaskTransitionFlanker","Naredni zadatak: Flanker.","Hodnik","Isti ton kao ostale najave zadataka."],
+  ["TaskTransitionCorsi","Naredni zadatak: sekvencijalna memorija.","Hodnik","Isti ton. Jedini zadatak sa crnogorskim nazivom."],
+  ["PauseOpened","Pauza. Nastavi kad želiš.","Hodnik","Mirno. Pauza znači da je učesniku nešto zatrebalo."],
+  ["ResumeCountdown","Nastavljamo za tri, dva, jedan.","Hodnik","Ujednačen ritam brojanja. Nemoj ubrzavati pred kraj."],
+  ["TimeWarning70","Prošla je trećina vremena.","Hodnik","Informacija, ne upozorenje. Ravno."],
+  ["TimeWarning50","Prošla je polovina vremena.","Hodnik","Isti ton kao prethodna."],
+  ["TimeWarning30","Ostalo je manje od trećine vremena.","Hodnik","Blago ozbiljnije, ali i dalje mirno."],
+  ["TimeWarning10","Vrijeme je pri kraju.","Hodnik","Najvažnija replika za ton. Pali se dok se hodnik urušava — glas mora ostati miran, inače pojačava paniku koju mjeriš."],
+  ["GameOver","Vrijeme je isteklo. Sesija se završava.","Hodnik","Bez dramatizacije. Odmah poslije ovoga ide upitnik o mučnini."],
+
+  ["SessionComplete","Svi zadaci su završeni. Bravo.","Poslije","Toplo, iskreno. Jedina pohvala u cijeloj sesiji."],
+  ["RecoveryStart","Sada kratak odmor. Diši prirodno.","Poslije","Smirujuće, kao mjerenje na početku. Slijedi 90 s mirovanja."],
+  ["PostSSQ","Još nekoliko pitanja o tome kako se osjećaš.","Poslije","Neutralno."],
+  ["NasaTlx","Ocijeni koliko je sesija bila zahtjevna.","Poslije","Neutralno, bez sugerisanja odgovora."],
+  ["AdaptationExplanation","Evo šta se mijenja za narednu sesiju.","Poslije","Informativno, blago pozitivno."],
+  ["Goodbye","To je sve za danas. Hvala i doviđenja.","Poslije","Toplo. Zatvara sesiju."]
+];
+
+const $ = id => document.getElementById(id);
+const pad = n => String(n).padStart(2,"0");
+let cur = 0;
+const takes = new Map();            // cueId -> [{blob,url,seconds}]
+let downloads = null;
+
+const VU_BARS = 14;
+(() => { const v=$("vu"); for(let i=0;i<VU_BARS;i++) v.appendChild(document.createElement("i")); })();
+function drawVu(level){
+  const bars = $("vu").children, lit = Math.round(level*VU_BARS);
+  for (let i=0;i<VU_BARS;i++){
+    const on = i < lit;
+    bars[i].style.height = on ? (28 + (i/VU_BARS)*72)+"%" : "30%";
+    bars[i].className = on ? (i >= VU_BARS-2 ? "hot" : "on") : "";
+  }
+}
+
+function encodeWav(chunks,total,rate){
+  const buf = new ArrayBuffer(44+total*2), dv = new DataView(buf);
+  const str=(o,s)=>{for(let i=0;i<s.length;i++)dv.setUint8(o+i,s.charCodeAt(i));};
+  str(0,"RIFF"); dv.setUint32(4,36+total*2,true); str(8,"WAVE");
+  str(12,"fmt "); dv.setUint32(16,16,true); dv.setUint16(20,1,true); dv.setUint16(22,1,true);
+  dv.setUint32(24,rate,true); dv.setUint32(28,rate*2,true); dv.setUint16(32,2,true); dv.setUint16(34,16,true);
+  str(36,"data"); dv.setUint32(40,total*2,true);
+  let o=44;
+  for(const c of chunks) for(let i=0;i<c.length;i++){
+    const s=Math.max(-1,Math.min(1,c[i]));
+    dv.setInt16(o,s<0?s*0x8000:s*0x7FFF,true); o+=2;
+  }
+  return new Blob([dv],{type:"audio/wav"});
+}
+
+const CRC=(()=>{const t=new Uint32Array(256);
+  for(let n=0;n<256;n++){let c=n;for(let k=0;k<8;k++)c=c&1?0xEDB88320^(c>>>1):c>>>1;t[n]=c>>>0;}return t;})();
+const crc32=u8=>{let c=0xFFFFFFFF;for(let i=0;i<u8.length;i++)c=CRC[(c^u8[i])&0xFF]^(c>>>8);return (c^0xFFFFFFFF)>>>0;};
+async function makeZip(entries){
+  const enc=new TextEncoder(), parts=[], central=[]; let offset=0;
+  for(const e of entries){
+    const nb=enc.encode(e.name), data=new Uint8Array(await e.blob.arrayBuffer()), crc=crc32(data);
+    const lh=new DataView(new ArrayBuffer(30));
+    lh.setUint32(0,0x04034b50,true); lh.setUint16(4,20,true);
+    lh.setUint32(14,crc,true); lh.setUint32(18,data.length,true); lh.setUint32(22,data.length,true);
+    lh.setUint16(26,nb.length,true);
+    parts.push(new Uint8Array(lh.buffer),nb,data);
+    const ch=new DataView(new ArrayBuffer(46));
+    ch.setUint32(0,0x02014b50,true); ch.setUint16(4,20,true); ch.setUint16(6,20,true);
+    ch.setUint32(16,crc,true); ch.setUint32(20,data.length,true); ch.setUint32(24,data.length,true);
+    ch.setUint16(28,nb.length,true); ch.setUint32(42,offset,true);
+    central.push(new Uint8Array(ch.buffer),nb);
+    offset += 30+nb.length+data.length;
+  }
+  const cs=central.reduce((n,p)=>n+p.length,0);
+  const end=new DataView(new ArrayBuffer(22));
+  end.setUint32(0,0x06054b50,true); end.setUint16(8,entries.length,true);
+  end.setUint16(10,entries.length,true); end.setUint32(12,cs,true); end.setUint32(16,offset,true);
+  return new Blob([...parts,...central,new Uint8Array(end.buffer)],{type:"application/zip"});
+}
+
+let ctx=null,stream=null,node=null,src=null;
+let recording=false,recIdx=-1,chunks=[],total=0,startedAt=0,tick=null;
+const say=(t,tone)=>{const m=$("msg");m.textContent=t;m.dataset.tone=tone||"";};
+
+/* ---------- microphone: policy check, picker, diagnosis ---------- */
+
+// An artifact runs inside an iframe. If the frame was not granted the
+// microphone permission policy, getUserMedia throws NotAllowedError no matter
+// what the viewer clicks — a different problem from "the viewer said no", and
+// the two need different instructions.
+function framePolicyBlocks(){
+  try{
+    const fp = document.featurePolicy || document.permissionsPolicy;
+    if (fp && typeof fp.allowsFeature === "function") return !fp.allowsFeature("microphone");
+  }catch(e){}
+  return null;                       // cannot tell
+}
+
+async function micPermissionState(){
+  try{
+    if (!navigator.permissions || !navigator.permissions.query) return null;
+    const s = await navigator.permissions.query({name:"microphone"});
+    return s.state;                  // "granted" | "denied" | "prompt"
+  }catch(e){ return null; }
+}
+
+function explainMicError(err){
+  const name = err && err.name ? err.name : "greška";
+  if (name === "NotAllowedError"){
+    const blocked = framePolicyBlocks();
+    if (blocked === true){
+      return "Mikrofon je blokiran na nivou stranice, ne tvojom odlukom.\n" +
+             "Otvori ovu stranicu u zasebnom tabu (dugme za otvaranje u novom prozoru), " +
+             "pa dozvoli mikrofon tamo.";
+    }
+    return "Pristup mikrofonu je odbijen.\n" +
+           "U Chrome/Edge: klikni ikonicu katanca (ili ⚙) lijevo od adrese → Mikrofon → Dozvoli, pa osvježi stranicu.\n" +
+           "Ako nema te opcije, otvori stranicu u zasebnom tabu i pokušaj ponovo.";
+  }
+  if (name === "NotFoundError")
+    return "Nije pronađen nijedan mikrofon. Priključi ga pa klikni „Osvježi“.";
+  if (name === "NotReadableError")
+    return "Mikrofon koristi druga aplikacija. Zatvori je (Zoom, Discord, Audacity…) pa pokušaj ponovo.";
+  if (name === "OverconstrainedError")
+    return "Izabrani ulaz ne podržava traženi format. Vrati na „Podrazumijevani ulaz“.";
+  return "Mikrofon nije dostupan: " + name + ".";
+}
+
+async function listMics(){
+  try{
+    const devs = await navigator.mediaDevices.enumerateDevices();
+    const mics = devs.filter(d => d.kind === "audioinput");
+    const sel = $("mic"), keep = sel.value;
+    sel.innerHTML = '<option value="">Podrazumijevani ulaz</option>';
+    mics.forEach((d,i) => {
+      const o = document.createElement("option");
+      o.value = d.deviceId;
+      // Labels stay empty until the viewer has granted access once.
+      o.textContent = d.label || ("Ulaz " + (i+1) + " (naziv poslije dozvole)");
+      sel.appendChild(o);
+    });
+    if (keep && [...sel.options].some(o => o.value === keep)) sel.value = keep;
+    return mics.length;
+  }catch(e){ return 0; }
+}
+
+async function checkMic(){
+  const blocked = framePolicyBlocks();
+  if (blocked === true){
+    say("Ova stranica nema dozvolu za mikrofon u ugrađenom prikazu.\n" +
+        "Otvori je u zasebnom tabu, pa ponovo klikni „Provjeri dozvolu“.", "bad");
+    return;
+  }
+  const state = await micPermissionState();
+  if (state === "denied"){
+    say("Mikrofon je blokiran za ovu stranicu.\n" +
+        "Klikni ikonicu katanca lijevo od adrese → Mikrofon → Dozvoli → osvježi stranicu.", "bad");
+    return;
+  }
+  try{
+    const s = await navigator.mediaDevices.getUserMedia({audio:true});
+    s.getTracks().forEach(t => t.stop());
+    const n = await listMics();
+    say("Mikrofon je dozvoljen. Pronađenih ulaza: " + n + ".", "good");
+  }catch(err){ say(explainMicError(err), "bad"); }
+}
+
+function micConstraints(){
+  const id = $("mic").value;
+  const base = {channelCount:1, echoCancellation:false, noiseSuppression:false, autoGainControl:false};
+  return id ? Object.assign({deviceId:{exact:id}}, base) : base;
+}
+
+async function startRec(i){
+  recIdx = i;
+  try{
+    // A device change needs a fresh stream, so drop any stream we already hold
+    // when the picker no longer matches what is open.
+    if (stream && stream.__deviceId !== $("mic").value){
+      stream.getTracks().forEach(t => t.stop());
+      stream = null;
+    }
+    if(!stream){
+      stream = await navigator.mediaDevices.getUserMedia({audio: micConstraints()});
+      stream.__deviceId = $("mic").value;
+      listMics();                    // labels become readable once granted
+    }
+    if(!ctx) ctx = new (window.AudioContext||window.webkitAudioContext)();
+    if(ctx.state==="suspended") await ctx.resume();
+    src = ctx.createMediaStreamSource(stream);
+    node = ctx.createScriptProcessor(4096,1,1);
+    chunks=[]; total=0;
+    node.onaudioprocess = e => {
+      const inp = e.inputBuffer.getChannelData(0);
+      chunks.push(new Float32Array(inp)); total += inp.length;
+      let peak=0; for(let k=0;k<inp.length;k+=8){const a=Math.abs(inp[k]); if(a>peak)peak=a;}
+      drawVu(Math.min(1,peak*1.6));
+    };
+    src.connect(node); node.connect(ctx.destination);
+    recording=true; startedAt=performance.now();
+    tick=setInterval(()=>{$("time").textContent=((performance.now()-startedAt)/1000).toFixed(1)+" s";},100);
+    say("Snima se — pročitaj repliku, pa klikni ponovo ili pritisni Space.","");
+    render();
+  }catch(err){
+    recording=false; recIdx=-1;
+    stream = null;
+    say(explainMicError(err), "bad");
+    render();
+  }
+}
+
+function stopRec(){
+  if(!recording) return;
+  recording=false; clearInterval(tick);
+  try{node.disconnect();src.disconnect();}catch(e){}
+  node.onaudioprocess=null; drawVu(0);
+  const secs = total/ctx.sampleRate;
+  const id = CUES[recIdx][0];
+  recIdx = -1;
+  if(secs < 0.25){ say("Snimak je prekratak — pokušaj ponovo.","bad"); render(); return; }
+  const blob = encodeWav(chunks,total,ctx.sampleRate);
+  if(!takes.has(id)) takes.set(id,[]);
+  takes.get(id).push({blob,url:URL.createObjectURL(blob),seconds:secs});
+  const n = takes.get(id).length;
+  say(`Sačuvano u pregledaču: ${id} · varijanta ${n} · ${secs.toFixed(1)} s`,"good");
+  render();
+}
+
+function cardClick(i){
+  if(recording){
+    const same = recIdx === i;
+    stopRec();
+    if(same) return;
+  }
+  cur = i; render();
+  startRec(i);
+}
+
+function toggleRec(){
+  if(recording) stopRec(); else startRec(cur);
+}
+
+function playTake(id,k){
+  const t = takes.get(id); if(!t||!t[k]) return;
+  new Audio(t[k].url).play().catch(()=>say("Reprodukcija nije uspjela.","bad"));
+}
+function dropTake(id,k){
+  const t = takes.get(id); if(!t||!t[k]) return;
+  URL.revokeObjectURL(t[k].url); t.splice(k,1);
+  if(t.length===0) takes.delete(id);
+  say("Varijanta obrisana.",""); render();
+}
+
+async function exportZip(){
+  if(takes.size===0){ say("Nema nijednog snimka za izvoz.","bad"); return; }
+  
+  const entries=[];
+  for(const c of CUES){
+    const t = takes.get(c[0]); if(!t||!t.length) continue;
+    t.forEach((tk,k)=>entries.push({
+      name: t.length===1 ? c[0]+".wav" : `${c[0]}_${k+1}.wav`,
+      blob: tk.blob
+    }));
+  }
+  say("Pakujem "+entries.length+" fajlova…","");
+  try{
+    const zip = await makeZip(entries);
+    const url = URL.createObjectURL(zip);
+    const a = document.createElement("a");
+    a.href = url; a.download = "VoiceCues.zip";
+    document.body.appendChild(a); a.click(); a.remove();
+    setTimeout(() => URL.revokeObjectURL(url), 4000);
+    say(`Sačuvano ${entries.length} WAV fajlova. Raspakuj u Assets/Resources/VoiceCues/`,"good");
+  }catch(err){
+    const c = err && err.code;
+    say(c==="declined" ? "Čuvanje otkazano." : "Čuvanje nije uspjelo ("+(c||"greška")+").",
+        c==="declined" ? "" : "bad");
+  }
+}
+
+function buildTrack(){
+  const t=$("track"); t.innerHTML="";
+  let last=null,cells=null;
+  CUES.forEach((c,i)=>{
+    if(c[2]!==last){
+      last=c[2];
+      const h=document.createElement("div"); h.className="phase-h";
+      h.innerHTML=`${last}<span></span>`; t.appendChild(h);
+      cells=document.createElement("div"); cells.className="cells"; t.appendChild(cells);
+    }
+    const b=document.createElement("button"); b.className="cell";
+    b.innerHTML=`<span class="cell-top"><span class="cell-f"></span><span class="badge" hidden></span></span><span class="cell-t"></span>`;
+    b.querySelector(".cell-f").textContent=c[0];
+    b.querySelector(".cell-t").textContent=c[1];
+    b.addEventListener("click",()=>cardClick(i));
+    cells.appendChild(b);
+  });
+}
+
+function renderTakes(){
+  const box=$("takes"); box.innerHTML="";
+  const id=CUES[cur][0], list=takes.get(id)||[];
+  list.forEach((tk,k)=>{
+    const el=document.createElement("span"); el.className="take";
+    el.innerHTML=`<span>${list.length===1?"jedna":"#"+(k+1)} · ${tk.seconds.toFixed(1)}s</span>`;
+    const p=document.createElement("button"); p.textContent="▶"; p.title="Preslušaj";
+    p.addEventListener("click",()=>playTake(id,k));
+    const d=document.createElement("button"); d.textContent="✕"; d.title="Obriši";
+    d.addEventListener("click",()=>dropTake(id,k));
+    el.append(p,d); box.appendChild(el);
+  });
+}
+
+function render(){
+  const c=CUES[cur], list=takes.get(c[0])||[];
+  $("file").textContent = list.length>1 ? c[0]+"_1.wav … _"+list.length+".wav" : c[0]+".wav";
+  $("line").textContent=c[1]; $("phase").textContent=c[2]; $("note").textContent=c[3];
+  $("idx").textContent=`${pad(cur+1)} / ${CUES.length}`;
+  $("okchip").hidden = list.length===0;
+  $("okchip").textContent = list.length>1 ? list.length+" varijante" : "Snimljeno";
+
+  const b=$("rec");
+  b.textContent = recording ? "■ Zaustavi" : (list.length ? "● Snimi još jednu" : "● Snimi varijantu");
+  b.dataset.on = recording ? "1":"0";
+  $("slate").dataset.rec = recording ? "1":"0";
+  if(!recording) $("time").textContent = list.length ? list[list.length-1].seconds.toFixed(1)+" s" : "0.0 s";
+  $("export").disabled = takes.size===0;
+
+  $("cnt").textContent=`${takes.size} / ${CUES.length}`;
+  $("barfill").style.width=(takes.size/CUES.length*100)+"%";
+
+  document.querySelectorAll(".cell").forEach((el,i)=>{
+    const n=(takes.get(CUES[i][0])||[]).length;
+    el.dataset.cur = i===cur?"1":"0";
+    el.dataset.done = n>0?"1":"0";
+    el.dataset.rec = (recording && recIdx===i)?"1":"0";
+    const bd=el.querySelector(".badge");
+    bd.hidden = n<2; bd.textContent = "×"+n;
+  });
+  renderTakes();
+}
+
+const go=d=>{ if(recording) return; cur=(cur+d+CUES.length)%CUES.length; render(); };
+$("rec").addEventListener("click",toggleRec);
+$("next").addEventListener("click",()=>go(1));
+$("prev").addEventListener("click",()=>go(-1));
+$("export").addEventListener("click",exportZip);
+document.addEventListener("keydown",e=>{
+  if(e.key===" "){e.preventDefault();toggleRec();}
+  else if(e.key==="ArrowRight")go(1);
+  else if(e.key==="ArrowLeft")go(-1);
+});
+window.addEventListener("beforeunload",e=>{ if(takes.size>0){e.preventDefault();e.returnValue="";} });
+
+$("micrefresh").addEventListener("click", async () => {
+  const n = await listMics();
+  say(n ? ("Pronađenih ulaza: " + n + ". Nazivi se vide tek poslije prve dozvole.")
+        : "Nije pronađen nijedan mikrofon.", n ? "" : "bad");
+});
+$("mictest").addEventListener("click", checkMic);
+$("mic").addEventListener("change", () => {
+  if (stream){ stream.getTracks().forEach(t => t.stop()); stream = null; }
+  say("Ulaz promijenjen. Naredni snimak koristi izabrani mikrofon.", "");
+});
+if (navigator.mediaDevices && navigator.mediaDevices.addEventListener)
+  navigator.mediaDevices.addEventListener("devicechange", listMics);
+
+buildTrack(); render();
+listMics();
+
+if (framePolicyBlocks() === true){
+  say("Mikrofon je blokiran u ugrađenom prikazu.\n" +
+      "Otvori stranicu u zasebnom tabu da bi snimanje radilo.", "bad");
+}
+
+// Lokalna verzija: fajl se čuva običnim download linkom, bez sandboxa.
+downloads = true;
+render();
+</script>

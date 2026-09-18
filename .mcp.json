@@ -1,0 +1,14 @@
+{
+  "mcpServers": {
+    "mcp-unity": {
+      "command": "cmd.exe",
+      "args": [
+        "/c",
+        "tools\\run-mcp-unity.bat"
+      ],
+      "env": {
+        "LOGGING_FILE": "true"
+      }
+    }
+  }
+}

@@ -1,0 +1,9 @@
+﻿{
+    "current":  85,
+    "last_update":  "12:39:15",
+    "source":  "HrItem(time)",
+    "adb_host":  "192.168.1.139:5555",
+    "status":  "HR podatak procitan iz logcat-a.",
+    "hr_lines_seen":  498,
+    "last_raw":  "07-14 12:39:14.896 I/fitness_19864_18807(19864): [HomeDataRepository] srcDataMap = {single_heart_rate=[HrItem(sid=870717940, time=1784025553, hr=85), HrItem(sid=870717940, time=1784025551, hr=84), HrItem(sid=870717940, time=1784025550, hr=85), HrItem(sid=870717940, time=1784025549, hr=84), HrItem(sid=870717940, time=1784025546, hr=83), HrItem(sid=870717940, time=1784025544, hr=82), HrItem(sid=870717940, time=1784025542, hr=83), HrItem(sid=870717940, time=1784025539, hr=82), HrItem(sid=870717940, time=1784025538, hr=83), HrItem(sid=870717940, time=1784025533, hr=84), HrItem(sid=870717940, time=1784025531, hr=83), HrItem(sid=870717940, time=1784025530, hr=82), HrItem(sid=870717940, time=1784025529, hr=83), HrItem(sid=870717940, time=1784025528, hr=84), HrItem(sid=870717940, time=1784025527, hr=83), HrItem(sid=870717940, time=1784025526, hr=82), HrItem(sid=870717940, time=1784025523, hr=83)"
+}
